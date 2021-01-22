@@ -10,7 +10,7 @@ const NavBar = () => {
       <Link to="/watchlist">
         <li>watchlist</li>
       </Link>
-      <Link to="/category/:category">
+      <Link to="/movielist/:category">
         <li>category</li>
       </Link>
       <Link to="/signup">
