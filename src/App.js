@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Watchlist from "./pages/Watchlist";
 import MovieList from "./pages/MovieList";
-import MovieDetails from "./pages/MovieDetails";
+import MoviePage from "./pages/MoviePage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -26,7 +26,7 @@ export const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/watchlist" exact component={Watchlist} />
           <Route path="/movielist/:category" exact component={MovieList} />
-          <Route path="/movie/:id" exact component={MovieDetails} />
+          <Route path="/movies/:id" exact component={MoviePage} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/login" exact component={Login} />
           <Route path="/404" component={NotFound} />

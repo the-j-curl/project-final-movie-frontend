@@ -10,8 +10,17 @@ const NavBar = () => {
       <Link to="/watchlist">
         <li>watchlist</li>
       </Link>
-      <Link to="/movielist/:category">
-        <li>category</li>
+      <Link to="/movielist/now_playing">
+        <li>Now playing</li>
+      </Link>
+      <Link to="/movielist/top_rated">
+        <li>Top rated</li>
+      </Link>
+      <Link to="/movielist/upcoming">
+        <li>Upcoming</li>
+      </Link>
+      <Link to="/movielist/popular">
+        <li>Popular</li>
       </Link>
       <Link to="/signup">
         <li>sign up</li>

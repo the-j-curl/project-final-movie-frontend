@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import LoginForm from "components/LoginForm";
+import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   const accessToken = useSelector(store => store.user.login.accessToken);
