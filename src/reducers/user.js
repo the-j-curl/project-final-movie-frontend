@@ -41,6 +41,7 @@ export const user = createSlice({
 // Signup
 export const signup = (username, email, password) => {
   const SIGNUP_URL = "http://localhost:8080/users";
+  // const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -73,6 +74,7 @@ export const signup = (username, email, password) => {
 // Login
 export const login = (username, password) => {
   const LOGIN_URL = "http://localhost:8080/sessions";
+  // const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: "POST",
@@ -105,8 +107,8 @@ export const login = (username, password) => {
 
 // SecretMesssage
 export const getSecretMessage = () => {
-  // const USERS_URL = 'http://localhost:8080/users';
-  const USERS_URL = "https://auth-by-ylva-tara.herokuapp.com/users";
+  const USERS_URL = "http://localhost:8080/users";
+  // const USERS_URL = "https://final-project-moviedb.herokuapp.com/users";
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
