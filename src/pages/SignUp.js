@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 import SignupForm from "../components/SignupForm";
 
 const SignUp = () => {
-  const accessToken = useSelector(store => store.user.login.accessToken);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   return (
     <Wrapper>
       <h1>Signup</h1>
       <SignupForm />
-      {accessToken && <Redirect to="/" />}
+      {isLoggedIn && <Redirect to="/" />}
     </Wrapper>
   );
 };

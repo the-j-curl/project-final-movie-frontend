@@ -4,6 +4,8 @@ const initialState = {
   login: {
     accessToken: localStorage.accessToken || null,
     userId: localStorage.userId || 0,
+    username: localStorage.username || "",
+    isLoggedIn: localStorage.isLoggedIn || false,
     secretMessage: null,
     errorMessage: null,
   },
@@ -13,23 +15,24 @@ export const user = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    setAccessToken: (state, action) => {
-      const { accessToken } = action.payload;
-      state.login.accessToken = accessToken;
+    setLoginStatus: (store, action) => {
+      const { accessToken, userId, username, isLoggedIn } = action.payload;
+      store.login.accessToken = accessToken;
+      store.login.userId = userId;
+      store.login.username = username;
+      store.login.isLoggedIn = isLoggedIn;
       localStorage.setItem("accessToken", accessToken);
-    },
-    setUserId: (state, action) => {
-      const { userId } = action.payload;
-      state.login.userId = userId;
       localStorage.setItem("userId", userId);
+      localStorage.setItem("username", username);
+      localStorage.setItem("isLoggedIn", isLoggedIn);
     },
-    setSecretMessage: (state, action) => {
+    setSecretMessage: (store, action) => {
       const { secretMessage } = action.payload;
-      state.login.secretMessage = secretMessage;
+      store.login.secretMessage = secretMessage;
     },
-    setErrorMessage: (state, action) => {
+    setErrorMessage: (store, action) => {
       const { errorMessage } = action.payload;
-      state.login.errorMessage = errorMessage;
+      store.login.errorMessage = errorMessage;
     },
   },
 });
@@ -38,30 +41,30 @@ export const user = createSlice({
 // Signup
 export const signup = (username, email, password) => {
   const SIGNUP_URL = "http://localhost:8080/users";
-  return dispatch => {
+  return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
-        if (!res.ok /* if not 200, 201, 204 */) {
+      .then((res) => {
+        if (!res.ok) {
           throw "Could not create account. Email already exists.";
         }
-
-        // OK
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
-          user.actions.setAccessToken({
+          user.actions.setLoginStatus({
             accessToken: json.accessToken,
+            userId: json.userId,
+            username: json.username,
+            isLoggedIn: true,
           })
         );
-        dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -70,31 +73,31 @@ export const signup = (username, email, password) => {
 // Login
 export const login = (username, password) => {
   const LOGIN_URL = "http://localhost:8080/sessions";
-  return dispatch => {
+  return (dispatch) => {
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
-        if (res.ok /* if 200, 201, 204 */) {
+      .then((res) => {
+        if (res.ok) {
           return res.json();
         }
-
-        // Not OK
         throw "Unable to sign in. Please check your username and password are correct";
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
-          user.actions.setAccessToken({
+          user.actions.setLoginStatus({
             accessToken: json.accessToken,
+            userId: json.userId,
+            username: json.username,
+            isLoggedIn: true,
           })
         );
-        dispatch(user.actions.setUserId({ userId: json.userId }));
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
       })
-      .catch(err => {
-        dispatch(logout());
+      .catch((err) => {
+        dispatch(userLogout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -111,33 +114,39 @@ export const getSecretMessage = () => {
       method: "GET",
       headers: { Authorization: accessToken },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         }
         throw "Could not get information. Make sure you are logged in and try again.";
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setSecretMessage({
             secretMessage: JSON.stringify(json.secretMessage),
           })
         );
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
 
 // Logout
-export const logout = () => {
-  return dispatch => {
-    dispatch(user.actions.setSecretMessage({ secretMessage: null }));
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setUserId({ userId: 0 }));
+export const userLogout = () => {
+  return (dispatch) => {
+    dispatch(
+      user.actions.setLoginStatus({
+        accessToken: null,
+        userId: null,
+        username: "",
+        isLoggedIn: false,
+      })
+    );
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("isLoggedIn");
   };
 };

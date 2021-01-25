@@ -6,11 +6,12 @@ import { useSelector } from "react-redux";
 import MovieList from "../pages/MovieList";
 
 const Home = () => {
-  const accessToken = useSelector(store => store.user.login.accessToken);
+  const username = useSelector((store) => store.user.login.username);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   return (
     <>
       <h1>Home page</h1>
-      {accessToken && <h2>User is logged in: {accessToken}</h2>};
+      {isLoggedIn && <h2>User is logged in: {username}</h2>}
       <Link to="/movielist/now_playing">
         <h3>Now playing</h3>
       </Link>
