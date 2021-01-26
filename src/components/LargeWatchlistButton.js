@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
 
-const LargeWatchlistButton = ({ movieId }) => {
+import { CheckIcon } from "./CheckIcon";
+
+export const LargeWatchlistButton = ({ movieId }) => {
   const userId = useSelector((store) => store.user.login.userId);
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const [watchlist, setWatchlist] = useState(false);
+  const [inWatchlist, setInWatchlist] = useState();
 
-  const CheckIcon = () => {
-    return (
-      <Icon viewBox="0 0 24 24">
-        <polyline points="20 6 9 17 4 12" />
-      </Icon>
-    );
-  };
+  const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
+  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const handleToggleWatchlist = (userId) => {
-    const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-    const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
-
-    fetch(TEST_URL, {
+  const handleToggleWatchlist = (inWatchlist) => {
+    setInWatchlist(inWatchlist);
+    fetch(`${TEST_URL}`, {
       method: "PUT",
-      body: JSON.stringify({ movieId, watchlist: false }),
+      body: JSON.stringify({ movieId, watchlist: inWatchlist }),
       headers: {
         "Content-Type": "application/json",
         Authorization: accessToken,
@@ -30,25 +25,53 @@ const LargeWatchlistButton = ({ movieId }) => {
       .then((res) => {
         if (res.ok) {
           return res.json();
+        } else {
+          throw Error(res.statusText);
         }
-        throw "Couldn't make changes to watchlist";
       })
-      .then((json) => {
-        console.log(json);
-      })
+      // .then((json) => { // TO-DO: Can this be removed? One to one question - what happens here to json? Should we do anything with this data?
+      //   console.log(json);
+      // })
       .catch((error) => {
+        // TO-DO: What should we do with the error? One to one question
         console.log(error);
       });
   };
 
+  useEffect(() => {
+    if (!userId) return;
+    fetch(`${TEST_URL}?movieId=${movieId}`, {
+      headers: {
+        Authorization: accessToken,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          setInWatchlist(false);
+          throw Error(res.statusText);
+        }
+      })
+      .then((json) => {
+        if (json && json.movie.watchlist) {
+          setInWatchlist(json.movie.watchlist);
+        } else {
+          setInWatchlist(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [movieId]);
+
   return (
-    <WatchlistButton onClick={() => handleToggleWatchlist(userId)}>
-      <CheckIcon></CheckIcon> In my watchlist
+    <WatchlistButton onClick={() => handleToggleWatchlist(!inWatchlist)}>
+      {inWatchlist ? <CheckIcon /> : "+"}
+      {inWatchlist ? "In my watchlist" : " to my watchlist"}
     </WatchlistButton>
   );
 };
-
-export default LargeWatchlistButton;
 
 const WatchlistButton = styled.button`
   width: 150px;
@@ -59,13 +82,4 @@ const WatchlistButton = styled.button`
   border-radius: 15px;
   outline: none;
   opacity: 0.9;
-`;
-
-const Icon = styled.svg`
-  fill: none;
-  stroke: #fff;
-  stroke-width: 4px;
-  background: blue;
-  border-radius: 50%;
-  width: 20px;
 `;

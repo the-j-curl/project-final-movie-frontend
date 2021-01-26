@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { userLogout } from "../reducers/user";
 
-const NavBar = () => {
+export const NavBar = () => {
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -50,5 +50,3 @@ const NavBar = () => {
     </ul>
   );
 };
-
-export default NavBar;

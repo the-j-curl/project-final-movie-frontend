@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import SignupForm from "../components/SignupForm";
 
-const SignUp = () => {
+export const SignUp = () => {
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   return (
     <Wrapper>
@@ -15,8 +15,6 @@ const SignUp = () => {
     </Wrapper>
   );
 };
-
-export default SignUp;
 
 const Wrapper = styled.div`
   align-items: center;

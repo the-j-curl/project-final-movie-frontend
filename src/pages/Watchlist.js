@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
+import { useSelector } from "react-redux";
 
-const Watchlist = () => {
-  return <h1>Watchlist page</h1>;
+import { WatchlistCard } from "../components/WatchlistCard";
+
+export const Watchlist = () => {
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const [watchlist, setWatchlist] = useState([]);
+  const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
+  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+
+  useEffect(() => {
+    fetch(TEST_URL, {
+      headers: {
+        Authorization: accessToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => setWatchlist(json.userWatchlist));
+  }, []);
+  console.log(watchlist);
+
+  return (
+    <>
+      <h1>Watchlist page</h1>
+      {watchlist.map((movie) => (
+        <WatchlistCard key={movie.movieId} movieId={movie.movieId} />
+      ))}
+    </>
+  );
 };
-
-export default Watchlist;

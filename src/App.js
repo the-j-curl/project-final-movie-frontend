@@ -4,15 +4,15 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import { user } from "./reducers/user";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Watchlist from "./pages/Watchlist";
-import MovieList from "./pages/MovieList";
-import MoviePage from "./pages/MoviePage";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
-import Footer from "./components/Footer";
+import { Header } from "./components/Header";
+import { Home } from "./pages/Home";
+import { Watchlist } from "./pages/Watchlist";
+import { MovieList } from "./pages/MovieList";
+import { MoviePage } from "./pages/MoviePage";
+import { SignUp } from "./pages/SignUp";
+import { Login } from "./pages/Login";
+import { NotFound } from "./pages/NotFound";
+import { Footer } from "./components/Footer";
 
 const reducer = combineReducers({ user: user.reducer });
 const store = configureStore({ reducer });

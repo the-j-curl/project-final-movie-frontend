@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import MovieDetails from "./MovieDetails";
-// import { BackButton } from "../components/BackButton";
-import NotFound from "./NotFound";
+import { MovieDetails } from "./MovieDetails";
+import { NotFound } from "./NotFound";
 
-const MoviePage = () => {
+export const MoviePage = () => {
   const { id } = useParams();
   console.log({ id });
-  // const history = useHistory();
+  const MOVIEDETAIL_URL = `https://api.themoviedb.org/3/movie/${id}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movieDetails, setMovieDetails] = useState({});
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`
-    )
-      .then(response => response.json())
-      .then(json => {
+    fetch(`${MOVIEDETAIL_URL}`)
+      .then((response) => response.json())
+      .then((json) => {
         setMovieDetails(json);
       });
-  }, [id]);
+  }, [id, MOVIEDETAIL_URL]);
 
   if (movieDetails.id) {
-    return <MovieDetails {...movieDetails} />;
+    return (
+      <MovieDetails
+        backdrop_path={movieDetails.backdrop_path}
+        poster_path={movieDetails.poster_path}
+        title={movieDetails.title}
+        vote_average={movieDetails.vote_average}
+        overview={movieDetails.overview}
+        genres={movieDetails.genres}
+        runtime={movieDetails.runtime}
+        imdb_id={movieDetails.imdb_id}
+        id={movieDetails.id}
+      />
+    );
   } else {
     return <NotFound />;
   }
 };
-
-export default MoviePage;

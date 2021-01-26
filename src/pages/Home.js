@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
 
-import MovieList from "../pages/MovieList";
-
-const Home = () => {
+export const Home = () => {
   const username = useSelector((store) => store.user.login.username);
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   return (
@@ -27,5 +25,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import LoginForm from "../components/LoginForm";
 
-const Login = () => {
+export const Login = () => {
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   return (
     <Wrapper>
@@ -15,8 +15,6 @@ const Login = () => {
     </Wrapper>
   );
 };
-
-export default Login;
 
 const Wrapper = styled.div`
   align-items: center;
