@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import { CheckIcon } from "./CheckIcon";
 
-export const LargeWatchlistButton = ({ movieId }) => {
+export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   const userId = useSelector((store) => store.user.login.userId);
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [inWatchlist, setInWatchlist] = useState();
@@ -24,14 +24,24 @@ export const LargeWatchlistButton = ({ movieId }) => {
     })
       .then((res) => {
         if (res.ok) {
-          return res.json();
-        } else {
-          throw Error(res.statusText);
+          onUpdateWatchlist();
+        }
+        return res.json();
+        // else {
+        //   const response = res.json();
+        //   response.then((res) => {
+        //     console.log(response);
+        //     throw Error(response.message);
+        //   });
+        //   return response;
+        // }
+      })
+      .then((json) => {
+        // TO-DO: Can this be removed? One to one question - what happens here to json? Should we do anything with this data?
+        if (json.error) {
+          throw Error(json.message);
         }
       })
-      // .then((json) => { // TO-DO: Can this be removed? One to one question - what happens here to json? Should we do anything with this data?
-      //   console.log(json);
-      // })
       .catch((error) => {
         // TO-DO: What should we do with the error? One to one question
         console.log(error);
@@ -50,7 +60,7 @@ export const LargeWatchlistButton = ({ movieId }) => {
           return res.json();
         } else {
           setInWatchlist(false);
-          throw Error(res.statusText);
+          // throw Error(res.statusText);
         }
       })
       .then((json) => {

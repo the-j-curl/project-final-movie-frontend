@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 
-export const WatchlistCard = ({ movieId }) => {
+export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
   const [movieDetails, setMovieDetails] = useState({});
   const MOVIEDETAIL_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
 
@@ -26,7 +26,10 @@ export const WatchlistCard = ({ movieId }) => {
           <p>{movieDetails.overview}</p>
           {movieDetails.imdb_id}
           {movieDetails.runtime}
-          <LargeWatchlistButton movieId={movieId} />
+          <LargeWatchlistButton
+            movieId={movieId}
+            onUpdateWatchlist={onUpdateWatchlist}
+          />
         </MovieText>
       </MovieCard>
     </MovieWrapper>

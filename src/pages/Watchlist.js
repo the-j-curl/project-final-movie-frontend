@@ -11,7 +11,7 @@ export const Watchlist = () => {
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  useEffect(() => {
+  const getWatchlist = () => {
     fetch(TEST_URL, {
       headers: {
         Authorization: accessToken,
@@ -19,6 +19,10 @@ export const Watchlist = () => {
     })
       .then((res) => res.json())
       .then((json) => setWatchlist(json.userWatchlist));
+  };
+
+  useEffect(() => {
+    getWatchlist();
   }, []);
   console.log(watchlist);
 
@@ -26,7 +30,11 @@ export const Watchlist = () => {
     <>
       <h1>Watchlist page</h1>
       {watchlist.map((movie) => (
-        <WatchlistCard key={movie.movieId} movieId={movie.movieId} />
+        <WatchlistCard
+          key={movie.movieId}
+          movieId={movie.movieId}
+          onUpdateWatchlist={() => getWatchlist()}
+        />
       ))}
     </>
   );
