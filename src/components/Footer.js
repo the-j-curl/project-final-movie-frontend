@@ -10,7 +10,7 @@ export const Footer = () => {
           {" "}
           Jamie Cook
         </a> and{" "}
-        <a href="https://www.linkedin.com/in/ylvanilsson/">Ylva Nillson</a>
+        <a href="https://www.linkedin.com/in/ylvanilsson/">Ylva Nilsson</a>
       </h6>
     </FooterContainer>
   );
@@ -23,4 +23,14 @@ const FooterContainer = styled.footer`
   justify-content: center;
   width: 100%;
   height: 50px;
+  margin-top: 10px;
+  @media (min-width: 768px) {
+    font-size: 18px;
+    height: 70px;
+    @media (min-width: 1024px) {
+      font-size: 20px;
+      margin-top: 26px;
+      height: 90px;
+    }
+  }
 `;
