@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import { CheckIcon } from "./CheckIcon";
 
-export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
+export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   const userId = useSelector(store => store.user.login.userId);
   const accessToken = useSelector(store => store.user.login.accessToken);
   const [inWatchlist, setInWatchlist] = useState();
@@ -78,23 +78,25 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   return (
     <WatchlistButton onClick={() => handleToggleWatchlist(!inWatchlist)}>
       {inWatchlist ? <CheckIcon /> : "+"}
-      {inWatchlist ? "In my watchlist" : " to my watchlist"}
     </WatchlistButton>
   );
 };
 
 const WatchlistButton = styled.button`
-  width: 180px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 50px;
   height: 50px;
-  padding: 5px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  border-radius: 26px;
+  border-radius: 15px;
   outline: none;
   opacity: 0.9;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  /* font-font-family  Helvetica futura bondoni */
+  font-size: 36px;
+  @media (min-width: 768px) {
+    top: 6px;
+    left: 6px;
+  }
 `;

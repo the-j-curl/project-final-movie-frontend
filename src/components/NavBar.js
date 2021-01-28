@@ -1,19 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { userLogout } from "../reducers/user";
+import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
 export const NavBar = () => {
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(userLogout());
-  };
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
-    <ul>
+    <UL>
       <Link to="/">
         <li>home</li>
       </Link>
@@ -42,11 +36,15 @@ export const NavBar = () => {
           <li>login</li>
         </Link>
       )}
-      {isLoggedIn && (
-        <li>
-          <button onClick={() => handleLogout()}>logout</button>
-        </li>
-      )}
-    </ul>
+    </UL>
   );
 };
+
+const UL = styled.ul`
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+`;

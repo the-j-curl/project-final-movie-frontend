@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import styled from "styled-components/macro";
 
 import { user } from "./reducers/user";
 import { Header } from "./components/Header";
@@ -21,19 +22,25 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/watchlist" exact component={Watchlist} />
-          <Route path="/movielist/:category" exact component={MovieList} />
-          <Route path="/movies/:id" exact component={MoviePage} />
-          <Route path="/signup" exact component={SignUp} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/404" component={NotFound} />
-          <Redirect to="/404" />
-        </Switch>
-        <Footer />
+        <MainWrapper>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/watchlist" exact component={Watchlist} />
+            <Route path="/movielist/:category" exact component={MovieList} />
+            <Route path="/movies/:id" exact component={MoviePage} />
+            <Route path="/signup" exact component={SignUp} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/404" component={NotFound} />
+            <Redirect to="/404" />
+          </Switch>
+          <Footer />
+        </MainWrapper>
       </BrowserRouter>
     </Provider>
   );
 };
+
+const MainWrapper = styled.main`
+  margin: 0 4px;
+`;
