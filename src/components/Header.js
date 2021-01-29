@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 
 import { SideBar } from "./SideBar";
 import { NavBar } from "./NavBar";
+import { Logo } from "./Logo";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,7 @@ export const Header = () => {
     <>
       <HeaderContainer>
         <LogoLink to="/">
-          <h1>JYDB</h1>
+          <Logo />
         </LogoLink>
         <NavBar toggleSideBar={toggleSideBar} />
       </HeaderContainer>
@@ -35,6 +36,7 @@ const HeaderContainer = styled.header`
 
   @media (min-width: 1024px) {
     justify-content: space-between;
+    padding: 5px 20px;
   }
 `;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link as LinkR } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components/macro";
@@ -7,12 +7,7 @@ import styled from "styled-components/macro";
 import { userLogout } from "../reducers/user";
 
 export const SideBar = ({ isOpen, toggleSideBar }) => {
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(userLogout());
-  };
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggleSideBar}>
@@ -29,7 +24,7 @@ export const SideBar = ({ isOpen, toggleSideBar }) => {
         </SidebarMenu>
         {isLoggedIn && (
           <SideBtnWrap>
-            <SideBtnLogout onClick={() => handleLogout()}>Logout</SideBtnLogout>
+            <SideBtnLink to="/logout">Logout</SideBtnLink>
           </SideBtnWrap>
         )}
         {!isLoggedIn && (
@@ -122,27 +117,6 @@ const SideBtnLink = styled(LinkR)`
   white-space: nowrap;
   padding: 16px 64px;
   color: #010101;
-  font-size: 16px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    opacity: 0.6;
-  }
-`;
-
-const SideBtnLogout = styled.button`
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 50px;
-  background: #3f39fc;
-  white-space: nowrap;
-  padding: 16px 64px;
-  color: #fff;
   font-size: 16px;
   outline: none;
   border: none;

@@ -12,6 +12,7 @@ import { MovieList } from "./pages/MovieList";
 import { MoviePage } from "./pages/MoviePage";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
+import { Logout } from "./pages/Logout";
 import { NotFound } from "./pages/NotFound";
 import { Footer } from "./components/Footer";
 
@@ -22,8 +23,8 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <Header />
         <MainWrapper>
-          <Header />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/watchlist" exact component={Watchlist} />
@@ -31,16 +32,17 @@ export const App = () => {
             <Route path="/movies/:id" exact component={MoviePage} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/login" exact component={Login} />
+            <Route path="/logout" exact component={Logout} />
             <Route path="/404" component={NotFound} />
             <Redirect to="/404" />
           </Switch>
-          <Footer />
         </MainWrapper>
+        <Footer />
       </BrowserRouter>
     </Provider>
   );
 };
 
 const MainWrapper = styled.main`
-  margin: 0 4px;
+  padding: 0 10px;
 `;

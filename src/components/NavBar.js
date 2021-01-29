@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import styled from "styled-components/macro";
@@ -7,20 +7,11 @@ import styled from "styled-components/macro";
 import { userLogout } from "../reducers/user";
 
 export const NavBar = ({ toggleSideBar }) => {
-  const username = useSelector((store) => store.user.login.username);
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(userLogout());
-  };
+  const username = useSelector(store => store.user.login.username);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
     <>
-      {/* <Nav> */}
-      {/* <NavLogoLink to="/">
-        <h1>JYDB</h1>
-      </NavLogoLink> */}
       <HamburgerBar onClick={toggleSideBar} />
       <NavMenu>
         {isLoggedIn && <NavLink to="/watchlist">Watchlist</NavLink>}
@@ -32,7 +23,7 @@ export const NavBar = ({ toggleSideBar }) => {
       {isLoggedIn && (
         <NavBtn>
           {<h3>{username}</h3>}
-          <NavBtnLogout onClick={() => handleLogout()}>Logout</NavBtnLogout>
+          <NavBtnLink to="/logout">Logout</NavBtnLink>
         </NavBtn>
       )}
       {!isLoggedIn && (
@@ -40,33 +31,9 @@ export const NavBar = ({ toggleSideBar }) => {
           <NavBtnLink to="/login">Log in</NavBtnLink>
         </NavBtn>
       )}
-      {/* </Nav> */}
     </>
   );
 };
-
-// const Nav = styled.nav`
-//   /* background: #222222;
-//   height: 120px;
-//   display: flex;
-//   justify-content: space-between;
-//   padding: 5px; /* 0.5rem calc((100vw - 1000px) / 2) */
-//   /*z-index: 10; */
-// `;
-
-// const NavLogoLink = styled(Link)`
-//   color: #fff;
-//   display: flex;
-//   align-items: center;
-//   text-decoration: none;
-//   padding: 0 10px;
-//   height: 100%;
-//   cursor: pointer;
-
-//   &.active {
-//     color: #15cdfc;
-//   }
-// `;
 
 const NavLink = styled(Link)`
   color: #fff;
@@ -124,29 +91,10 @@ const NavBtn = styled.nav`
   @media (min-width: 1024px) {
     display: flex;
     align-items: center;
-    margin-right: 24px;
   }
 `;
 
 const NavBtnLink = styled(Link)`
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 4px;
-  background: #3f39fc;
-  padding: 10px 22px;
-  color: #fff;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    opacity: 0.6;
-  }
-`;
-const NavBtnLogout = styled.button`
   font-size: 14px;
   font-weight: 600;
   border-radius: 4px;
