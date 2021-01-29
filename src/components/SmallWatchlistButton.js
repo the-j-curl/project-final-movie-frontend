@@ -96,7 +96,7 @@ const WatchlistButton = styled.button`
   opacity: 0.9;
   font-size: 36px;
   @media (min-width: 768px) {
-    top: 6px;
-    left: 6px;
+    top: 2px;
+    left: 2px;
   }
 `;

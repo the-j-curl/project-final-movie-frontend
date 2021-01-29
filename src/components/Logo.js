@@ -19,5 +19,6 @@ const LogoHeading = styled.h1`
   }
   @media (min-width: 1024px) {
     padding: 12px;
+    font-size: 50px;
   }
 `;

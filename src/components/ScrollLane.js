@@ -36,7 +36,6 @@ export const ScrollLane = ({ category, title }) => {
 
 const ScrollList = styled.div`
   display: flex;
-  flex-direction: row-reverse;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

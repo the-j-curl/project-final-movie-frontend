@@ -62,5 +62,5 @@ const MovieThumb = styled.article`
 `;
 
 const MovieThumbImage = styled.img`
-  width: 100%;
+  width: 95%;
 `;

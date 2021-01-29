@@ -4,40 +4,39 @@ import { Link as LinkR } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components/macro";
 
-import { userLogout } from "../reducers/user";
-
 export const SideBar = ({ isOpen, toggleSideBar }) => {
   const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
-    <SidebarContainer isOpen={isOpen} onClick={toggleSideBar}>
+    <SideBarContainer isOpen={isOpen} onClick={toggleSideBar}>
       <Icon onClick={toggleSideBar}>
         <CloseIcon />
       </Icon>
-      <SidebarWrapper>
-        <SidebarMenu>
-          {isLoggedIn && <SidebarLink to="/watchlist">Watchlist</SidebarLink>}
-          <SidebarLink to="/movielist/now_playing">Now Playing</SidebarLink>
-          <SidebarLink to="/movielist/top_rated">Top rated</SidebarLink>
-          <SidebarLink to="/movielist/upcoming">Upcoming</SidebarLink>
-          <SidebarLink to="/movielist/popular">Popular</SidebarLink>
-        </SidebarMenu>
+      <SideBarWrapper>
+        <SideBarMenu>
+          <SideBarLink to="/">Home</SideBarLink>
+          {isLoggedIn && <SideBarLink to="/watchlist">Watchlist</SideBarLink>}
+          <SideBarLink to="/movielist/now_playing">Now Playing</SideBarLink>
+          <SideBarLink to="/movielist/top_rated">Top rated</SideBarLink>
+          <SideBarLink to="/movielist/upcoming">Upcoming</SideBarLink>
+          <SideBarLink to="/movielist/popular">Popular</SideBarLink>
+        </SideBarMenu>
         {isLoggedIn && (
-          <SideBtnWrap>
-            <SideBtnLink to="/logout">Logout</SideBtnLink>
-          </SideBtnWrap>
+          <SideBarBottom>
+            <SideButtonLink to="/logout">Logout</SideButtonLink>
+          </SideBarBottom>
         )}
         {!isLoggedIn && (
-          <SideBtnWrap>
-            <SideBtnLink to="/login">Log in</SideBtnLink>
-          </SideBtnWrap>
+          <SideBarBottom>
+            <SideButtonLink to="/login">Log in</SideButtonLink>
+          </SideBarBottom>
         )}
-      </SidebarWrapper>
-    </SidebarContainer>
+      </SideBarWrapper>
+    </SideBarContainer>
   );
 };
 
-const SidebarContainer = styled.aside`
+const SideBarContainer = styled.aside`
   position: fixed;
   z-index: 999;
   width: 100%;
@@ -47,7 +46,7 @@ const SidebarContainer = styled.aside`
   align-items: center;
   top: 0;
   left: 0;
-  transition: 0.2 ease-in-out; /* 0.3 */
+  transition: 0.2 ease-in-out;
   opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
   top: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
 `;
@@ -58,19 +57,19 @@ const CloseIcon = styled(FaTimes)`
 
 const Icon = styled.div`
   position: absolute;
-  top: 12px; /* 1.2rem */
-  right: 16px; /* 1.5rem */
+  top: 12px;
+  right: 16px;
   background: transparent;
-  font-size: 20px; /* 2rem */
+  font-size: 20px;
   cursor: pointer;
   outline: none;
 `;
 
-const SidebarWrapper = styled.div`
+const SideBarWrapper = styled.div`
   color: #fff;
 `;
 
-const SidebarMenu = styled.ul`
+const SideBarMenu = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, 60px);
@@ -82,11 +81,11 @@ const SidebarMenu = styled.ul`
   }
 `;
 
-const SidebarLink = styled(LinkR)`
+const SideBarLink = styled(LinkR)`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px; /* 1.5rem */
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   list-style: none;
@@ -99,17 +98,17 @@ const SidebarLink = styled(LinkR)`
   }
 
   &:hover {
-    color: #15cdfc;
+    color: #3f39fc;
     transition: 0.2s ease-in-out;
   }
 `;
 
-const SideBtnWrap = styled.div`
+const SideBarBottom = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const SideBtnLink = styled(LinkR)`
+const SideButtonLink = styled(LinkR)`
   font-size: 14px;
   font-weight: 600;
   border-radius: 50px;
@@ -126,6 +125,6 @@ const SideBtnLink = styled(LinkR)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 `;

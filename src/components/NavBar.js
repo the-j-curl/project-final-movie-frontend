@@ -4,8 +4,6 @@ import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import styled from "styled-components/macro";
 
-import { userLogout } from "../reducers/user";
-
 export const NavBar = ({ toggleSideBar }) => {
   const username = useSelector(store => store.user.login.username);
   const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
@@ -21,15 +19,15 @@ export const NavBar = ({ toggleSideBar }) => {
         <NavLink to="/movielist/popular">Popular</NavLink>
       </NavMenu>
       {isLoggedIn && (
-        <NavBtn>
-          {<h3>{username}</h3>}
-          <NavBtnLink to="/logout">Logout</NavBtnLink>
-        </NavBtn>
+        <NavBarRight>
+          {<UserHeading>{username}</UserHeading>}
+          <NavButtonLink to="/logout">Logout</NavButtonLink>
+        </NavBarRight>
       )}
       {!isLoggedIn && (
-        <NavBtn>
-          <NavBtnLink to="/login">Log in</NavBtnLink>
-        </NavBtn>
+        <NavBarRight>
+          <NavButtonLink to="/login">Log in</NavButtonLink>
+        </NavBarRight>
       )}
     </>
   );
@@ -75,7 +73,7 @@ const HamburgerBar = styled(FaBars)`
   }
 `;
 
-const NavMenu = styled.div`
+const NavMenu = styled.nav`
   display: none;
 
   @media (min-width: 1024px) {
@@ -85,16 +83,24 @@ const NavMenu = styled.div`
   }
 `;
 
-const NavBtn = styled.nav`
+const NavBarRight = styled.nav`
   display: none;
 
   @media (min-width: 1024px) {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 `;
 
-const NavBtnLink = styled(Link)`
+const UserHeading = styled.h4`
+  font-size: 16px;
+  text-transform: uppercase;
+  margin: 6px 0;
+`;
+
+const NavButtonLink = styled(Link)`
   font-size: 14px;
   font-weight: 600;
   border-radius: 4px;
@@ -109,6 +115,6 @@ const NavBtnLink = styled(Link)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 `;

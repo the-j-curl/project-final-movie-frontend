@@ -9,8 +9,8 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
 
   useEffect(() => {
     fetch(`${MOVIEDETAIL_URL}`)
-      .then((response) => response.json())
-      .then((json) => {
+      .then(response => response.json())
+      .then(json => {
         setMovieDetails(json);
       });
   }, [MOVIEDETAIL_URL]);
@@ -24,6 +24,11 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
         <MovieText>
           <p>{movieDetails.title}</p>
           <p>{movieDetails.overview}</p>
+          <IMDBImage
+            className="imdb-logo"
+            src="../images/imdb-image.png"
+            alt="imdb logo"
+          />
           {movieDetails.imdb_id}
           {movieDetails.runtime}
           <LargeWatchlistButton
@@ -59,4 +64,8 @@ const PosterImage = styled.img`
 const MovieText = styled.div`
   width: 50%;
   border: 1px dotted red;
+`;
+
+const IMDBImage = styled.img`
+  width: 50px;
 `;
