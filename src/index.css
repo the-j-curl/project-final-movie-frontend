@@ -11,9 +11,9 @@ a:any-link {
   color: #fff;
   text-decoration: none;
 }
-a:hover {
+/* a:hover {
   color: #3f39fc;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
