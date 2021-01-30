@@ -27,7 +27,6 @@ export const Header = () => {
 };
 
 const HeaderContainer = styled.header`
-  background: #111111;
   height: 120px;
   display: flex;
   justify-content: center;
