@@ -16,56 +16,104 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
   }, [MOVIEDETAIL_URL]);
 
   return (
-    <MovieWrapper>
-      <MovieCard>
-        <PosterImage
-          src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
+    <MovieCard>
+      <PosterImage
+        src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
+      />
+      <MovieText>
+        <MovieTitle>{movieDetails.title}</MovieTitle>
+        <MovieLength>
+          {" "}
+          <a href={`https://www.imdb.com/title/${movieDetails.imdb_id}`}>
+            {/* <IMDBImage src="../images/imdb-image.png" alt="imdb logo" /> */}
+            <YellowText>IMDb </YellowText> {movieDetails.year}
+          </a>{" "}
+          | {movieDetails.runtime} mins
+        </MovieLength>
+        <MovieDescription>{movieDetails.overview}</MovieDescription>
+
+        <LargeWatchlistButton
+          movieId={movieId}
+          onUpdateWatchlist={onUpdateWatchlist}
         />
-        <MovieText>
-          <p>{movieDetails.title}</p>
-          <p>{movieDetails.overview}</p>
-          <IMDBImage
-            className="imdb-logo"
-            src="../images/imdb-image.png"
-            alt="imdb logo"
-          />
-          {movieDetails.imdb_id}
-          {movieDetails.runtime}
-          <LargeWatchlistButton
-            movieId={movieId}
-            onUpdateWatchlist={onUpdateWatchlist}
-          />
-        </MovieText>
-      </MovieCard>
-    </MovieWrapper>
+      </MovieText>
+    </MovieCard>
   );
 };
 
-const MovieWrapper = styled.main`
-  width: 100%;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
 const MovieCard = styled.article`
+  background-color: rgba(73, 71, 71, 0.3);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border: 2px solid black;
-  width: 45%;
+  width: 100%;
+  max-width: 350px;
+  padding: 6px 4px;
+  margin-bottom: 10px;
+  @media (min-width: 768px) {
+    width: 80%;
+    max-width: 800px;
+  }
+  @media (min-width: 1024px) {
+    width: 48%;
+    padding: 8px 4px;
+    max-width: 500px;
+    margin: 6px 4px;
+  }
 `;
 
 const PosterImage = styled.img`
+  width: 40%;
+  max-width: 150px;
   border-radius: 10px;
 `;
 
 const MovieText = styled.div`
-  width: 50%;
-  border: 1px dotted red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 55%;
+  height: 200px;
+  padding: 2px;
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+  @media (min-width: 768px) {
+    width: 65%;
+  }
+`;
+
+const MovieTitle = styled.h3`
+  font-size: 18px;
+  margin: 0;
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
+`;
+
+const MovieDescription = styled.p`
+  display: none;
+  @media (min-width: 768px) {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin: 4px 0 16px 0;
+  }
 `;
 
 const IMDBImage = styled.img`
   width: 50px;
+`;
+
+const YellowText = styled.span`
+  color: gold;
+  font-weight: 600;
+`;
+
+const MovieLength = styled.p`
+  font-size: 14px;
+  margin: 10px 0 0 0;
 `;

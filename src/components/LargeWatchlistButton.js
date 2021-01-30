@@ -84,8 +84,8 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
 };
 
 const WatchlistButton = styled.button`
-  width: 180px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
   padding: 5px;
   display: flex;
   justify-content: space-evenly;
@@ -93,8 +93,16 @@ const WatchlistButton = styled.button`
   border-radius: 26px;
   outline: none;
   opacity: 0.9;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-right: auto;
+  margin-left: auto;
   /* font-font-family  Helvetica futura bondoni */
+
+  @media (min-width: 768px) {
+    width: 180px;
+    height: 50px;
+    font-size: 16px;
+  }
 `;

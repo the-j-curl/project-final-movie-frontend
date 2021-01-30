@@ -42,7 +42,7 @@ const MovieThumb = styled.article`
   flex: 1 0 40%;
   /* margin-right: 10px; */
   :a {
-    width: 25%;
+    width: 25%; // TO-DO What does this :a style?
     color: #fff;
     text-decoration: none;
   }

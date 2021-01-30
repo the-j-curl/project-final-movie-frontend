@@ -17,7 +17,7 @@ export const Footer = () => {
 };
 
 const FooterContainer = styled.footer`
-  background-color: #222222;
+  background-color: #111111;
   display: flex;
   align-items: center;
   justify-content: center;

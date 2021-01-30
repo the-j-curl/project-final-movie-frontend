@@ -11,7 +11,8 @@ const LogoHeading = styled.h1`
   border: 2px solid #3f39fc;
   border-radius: 2px;
   text-shadow: 1px 2px 3px #3f39fc;
-  box-shadow: 4px 4px 4px #3f39fc;
+  /* box-shadow: 4px 4px 4px #3f39fc;*/
+  box-shadow: 4px 4px 10px 10px #3f39fc;
   padding: 6px;
 
   @media (min-width: 768px) {

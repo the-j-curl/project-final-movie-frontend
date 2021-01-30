@@ -16,5 +16,9 @@ const Icon = styled.svg`
   stroke-width: 4px;
   background: #3f39fc;
   border-radius: 50%;
-  width: 30px;
+  width: 26px;
+
+  @media (min-width: 768px) {
+    width: 30px;
+  }
 `;
