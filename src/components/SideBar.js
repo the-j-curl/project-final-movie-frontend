@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link as LinkR } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components/macro";
 
 export const SideBar = ({ isOpen, toggleSideBar }) => {
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
 
   return (
     <SideBarContainer isOpen={isOpen} onClick={toggleSideBar}>
@@ -14,12 +14,26 @@ export const SideBar = ({ isOpen, toggleSideBar }) => {
       </Icon>
       <SideBarWrapper>
         <SideBarMenu>
-          <SideBarLink to="/">Home</SideBarLink>
-          {isLoggedIn && <SideBarLink to="/watchlist">Watchlist</SideBarLink>}
-          <SideBarLink to="/movielist/now_playing">Now Playing</SideBarLink>
-          <SideBarLink to="/movielist/top_rated">Top rated</SideBarLink>
-          <SideBarLink to="/movielist/upcoming">Upcoming</SideBarLink>
-          <SideBarLink to="/movielist/popular">Popular</SideBarLink>
+          <SideBarLink to="/" exact>
+            Home
+          </SideBarLink>
+          {isLoggedIn && (
+            <SideBarLink to="/watchlist" exact>
+              Watchlist
+            </SideBarLink>
+          )}
+          <SideBarLink to="/movielist/now_playing" exact>
+            Now Playing
+          </SideBarLink>
+          <SideBarLink to="/movielist/top_rated" exact>
+            Top rated
+          </SideBarLink>
+          <SideBarLink to="/movielist/upcoming" exact>
+            Upcoming
+          </SideBarLink>
+          <SideBarLink to="/movielist/popular" exact>
+            Popular
+          </SideBarLink>
         </SideBarMenu>
         {isLoggedIn && (
           <SideBarBottom>
@@ -81,7 +95,7 @@ const SideBarMenu = styled.ul`
   }
 `;
 
-const SideBarLink = styled(LinkR)`
+const SideBarLink = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +122,7 @@ const SideBarBottom = styled.div`
   justify-content: center;
 `;
 
-const SideButtonLink = styled(LinkR)`
+const SideButtonLink = styled(NavLink)`
   font-size: 14px;
   font-weight: 600;
   border-radius: 50px;

@@ -1,37 +1,37 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { NavLink as Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import styled from "styled-components/macro";
 
 export const NavBar = ({ toggleSideBar }) => {
-  const username = useSelector(store => store.user.login.username);
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const username = useSelector((store) => store.user.login.username);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
 
   return (
     <>
       <HamburgerBar onClick={toggleSideBar} />
       <NavMenu>
-        <NavLink to="/" exact>
+        <NavBarLink to="/" exact>
           Home
-        </NavLink>
+        </NavBarLink>
         {isLoggedIn && (
-          <NavLink to="/watchlist" exact>
+          <NavBarLink to="/watchlist" exact>
             Watchlist
-          </NavLink>
+          </NavBarLink>
         )}
-        <NavLink to="/movielist/now_playing" exact>
+        <NavBarLink to="/movielist/now_playing" exact>
           Now playing
-        </NavLink>
-        <NavLink to="/movielist/top_rated" exact>
+        </NavBarLink>
+        <NavBarLink to="/movielist/top_rated" exact>
           Top rated
-        </NavLink>
-        <NavLink to="/movielist/upcoming" exact>
+        </NavBarLink>
+        <NavBarLink to="/movielist/upcoming" exact>
           Upcoming
-        </NavLink>
-        <NavLink to="/movielist/popular" exact>
+        </NavBarLink>
+        <NavBarLink to="/movielist/popular" exact>
           Popular
-        </NavLink>
+        </NavBarLink>
       </NavMenu>
       {isLoggedIn && (
         <NavBarRight>
@@ -48,7 +48,7 @@ export const NavBar = ({ toggleSideBar }) => {
   );
 };
 
-const NavLink = styled(Link)`
+const NavBarLink = styled(NavLink)`
   color: #fff;
   display: flex;
   align-items: center;
@@ -115,7 +115,7 @@ const UserHeading = styled.h4`
   margin: 6px 0;
 `;
 
-const NavButtonLink = styled(Link)`
+const NavButtonLink = styled(NavLink)`
   font-size: 14px;
   font-weight: 600;
   border-radius: 4px;
