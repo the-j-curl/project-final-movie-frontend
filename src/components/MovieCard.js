@@ -28,7 +28,7 @@ export const MovieCard = ({ title, release_date, poster_path, id }) => {
 
 const MovieThumbInfo = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
-  width: 90%;
+  width: 95%;
   color: #fff;
   position: absolute;
   top: 50%;
@@ -42,7 +42,6 @@ const MovieThumbInfo = styled.div`
 const MovieThumb = styled.article`
   position: relative;
   flex: 1 0 40%; // flex-basis shorthand
-  /* margin-right: 10px; */
   :a {
     width: 25%; // TO-DO What does this :a style?
     color: #fff;
@@ -55,16 +54,18 @@ const MovieThumb = styled.article`
     padding: 40px 10px;
   }
   @media (min-width: 768px) {
-    flex: 1 0 33%;
+    flex: 1 0 23%;
   }
   @media (min-width: 1024px) {
-    flex: 1 0 20%;
-    /* margin-right: 20px; */
+    flex: 1 0 15%;
   }
 `;
 
 const MovieThumbImage = styled.img`
   width: 90%;
+  @media (min-width: 1024px) {
+    width: 95%;
+  }
 `;
 
 const MovieCardP = styled.p`
