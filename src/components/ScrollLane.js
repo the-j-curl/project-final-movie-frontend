@@ -10,11 +10,9 @@ export const ScrollLane = ({ category, title }) => {
 
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then((res) => res.json())
+      .then((json) => setMovies(json.results));
   }, [category, MOVIES_URL]);
-
-  console.log(movies);
 
   return (
     <section>
@@ -25,7 +23,7 @@ export const ScrollLane = ({ category, title }) => {
         </SeeAllLink>
       </CategoryText>
       <ScrollList>
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <MovieCard key={movie.id} {...movie} />
         ))}
       </ScrollList>

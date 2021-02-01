@@ -23,7 +23,3 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   width: 100%;
 `;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;

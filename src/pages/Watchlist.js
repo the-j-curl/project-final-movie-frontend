@@ -10,7 +10,7 @@ export const Watchlist = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const [watchlist, setWatchlist] = useState([]);
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+  // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const getWatchlist = () => {
     fetch(TEST_URL, {
@@ -25,7 +25,6 @@ export const Watchlist = () => {
   useEffect(() => {
     getWatchlist();
   }, []);
-  console.log(watchlist);
 
   if (watchlist) {
     return (

@@ -15,8 +15,6 @@ export const MovieList = () => {
       .then((json) => setMovies(json.results));
   }, [category, MOVIES_URL]);
 
-  console.log(movies);
-
   if (movies) {
     return (
       <>

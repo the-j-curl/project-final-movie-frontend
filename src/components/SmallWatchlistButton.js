@@ -10,7 +10,7 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   const [inWatchlist, setInWatchlist] = useState();
 
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+  // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const handleToggleWatchlist = (inWatchlist) => {
     setInWatchlist(inWatchlist);

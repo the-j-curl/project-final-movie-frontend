@@ -5,7 +5,6 @@ export const CheckIcon = () => {
   return (
     <Icon viewBox="0 0 24 24">
       <polyline points="20 6 9 17 4 12" />
-      {/* <path d= "M0,-1 V1 M-1,0 H1" /> */}
     </Icon>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,20 +7,20 @@ import { signup } from "../reducers/user";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // To sign up a user.
-  const handleSignup = event => {
+  const handleSignup = (event) => {
     event.preventDefault();
     dispatch(signup(username, email, password));
   };
 
   return (
     <Wrapper>
-      <Form onSubmit={event => handleSignup(event)}>
+      <Form onSubmit={(event) => handleSignup(event)}>
         <label>
           Username
           <input
@@ -28,7 +28,7 @@ const SignupForm = () => {
             type="text"
             minLength="2"
             value={username}
-            onChange={event => setUsername(event.target.value)}
+            onChange={(event) => setUsername(event.target.value)}
           />
         </label>
         <label>
@@ -39,7 +39,7 @@ const SignupForm = () => {
             value={email}
             placeholder="E-mail address"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </label>
         <label>
@@ -48,7 +48,7 @@ const SignupForm = () => {
             required
             type="password"
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </label>
         <button type="submit">Sign-Up</button>
