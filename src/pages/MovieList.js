@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components/macro";
 
 import { MovieCard } from "../components/MovieCard";
+import { NotFound } from "./NotFound";
 
 export const MovieList = () => {
   const { category } = useParams();
@@ -17,14 +17,18 @@ export const MovieList = () => {
 
   console.log(movies);
 
-  return (
-    <>
-      <h1>{category}</h1>
-      <main className="movie-list">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} />
-        ))}
-      </main>
-    </>
-  );
+  if (movies) {
+    return (
+      <>
+        <h1>{category}</h1>
+        <main className="movie-list">
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} {...movie} />
+          ))}
+        </main>
+      </>
+    );
+  } else {
+    return <NotFound />;
+  }
 };
