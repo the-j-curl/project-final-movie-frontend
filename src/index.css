@@ -20,7 +20,7 @@ code {
     monospace;
 }
 
-.header {
+/* .header {
   background-color: #000;
   color: #fff;
   margin: 0;
@@ -31,14 +31,14 @@ code {
   align-items: center;
   font-family: "Montserrat", sans-serif;
   font-size: 25px;
-}
+} */
 
-.nav-list li {
+/* .nav-list li {
   display: inline;
   text-decoration: none;
   margin-right: 10px;
   font-size: 18px;
-}
+} */
 
 .movie-list {
   background-color: #000;
@@ -82,7 +82,7 @@ code {
 
 /* MOVIE DETAILS PAGE */
 
-.movies-back-button {
+/* .movies-back-button {
   width: 100px;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -122,32 +122,32 @@ code {
   position: absolute;
   left: 12px;
   top: 4px;
-}
+} */
 
-.movie-details-background {
+/* .movie-details-background {
   min-height: 100vh;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.movie-details-wrapper {
+} */
+/* .movie-details-wrapper {
   color: #fff;
   padding: 5px;
   display: flex;
   align-content: center;
   justify-content: center;
   flex-direction: column;
-}
+} */
 
-.movie-poster-image {
+/* .movie-poster-image {
   border: 5px solid #fff;
   width: 80%;
   align-self: center;
-}
+} */
 
-.movie-details-text {
+/* .movie-details-text {
   background-color: rgba(73, 71, 71, 0.3);
   padding: 5px;
   width: 90%;
@@ -157,15 +157,15 @@ code {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-}
+} */
 
-.movie-details-text h1 {
+/* .movie-details-text h1 {
   margin: 4px 0;
 }
 
 .movie-details-text a {
   width: 10%;
-}
+} */
 
 .movie-details-text span {
   color: rgb(253, 138, 6);
@@ -173,32 +173,32 @@ code {
   font-size: 16px;
 }
 
-.movie-length {
+/* .movie-length {
   margin: 0;
   font-size: 15px;
-}
+} */
 
-.imdb-logo {
+/* .imdb-logo {
   width: 100%;
-}
+} */
 
-.movie-overview {
+/* .movie-overview {
   margin: 0;
-}
+} */
 
-.genres {
+/* .genres {
   padding-left: 0;
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
-.genres li {
+/* .genres li {
   display: inline;
   margin: 8px 8px 0 0;
   background-color: rgba(17, 69, 226, 0.7);
   padding: 0 5px;
   font-size: 14px;
-}
+} */
 
 /* ERROR PAGE */
 
@@ -249,7 +249,7 @@ code {
     grid-gap: 20px;
   }
 
-  .movie-details-background {
+  /* .movie-details-background {
     justify-content: flex-end;
     align-items: flex-start;
   }
@@ -276,15 +276,16 @@ code {
 
   .movie-details-text {
     margin: 0 0 0 20px;
-  }
+  } */
 }
 
 @media (min-width: 1024px) {
   .movie-list {
     grid-template-columns: repeat(4, 1fr);
   }
+}
 
-  .movie-details-wrapper {
+/* .movie-details-wrapper {
     padding: 50px;
   }
 
@@ -295,7 +296,7 @@ code {
   .movies-back-button {
     margin: 20px 0 0 50px;
   }
-}
+} */
 
 @media (min-width: 1200px) {
   .movie-list {

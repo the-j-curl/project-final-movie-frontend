@@ -95,6 +95,11 @@ const WatchlistButton = styled.button`
   outline: none;
   opacity: 0.9;
   font-size: 36px;
+  transition: all 0.3s ease-in;
+  :hover {
+    cursor: pointer;
+    border: 2px solid #3f39fc;
+  }
   @media (min-width: 768px) {
     top: 2px;
     left: 2px;

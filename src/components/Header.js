@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 import { SideBar } from "./SideBar";
@@ -16,9 +16,9 @@ export const Header = () => {
   return (
     <>
       <HeaderContainer>
-        <LogoLink to="/">
+        <Link to="/">
           <Logo />
-        </LogoLink>
+        </Link>
         <NavBar toggleSideBar={toggleSideBar} />
       </HeaderContainer>
       <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} />
@@ -35,19 +35,6 @@ const HeaderContainer = styled.header`
   @media (min-width: 1024px) {
     justify-content: space-between;
     padding: 5px 20px;
-  }
-`;
-
-const LogoLink = styled(Link)`
-  color: #fff;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 0 10px;
-  height: 100%;
-  cursor: pointer;
-
-  &.active {
-    color: #15cdfc;
+    margin-bottom: 20px;
   }
 `;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 import { SmallWatchlistButton } from "../components/SmallWatchlistButton";
+import { MovieTitle } from "../components/WatchlistCard";
 
 export const MovieCard = ({ title, release_date, poster_path, id }) => {
   return (
@@ -15,8 +16,8 @@ export const MovieCard = ({ title, release_date, poster_path, id }) => {
           />
 
           <MovieThumbInfo>
-            <h2>{title}</h2>
-            <p>Release date: {release_date}</p>
+            <MovieTitle>{title}</MovieTitle>
+            <MovieCardP>Release date: {release_date}</MovieCardP>
           </MovieThumbInfo>
         </Link>
         <SmallWatchlistButton movieId={id} />
@@ -27,6 +28,7 @@ export const MovieCard = ({ title, release_date, poster_path, id }) => {
 
 const MovieThumbInfo = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
+  width: 90%;
   color: #fff;
   position: absolute;
   top: 50%;
@@ -39,7 +41,7 @@ const MovieThumbInfo = styled.div`
 
 const MovieThumb = styled.article`
   position: relative;
-  flex: 1 0 40%;
+  flex: 1 0 40%; // flex-basis shorthand
   /* margin-right: 10px; */
   :a {
     width: 25%; // TO-DO What does this :a style?
@@ -62,5 +64,9 @@ const MovieThumb = styled.article`
 `;
 
 const MovieThumbImage = styled.img`
-  width: 95%;
+  width: 90%;
+`;
+
+const MovieCardP = styled.p`
+  font-size: 14px;
 `;

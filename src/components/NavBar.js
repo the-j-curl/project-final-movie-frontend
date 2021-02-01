@@ -12,11 +12,26 @@ export const NavBar = ({ toggleSideBar }) => {
     <>
       <HamburgerBar onClick={toggleSideBar} />
       <NavMenu>
-        {isLoggedIn && <NavLink to="/watchlist">Watchlist</NavLink>}
-        <NavLink to="/movielist/now_playing">Now playing</NavLink>
-        <NavLink to="/movielist/top_rated">Top rated</NavLink>
-        <NavLink to="/movielist/upcoming">Upcoming</NavLink>
-        <NavLink to="/movielist/popular">Popular</NavLink>
+        <NavLink to="/" exact>
+          Home
+        </NavLink>
+        {isLoggedIn && (
+          <NavLink to="/watchlist" exact>
+            Watchlist
+          </NavLink>
+        )}
+        <NavLink to="/movielist/now_playing" exact>
+          Now playing
+        </NavLink>
+        <NavLink to="/movielist/top_rated" exact>
+          Top rated
+        </NavLink>
+        <NavLink to="/movielist/upcoming" exact>
+          Upcoming
+        </NavLink>
+        <NavLink to="/movielist/popular" exact>
+          Popular
+        </NavLink>
       </NavMenu>
       {isLoggedIn && (
         <NavBarRight>

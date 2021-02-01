@@ -28,7 +28,7 @@ export const Watchlist = () => {
 
   return (
     <>
-      <h1>Watchlist page</h1>
+      <h1>My watchlist</h1>
       <MovieWrapper>
         {watchlist.map(movie => (
           <WatchlistCard

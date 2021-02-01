@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components/macro";
-import { Link } from "react-router-dom";
+import { Link as LinkR } from "react-router-dom";
 
 import { MovieCard } from "./MovieCard";
 
@@ -21,9 +20,9 @@ export const ScrollLane = ({ category, title }) => {
     <section>
       <CategoryText>
         <h2>{title}</h2>
-        <Link to={`/movielist/${category}`}>
-          <h5>See all</h5>
-        </Link>
+        <SeeAllLink to={`/movielist/${category}`}>
+          <SeeAll>See all</SeeAll>
+        </SeeAllLink>
       </CategoryText>
       <ScrollList>
         {movies.map(movie => (
@@ -42,13 +41,22 @@ const ScrollList = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  &:img {
-    width: 200px;
-  }
 `;
 
 const CategoryText = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const SeeAllLink = styled(LinkR)`
+  border-bottom: 1px solid transparent;
+  :hover {
+    border-bottom: 1px solid #fff;
+    transition: all 0.3s ease-in;
+  }
+`;
+
+const SeeAll = styled.h5`
+  margin: 0;
 `;

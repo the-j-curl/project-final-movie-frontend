@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
 
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 
@@ -21,12 +22,14 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
         src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
       />
       <MovieText>
-        <MovieTitle>{movieDetails.title}</MovieTitle>
+        <Link to={`/movies/${movieId}`}>
+          <MovieTitle>{movieDetails.title}</MovieTitle>
+        </Link>
         <MovieLength>
           {" "}
           <a href={`https://www.imdb.com/title/${movieDetails.imdb_id}`}>
             {/* <IMDBImage src="../images/imdb-image.png" alt="imdb logo" /> */}
-            <YellowText>IMDb </YellowText> {movieDetails.year}
+            <IMDBText>IMDb </IMDBText> {movieDetails.year}
           </a>{" "}
           | {movieDetails.runtime} mins
         </MovieLength>
@@ -58,7 +61,7 @@ const MovieCard = styled.article`
     width: 48%;
     padding: 8px 4px;
     max-width: 500px;
-    margin: 6px 4px;
+    margin: 6px 6px;
   }
 `;
 
@@ -84,15 +87,20 @@ const MovieText = styled.div`
   }
 `;
 
-const MovieTitle = styled.h3`
+export const MovieTitle = styled.h3`
   font-size: 18px;
   margin: 0;
+  border-bottom: 1px solid transparent;
+  :hover {
+    border-bottom: 1px solid #fff;
+    transition: all 0.3s ease-in;
+  }
   @media (min-width: 768px) {
     font-size: 20px;
   }
 `;
 
-const MovieDescription = styled.p`
+export const MovieDescription = styled.p`
   display: none;
   @media (min-width: 768px) {
     overflow: hidden;
@@ -103,17 +111,17 @@ const MovieDescription = styled.p`
     margin: 4px 0 16px 0;
   }
 `;
-
-const IMDBImage = styled.img`
-  width: 50px;
-`;
-
-const YellowText = styled.span`
-  color: gold;
+export const IMDBText = styled.span`
+  color: #ffd700;
   font-weight: 600;
+  border-bottom: 1px solid transparent;
+  :hover {
+    border-bottom: 1px solid #ffd700;
+    transition: all 0.3s ease-in;
+  }
 `;
 
-const MovieLength = styled.p`
+export const MovieLength = styled.p`
   font-size: 14px;
-  margin: 10px 0 0 0;
+  margin: 12px 0;
 `;

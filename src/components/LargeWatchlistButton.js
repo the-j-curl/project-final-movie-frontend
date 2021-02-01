@@ -98,11 +98,17 @@ const WatchlistButton = styled.button`
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-right: auto;
   margin-left: auto;
+  transition: all 0.3s ease-in;
+  :hover {
+    cursor: pointer;
+    border: 3px solid #3f39fc;
+    padding: 4px;
+  }
   /* font-font-family  Helvetica futura bondoni */
 
   @media (min-width: 768px) {
-    width: 180px;
-    height: 50px;
+    width: 170px;
+    height: 46px;
     font-size: 16px;
   }
 `;

@@ -12,8 +12,8 @@ export const MoviePage = () => {
 
   useEffect(() => {
     fetch(`${MOVIEDETAIL_URL}`)
-      .then((response) => response.json())
-      .then((json) => {
+      .then(response => response.json())
+      .then(json => {
         setMovieDetails(json);
       });
   }, [id, MOVIEDETAIL_URL]);
@@ -30,6 +30,7 @@ export const MoviePage = () => {
         runtime={movieDetails.runtime}
         imdb_id={movieDetails.imdb_id}
         id={movieDetails.id}
+        movieHomepage={movieDetails.homepage}
       />
     );
   } else {
