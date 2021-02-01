@@ -5,14 +5,16 @@ import { useSelector } from "react-redux";
 import { CheckIcon } from "./CheckIcon";
 
 export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [inWatchlist, setInWatchlist] = useState();
+
+  const [watchlist, setWatchlist] = useState([]);
 
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const handleToggleWatchlist = inWatchlist => {
+  const handleToggleWatchlist = (inWatchlist) => {
     setInWatchlist(inWatchlist);
     fetch(`${TEST_URL}`, {
       method: "PUT",
@@ -22,7 +24,7 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           onUpdateWatchlist();
         }
@@ -36,13 +38,13 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         //   return response;
         // }
       })
-      .then(json => {
+      .then((json) => {
         // TO-DO: Can this be removed? One to one question - what happens here to json? Should we do anything with this data?
         if (json.error) {
           throw Error(json.message);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         // TO-DO: What should we do with the error? One to one question
         console.log(error);
       });
@@ -50,12 +52,12 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
 
   useEffect(() => {
     if (!userId) return;
-    fetch(`${TEST_URL}?movieId=${movieId}`, {
+    fetch(TEST_URL, {
       headers: {
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         } else {
@@ -63,17 +65,79 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
           // throw Error(res.statusText);
         }
       })
-      .then(json => {
-        if (json && json.movie.watchlist) {
-          setInWatchlist(json.movie.watchlist);
+      .then((json) => {
+        console.log(json.userWatchlist.length);
+        if (json.userWatchlist.length > 0) {
+          console.log("are we here");
+
+          setWatchlist(json.userWatchlist);
+          console.log(json.userWatchlist);
+
+          watchlist.map((movie) => {
+            console.log("do we do this");
+            if (movie.movieId === movieId) {
+              setInWatchlist(true);
+            } else {
+              return setInWatchlist(true);
+            }
+          });
+          console.log(watchlist);
         } else {
+          console.log("or is it here we are");
           setInWatchlist(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [movieId]);
+
+  console.log(watchlist);
+  console.log(inWatchlist);
+
+  // .then(() => {
+  //   if (watchlist.length > 0) {
+
+  //   } else {
+  //     console.log("are we here");
+  //     watchlist.map((movie) => {
+  //       console.log(movie.movieId);
+  //       console.log(movieId);
+  //       if (movie.movieId === movieId) {
+  //         return setInWatchlist(true);
+  //       } else {
+  //         return setInWatchlist(false);
+  //       }
+  //     });
+  //   }
+  // })
+
+  // useEffect(() => {
+  //   if (!userId) return;
+  //   fetch(`${TEST_URL}?movieId=${movieId}`, {
+  //     headers: {
+  //       Authorization: accessToken,
+  //     },
+  //   })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       } else {
+  //         setInWatchlist(false);
+  //         // throw Error(res.statusText);
+  //       }
+  //     })
+  //     .then(json => {
+  //       if (json && json.movie.watchlist) {
+  //         setInWatchlist(json.movie.watchlist);
+  //       } else {
+  //         setInWatchlist(false);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, [movieId]);
 
   return (
     <WatchlistButton onClick={() => handleToggleWatchlist(!inWatchlist)}>
