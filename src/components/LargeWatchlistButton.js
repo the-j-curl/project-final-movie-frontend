@@ -5,14 +5,14 @@ import { useSelector } from "react-redux";
 import { CheckIcon } from "./CheckIcon";
 
 export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
-  const [inWatchlist, setInWatchlist] = useState();
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const [inWatchlist, setInWatchlist] = useState(false);
 
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const handleToggleWatchlist = inWatchlist => {
+  const handleToggleWatchlist = (inWatchlist) => {
     setInWatchlist(inWatchlist);
     fetch(`${TEST_URL}`, {
       method: "PUT",
@@ -22,7 +22,7 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           onUpdateWatchlist();
         }
@@ -36,13 +36,13 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         //   return response;
         // }
       })
-      .then(json => {
+      .then((json) => {
         // TO-DO: Can this be removed? One to one question - what happens here to json? Should we do anything with this data?
         if (json.error) {
           throw Error(json.message);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         // TO-DO: What should we do with the error? One to one question
         console.log(error);
       });
@@ -50,27 +50,22 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
 
   useEffect(() => {
     if (!userId) return;
-    fetch(`${TEST_URL}?movieId=${movieId}`, {
+    fetch(TEST_URL, {
       headers: {
         Authorization: accessToken,
       },
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          setInWatchlist(false);
-          // throw Error(res.statusText);
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.userWatchlist.length > 0) {
+          json.userWatchlist.forEach((movie) => {
+            if (movie.movieId === movieId) {
+              setInWatchlist(true);
+            }
+          });
         }
       })
-      .then(json => {
-        if (json && json.movie.watchlist) {
-          setInWatchlist(json.movie.watchlist);
-        } else {
-          setInWatchlist(false);
-        }
-      })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [movieId]);
