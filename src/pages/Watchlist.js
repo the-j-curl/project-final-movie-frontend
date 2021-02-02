@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { WatchlistCard } from "../components/WatchlistCard";
 
 export const Watchlist = () => {
-  const userId = useSelector((store) => store.user.login.userId);
-  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const userId = useSelector(store => store.user.login.userId);
+  const accessToken = useSelector(store => store.user.login.accessToken);
   const [watchlist, setWatchlist] = useState([]);
   const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
@@ -18,8 +18,8 @@ export const Watchlist = () => {
         Authorization: accessToken,
       },
     })
-      .then((res) => res.json())
-      .then((json) => setWatchlist(json.userWatchlist));
+      .then(res => res.json())
+      .then(json => setWatchlist(json.userWatchlist));
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const Watchlist = () => {
       <>
         <h1>My watchlist</h1>
         <MovieWrapper>
-          {watchlist.map((movie) => (
+          {watchlist.map(movie => (
             <WatchlistCard
               key={movie.movieId}
               movieId={movie.movieId}

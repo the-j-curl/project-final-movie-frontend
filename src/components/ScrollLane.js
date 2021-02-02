@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
-import { Link as LinkR } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { MovieCard } from "./MovieCard";
 
@@ -10,8 +10,8 @@ export const ScrollLane = ({ category, title }) => {
 
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => setMovies(json.results));
+      .then(res => res.json())
+      .then(json => setMovies(json.results));
   }, [category, MOVIES_URL]);
 
   return (
@@ -23,8 +23,14 @@ export const ScrollLane = ({ category, title }) => {
         </SeeAllLink>
       </CategoryText>
       <ScrollList>
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} />
+        {movies.map(movie => (
+          <MovieCard
+            key={movie.id}
+            title={movie.title}
+            releaseDate={movie.release_date}
+            posterPath={movie.poster_path}
+            id={movie.id}
+          />
         ))}
       </ScrollList>
     </section>
@@ -47,7 +53,7 @@ const CategoryText = styled.div`
   justify-content: space-between;
 `;
 
-const SeeAllLink = styled(LinkR)`
+const SeeAllLink = styled(Link)`
   border-bottom: 1px solid transparent;
   :hover {
     border-bottom: 1px solid #fff;

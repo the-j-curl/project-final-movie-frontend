@@ -8,14 +8,14 @@ import { BackButton } from "../components/BackButton";
 import { IMDBText, MovieTitle, MovieLength } from "../components/WatchlistCard";
 
 export const MovieDetails = ({
-  backdrop_path,
-  poster_path,
+  backdropPath,
+  posterPath,
   title,
-  vote_average,
+  voteAverage,
   overview,
   genres,
   runtime,
-  imdb_id,
+  imdbId,
   id,
   movieHomepage,
 }) => {
@@ -24,24 +24,24 @@ export const MovieDetails = ({
   return (
     <MovieDetailsWrapper
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdrop_path}")`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
       }}
     >
       <BackButton className="movies-back-button" history={history} />
       <MovieDetailsContainer>
         <A href={`${movieHomepage}`}>
           <MoviePoster
-            src={`https://image.tmdb.org/t/p/w342/${poster_path}`}
+            src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
             alt={title}
           />{" "}
         </A>
         <MovieDetailsText>
           <MovieTitle>
             {title}
-            <Rating>Rating: {vote_average}/10</Rating>
+            <Rating>Rating: {voteAverage}/10</Rating>
           </MovieTitle>
           <MovieLength>
-            <a href={`https://www.imdb.com/title/${imdb_id}/`}>
+            <a href={`https://www.imdb.com/title/${imdbId}/`}>
               <IMDBText>IMDB</IMDBText>
             </a>{" "}
             | {runtime} mins

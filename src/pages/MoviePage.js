@@ -21,14 +21,14 @@ export const MoviePage = () => {
   if (movieDetails.id) {
     return (
       <MovieDetails
-        backdrop_path={movieDetails.backdrop_path}
-        poster_path={movieDetails.poster_path}
+        backdropPath={movieDetails.backdrop_path}
+        posterPath={movieDetails.poster_path}
         title={movieDetails.title}
-        vote_average={movieDetails.vote_average}
+        voteAverage={movieDetails.vote_average}
         overview={movieDetails.overview}
         genres={movieDetails.genres}
         runtime={movieDetails.runtime}
-        imdb_id={movieDetails.imdb_id}
+        imdbId={movieDetails.imdb_id}
         id={movieDetails.id}
         movieHomepage={movieDetails.homepage}
       />

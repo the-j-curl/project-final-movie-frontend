@@ -167,11 +167,11 @@ code {
   width: 10%;
 } */
 
-.movie-details-text span {
+/* .movie-details-text span {
   color: rgb(253, 138, 6);
   margin-left: 10px;
   font-size: 16px;
-}
+} */
 
 /* .movie-length {
   margin: 0;
@@ -232,14 +232,14 @@ code {
 
 /* ANIMATION */
 
-@keyframes arrow-slide {
+/* @keyframes arrow-slide {
   0% {
     transform: translateX(-6px);
   }
   100% {
     transform: translateX(-12px);
   }
-}
+} */
 
 /* MEDIA QUERIES */
 

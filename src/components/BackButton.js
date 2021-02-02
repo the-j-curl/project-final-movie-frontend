@@ -51,6 +51,14 @@ const Button = styled.button`
     animation-duration: 250ms;
     animation-delay: 0.3s;
   }
+  @keyframes arrow-slide {
+    0% {
+      transform: translateX(-6px);
+    }
+    100% {
+      transform: translateX(-12px);
+    }
+  }
 `;
 
 const BackButtonText = styled.p`

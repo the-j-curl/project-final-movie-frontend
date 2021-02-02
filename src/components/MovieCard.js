@@ -5,19 +5,19 @@ import styled from "styled-components/macro";
 import { SmallWatchlistButton } from "../components/SmallWatchlistButton";
 import { MovieTitle } from "../components/WatchlistCard";
 
-export const MovieCard = ({ title, release_date, poster_path, id }) => {
+export const MovieCard = ({ title, releaseDate, posterPath, id }) => {
   return (
     <>
       <MovieThumb>
         <Link to={`/movies/${id}`}>
           <MovieThumbImage
-            src={`https://image.tmdb.org/t/p/w342/${poster_path}`}
+            src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
             alt={title}
           />
 
           <MovieThumbInfo>
             <MovieTitle>{title}</MovieTitle>
-            <MovieCardP>Release date: {release_date}</MovieCardP>
+            <MovieCardP>Release date: {releaseDate}</MovieCardP>
           </MovieThumbInfo>
         </Link>
         <SmallWatchlistButton movieId={id} />
