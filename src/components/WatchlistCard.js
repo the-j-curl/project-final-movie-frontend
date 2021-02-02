@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 
+import { ui } from "../reducers/ui";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 
 export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
   const [movieDetails, setMovieDetails] = useState({});
   const MOVIEDETAIL_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    // dispatch(ui.actions.setLoading(true));
     fetch(`${MOVIEDETAIL_URL}`)
-      .then(response => response.json())
-      .then(json => {
+      .then((response) => response.json())
+      .then((json) => {
         setMovieDetails(json);
+        // dispatch(ui.actions.setLoading(false));
       });
   }, [MOVIEDETAIL_URL]);
 

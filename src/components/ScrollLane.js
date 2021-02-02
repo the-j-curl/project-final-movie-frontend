@@ -3,16 +3,24 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
 
+import { ui } from "../reducers/ui";
 import { MovieCard } from "./MovieCard";
 
-export const ScrollLane = ({ category, title }) => {
+export const ScrollLane = ({ category, title, updateIsLoading }) => {
   const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+    console.log("what is happening...loop");
+    // dispatch(ui.actions.setLoading(true));
+    // updateIsLoading(true);
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then((res) => res.json())
+      .then((json) => {
+        setMovies(json.results);
+        // dispatch(ui.actions.setLoading(false));
+        // updateIsLoading(false);
+      });
   }, [category, MOVIES_URL]);
 
   console.log(movies);
@@ -26,7 +34,7 @@ export const ScrollLane = ({ category, title }) => {
         </Link>
       </CategoryText>
       <ScrollList>
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <MovieCard key={movie.id} {...movie} />
         ))}
       </ScrollList>
