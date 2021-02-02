@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components/macro";
 
 import { MovieCard } from "../components/MovieCard";
 import { NotFound } from "./NotFound";
@@ -11,22 +12,44 @@ export const MovieList = () => {
 
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => setMovies(json.results));
+      .then(res => res.json())
+      .then(json => setMovies(json.results));
   }, [category, MOVIES_URL]);
 
   if (movies) {
     return (
       <>
         <h1>{category}</h1>
-        <main className="movie-list">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} {...movie} />
+        <MovieListGrid>
+          {movies.map(movie => (
+            <MovieCard
+              key={movie.id}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              posterPath={movie.poster_path}
+              id={movie.id}
+            />
           ))}
-        </main>
+        </MovieListGrid>
       </>
     );
   } else {
     return <NotFound />;
   }
 };
+
+const MovieListGrid = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;
