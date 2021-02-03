@@ -13,10 +13,16 @@ export const MovieList = () => {
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
       .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then(json => {
+        if (json.results) {
+          setMovies(json.results);
+        } else {
+          setMovies([]);
+        }
+      });
   }, [category, MOVIES_URL]);
 
-  if (movies) {
+  if (movies.length > 0) {
     return (
       <>
         <h1>{category}</h1>

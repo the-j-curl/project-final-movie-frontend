@@ -18,9 +18,11 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
 
   return (
     <MovieCard>
-      <PosterImage
-        src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
-      />
+      <Link to={`/movies/${movieId}`}>
+        <PosterImage
+          src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
+        />{" "}
+      </Link>
       <MovieText>
         <Link to={`/movies/${movieId}`}>
           <MovieTitle>{movieDetails.title}</MovieTitle>
@@ -66,9 +68,14 @@ const MovieCard = styled.article`
 `;
 
 const PosterImage = styled.img`
-  width: 40%;
+  width: 90%;
   max-width: 150px;
   border-radius: 10px;
+  border: 2px solid #000;
+  &:hover {
+    border: 2px solid #3f39fc;
+    transition: all 0.3s ease-in;
+  }
 `;
 
 const MovieText = styled.div`

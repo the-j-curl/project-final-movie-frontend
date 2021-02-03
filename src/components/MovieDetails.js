@@ -74,7 +74,6 @@ const MovieDetailsWrapper = styled.section`
 
 const MovieDetailsContainer = styled.article`
   color: #fff;
-
   display: flex;
   align-content: flex-end;
   justify-content: flex-start;
