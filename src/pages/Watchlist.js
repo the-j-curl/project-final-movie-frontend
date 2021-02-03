@@ -10,11 +10,11 @@ export const Watchlist = () => {
   const accessToken = useSelector(store => store.user.login.accessToken);
   const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
   const [watchlist, setWatchlist] = useState([]);
-  const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-  // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+  // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
+  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const getWatchlist = () => {
-    fetch(TEST_URL, {
+    fetch(LIVE_URL, {
       headers: {
         Authorization: accessToken,
       },
@@ -25,6 +25,7 @@ export const Watchlist = () => {
 
   useEffect(() => {
     getWatchlist();
+    //eslint-disable-next-line
   }, []);
 
   if (isLoggedIn) {

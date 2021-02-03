@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
-
 import { BackButton } from "./BackButton";
 import { IMDBText, MovieTitle, MovieLength } from "./WatchlistCard";
 

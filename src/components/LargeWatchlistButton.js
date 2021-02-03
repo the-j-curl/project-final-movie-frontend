@@ -10,11 +10,11 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
   const [inWatchlist, setInWatchlist] = useState(false);
 
-  const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-  // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+  // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
+  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const handleToggleWatchlist = inWatchlist => {
-    fetch(`${TEST_URL}`, {
+    fetch(`${LIVE_URL}`, {
       method: "PUT",
       body: JSON.stringify({ movieId, watchlist: inWatchlist }),
       headers: {
@@ -42,7 +42,7 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
 
   useEffect(() => {
     if (!userId) return;
-    fetch(TEST_URL, {
+    fetch(LIVE_URL, {
       headers: {
         Authorization: accessToken,
       },
@@ -60,7 +60,7 @@ export const LargeWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
       .catch(error => {
         console.log(error);
       });
-  }, [movieId]);
+  }, [userId, LIVE_URL, accessToken, movieId]);
 
   return (
     <WatchlistButton

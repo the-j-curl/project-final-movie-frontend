@@ -30,7 +30,6 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
         <MovieLength>
           {" "}
           <a href={`https://www.imdb.com/title/${movieDetails.imdb_id}`}>
-            {/* <IMDBImage src="../images/imdb-image.png" alt="imdb logo" /> */}
             <IMDBText>IMDb </IMDBText> {movieDetails.year}
           </a>{" "}
           | {movieDetails.runtime} mins
