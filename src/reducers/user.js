@@ -40,8 +40,8 @@ export const user = createSlice({
 // Thunks
 // Signup
 export const signup = (username, email, password) => {
-  const SIGNUP_URL = "http://localhost:8080/users";
-  // const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
+  // const SIGNUP_URL = "http://localhost:8080/users";
+  const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
   return dispatch => {
     fetch(SIGNUP_URL, {
       method: "POST",
