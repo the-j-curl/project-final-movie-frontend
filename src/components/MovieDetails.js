@@ -2,10 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
-import { LargeWatchlistButton } from "../components/LargeWatchlistButton";
+import { LargeWatchlistButton } from "./LargeWatchlistButton";
 
-import { BackButton } from "../components/BackButton";
-import { IMDBText, MovieTitle, MovieLength } from "../components/WatchlistCard";
+import { BackButton } from "./BackButton";
+import { IMDBText, MovieTitle, MovieLength } from "./WatchlistCard";
 
 export const MovieDetails = ({
   backdropPath,
