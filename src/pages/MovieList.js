@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components/macro";
 
+import { Loading } from "../components/Loading";
 import { MovieCard } from "../components/MovieCard";
 import { NotFound } from "./NotFound";
 
@@ -9,19 +10,26 @@ export const MovieList = () => {
   const { category } = useParams();
   const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then((res) => res.json())
+      .then((json) => {
+        setMovies(json.results);
+        setIsLoading(false);
+      });
   }, [category, MOVIES_URL]);
 
-  if (movies) {
+  if (isLoading) {
+    return <Loading />;
+  } else if (movies) {
     return (
       <>
         <h1>{category}</h1>
         <MovieListGrid>
-          {movies.map(movie => (
+          {movies.map((movie) => (
             <MovieCard
               key={movie.id}
               title={movie.title}
