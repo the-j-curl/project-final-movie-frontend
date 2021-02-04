@@ -1,64 +1,95 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components/macro";
 
-export const Hero = ({ heroMovies }) => {
+import { SlideTile } from "./SlideTile";
+
+export const Hero = () => {
+  const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
+  const [heroMovies, setHeroMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(`${HERO_MOVIES_URL}`)
+      .then((res) => res.json())
+      .then((json) => {
+        const heroMovieIds = json.results.map((item) => {
+          const movieId = item.id;
+          const backdropPath = item.backdrop_path;
+          const movieTitle = item.title;
+          return { movieId, backdropPath, movieTitle };
+        });
+
+        setHeroMovies(heroMovieIds);
+      });
+  }, [HERO_MOVIES_URL]);
+
+  console.log(heroMovies);
+
+  const selectedHeroMovies = heroMovies.slice(4, 9);
+
+  console.log(selectedHeroMovies);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     pauseOnHover: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     centerMode: true,
     variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
-    <SlideTest>
+    <SlideContainer>
       <Slider {...settings}>
-        <SlideTile>
-          <h3>Movie Title</h3>
-          <Image
-            src={`https://image.tmdb.org/t/p/w780/8MjzBahFKCuQbwytpPPds7qboQa.jpg`}
+        {selectedHeroMovies.map((movie) => (
+          <SlideTile
+            key={movie.movieId}
+            movieTitle={movie.movieTitle}
+            movieId={movie.movieId}
+            backdropPath={movie.backdropPath}
           />
-        </SlideTile>
-        <SlideTile>
-          <h3>Movie Title</h3>
-          <Image
-            src={`https://image.tmdb.org/t/p/w780/cjaOSjsjV6cl3uXdJqimktT880L.jpg`}
-          />
-        </SlideTile>
-        <SlideTile>
-          <h3>Movie Title</h3>
-          <Image
-            src={`https://image.tmdb.org/t/p/w780/srYya1ZlI97Au4jUYAktDe3avyA.jpg`}
-          />
-        </SlideTile>
-        <SlideTile>
-          <h3>Movie Title</h3>
-          <Image
-            src={`https://image.tmdb.org/t/p/w780/n9KlvCOBFDmSyw3BgNrkUkxMFva.jpg`}
-          />
-        </SlideTile>
+        ))}
       </Slider>
-    </SlideTest>
+    </SlideContainer>
   );
 };
 
-const Image = styled.img``;
-
-const SlideTile = styled.div`
-  margin: 0 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const SlideTest = styled.div`
-  padding: 30px;
+const SlideContainer = styled.div`
+  width: 300px;
+  @media (min-width: 1024px) {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .slick-arrow {
     height: 60px;
     width: 60px;
