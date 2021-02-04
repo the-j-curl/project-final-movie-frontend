@@ -10,8 +10,8 @@ export const ScrollLane = ({ category, title }) => {
 
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then((res) => res.json())
+      .then((json) => setMovies(json.results));
   }, [category, MOVIES_URL]);
 
   return (
@@ -23,7 +23,8 @@ export const ScrollLane = ({ category, title }) => {
         </SeeAllLink>
       </CategoryText>
       <ScrollList>
-        {movies.map(movie => (
+        <ArrowLeft>{" < "}</ArrowLeft>
+        {movies.map((movie) => (
           <MovieCard
             key={movie.id}
             title={movie.title}
@@ -32,12 +33,14 @@ export const ScrollLane = ({ category, title }) => {
             id={movie.id}
           />
         ))}
+        <ArrowRight>{" > "}</ArrowRight>
       </ScrollList>
     </section>
   );
 };
 
 const ScrollList = styled.div`
+  position: relative;
   display: flex;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
@@ -45,6 +48,24 @@ const ScrollList = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const ArrowLeft = styled.button`
+  width: 20px;
+  height: 40px;
+  z-index: 1;
+  position: absolute;
+  left: 10px;
+  top: 100px;
+`;
+
+const ArrowRight = styled.button`
+  width: 20px;
+  height: 40px;
+  z-index: 1;
+  position: absolute;
+  right: 10px;
+  top: 100px;
 `;
 
 const CategoryText = styled.div`
