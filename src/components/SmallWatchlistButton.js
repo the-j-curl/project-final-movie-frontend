@@ -82,7 +82,7 @@ const WatchlistButton = styled.button`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 8px 8px 0;
   border-top: none;
   border-left: none;
   outline: none;
