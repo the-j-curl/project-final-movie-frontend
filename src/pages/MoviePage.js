@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Loading } from "../components/Loading";
-import { MovieDetails } from "./MovieDetails";
+import { MovieDetails } from "../components/MovieDetails";
 import { NotFound } from "./NotFound";
 
 export const MoviePage = () => {
