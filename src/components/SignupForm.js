@@ -7,6 +7,7 @@ import { signup } from "../reducers/user";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((store) => store.ui.isLoading);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -56,6 +57,7 @@ const SignupForm = () => {
       <Link to="/login">
         <button>Already a member?</button>
       </Link>
+      {isLoading && <p>Signing up...</p>}
       {errorMessage && <p>{`${errorMessage}`}</p>}
     </Wrapper>
   );

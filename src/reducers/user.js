@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { ui } from "./ui";
+
 const initialState = {
   login: {
     accessToken: localStorage.accessToken || null,
@@ -42,19 +44,21 @@ export const user = createSlice({
 export const signup = (username, email, password) => {
   // const SIGNUP_URL = "http://localhost:8080/users";
   const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
-  return dispatch => {
+  return (dispatch) => {
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(ui.actions.setLoading(true));
     fetch(SIGNUP_URL, {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw new Error("Could not create account. Email already exists.");
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setLoginStatus({
             accessToken: json.accessToken,
@@ -64,9 +68,12 @@ export const signup = (username, email, password) => {
           })
         );
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+        dispatch(ui.actions.setLoading(false));
       })
-      .catch(err => {
+      .catch((err) => {
+        dispatch(userLogout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };
@@ -75,21 +82,21 @@ export const signup = (username, email, password) => {
 export const login = (username, password) => {
   // const LOGIN_URL = "http://localhost:8080/sessions";
   const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
-  return dispatch => {
+  return (dispatch) => {
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(ui.actions.setLoading(true));
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        throw new Error(
-          "Unable to sign in. Please check your username and password are correct"
-        );
+        throw new Error("Incorrect username and/or password");
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setLoginStatus({
             accessToken: json.accessToken,
@@ -99,10 +106,12 @@ export const login = (username, password) => {
           })
         );
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+        dispatch(ui.actions.setLoading(false));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(userLogout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };
@@ -118,7 +127,7 @@ export const getSecretMessage = () => {
       method: "GET",
       headers: { Authorization: accessToken },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         }
@@ -126,14 +135,14 @@ export const getSecretMessage = () => {
           "Could not get information. Make sure you are logged in and try again."
         );
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setSecretMessage({
             secretMessage: JSON.stringify(json.secretMessage),
           })
         );
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -141,7 +150,7 @@ export const getSecretMessage = () => {
 
 // Logout
 export const userLogout = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(
       user.actions.setLoginStatus({
         accessToken: null,
@@ -150,6 +159,7 @@ export const userLogout = () => {
         isLoggedIn: false,
       })
     );
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
     localStorage.removeItem("username");

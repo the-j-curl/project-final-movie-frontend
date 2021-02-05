@@ -5,6 +5,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import styled from "styled-components/macro";
 
 import { user } from "./reducers/user";
+import { ui } from "./reducers/ui";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { Watchlist } from "./pages/Watchlist";
@@ -16,7 +17,7 @@ import { Logout } from "./pages/Logout";
 import { NotFound } from "./pages/NotFound";
 import { Footer } from "./components/Footer";
 
-const reducer = combineReducers({ user: user.reducer });
+const reducer = combineReducers({ user: user.reducer, ui: ui.reducer });
 const store = configureStore({ reducer });
 
 export const App = () => {

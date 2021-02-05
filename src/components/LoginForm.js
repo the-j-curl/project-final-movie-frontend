@@ -7,12 +7,13 @@ import { login } from "../reducers/user";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const isLoading = useSelector((store) => store.ui.isLoading);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   // To login a user.
-  const handleLogin = event => {
+  const handleLogin = (event) => {
     event.preventDefault();
     dispatch(login(username, password));
   };
@@ -27,7 +28,7 @@ const LoginForm = () => {
             type="text"
             minLength="2"
             value={username}
-            onChange={event => setUsername(event.target.value)}
+            onChange={(event) => setUsername(event.target.value)}
           />
         </label>
         <label>
@@ -36,7 +37,7 @@ const LoginForm = () => {
             required
             type="password"
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </label>
         <button type="submit" onClick={handleLogin}>
@@ -46,6 +47,7 @@ const LoginForm = () => {
       <Link to="/signup">
         <button type="submit">Not a member?</button>
       </Link>
+      {isLoading && <p>Logging in...</p>}
       {errorMessage && <p>{`${errorMessage}`}</p>}
     </Wrapper>
   );

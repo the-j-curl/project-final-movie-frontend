@@ -3,24 +3,29 @@ import styled from "styled-components/macro";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { Loading } from "../components/Loading";
 import { WatchlistCard } from "../components/WatchlistCard";
 
 export const Watchlist = () => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [watchlist, setWatchlist] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const getWatchlist = () => {
+    setIsLoading(true);
     fetch(LIVE_URL, {
       headers: {
         Authorization: accessToken,
       },
     })
-      .then(res => res.json())
-      .then(json => setWatchlist(json.userWatchlist));
+      .then((res) => res.json())
+      .then((json) => {
+        setWatchlist(json.userWatchlist);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -28,7 +33,9 @@ export const Watchlist = () => {
     //eslint-disable-next-line
   }, []);
 
-  if (isLoggedIn) {
+  if (isLoading) {
+    return <Loading />;
+  } else if (watchlist) {
     return (
       <>
         <h1>My watchlist</h1>
@@ -36,7 +43,7 @@ export const Watchlist = () => {
           {watchlist.length <= 0 ? (
             <h3>Currently you have no movies in your watchlist</h3>
           ) : (
-            watchlist.map(movie => (
+            watchlist.map((movie) => (
               <WatchlistCard
                 key={movie.movieId}
                 movieId={movie.movieId}
