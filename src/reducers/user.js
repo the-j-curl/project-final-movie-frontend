@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { ui } from "./ui";
 
 const initialState = {
@@ -44,6 +45,8 @@ export const signup = (username, email, password) => {
   const SIGNUP_URL = "http://localhost:8080/users";
   // const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
   return (dispatch) => {
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(ui.actions.setLoading(true));
     fetch(SIGNUP_URL, {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
@@ -65,9 +68,12 @@ export const signup = (username, email, password) => {
           })
         );
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+        dispatch(ui.actions.setLoading(false));
       })
       .catch((err) => {
+        dispatch(userLogout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };
@@ -77,6 +83,8 @@ export const login = (username, password) => {
   const LOGIN_URL = "http://localhost:8080/sessions";
   // const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
   return (dispatch) => {
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+    dispatch(ui.actions.setLoading(true));
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
@@ -86,7 +94,7 @@ export const login = (username, password) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Unable to sign in. Please check your username and password are correct";
+        throw "Incorrect username and/or password";
       })
       .then((json) => {
         dispatch(
@@ -98,10 +106,12 @@ export const login = (username, password) => {
           })
         );
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+        dispatch(ui.actions.setLoading(false));
       })
       .catch((err) => {
         dispatch(userLogout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };
@@ -147,6 +157,7 @@ export const userLogout = () => {
         isLoggedIn: false,
       })
     );
+    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
