@@ -30,6 +30,11 @@ const SlideContentContainer = styled.div`
 const H3 = styled.h3`
   font-size: 14px;
   margin: 4px 0 8px 0;
+  border-bottom: 1px solid transparent;
+  :hover {
+    border-bottom: 1px solid #fff;
+    transition: all 0.3s ease-in;
+  }
 
   @media (min-width: 1024px) {
     font-size: 16px;

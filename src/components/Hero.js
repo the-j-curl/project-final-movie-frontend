@@ -36,7 +36,7 @@ export const Hero = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
     slidesToShow: 1,
