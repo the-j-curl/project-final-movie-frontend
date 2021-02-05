@@ -5,15 +5,15 @@ import { useSelector } from "react-redux";
 import { CheckIcon } from "./CheckIcon";
 
 export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   const [inWatchlist, setInWatchlist] = useState();
 
   // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const handleToggleWatchlist = inWatchlist => {
+  const handleToggleWatchlist = (inWatchlist) => {
     setInWatchlist(inWatchlist);
     fetch(`${LIVE_URL}`, {
       method: "PUT",
@@ -23,19 +23,19 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           onUpdateWatchlist();
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         // This is our backend error
         if (json.error) {
           throw Error(json.message);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -47,17 +47,17 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         if (json.userWatchlist.length > 0) {
-          json.userWatchlist.forEach(movie => {
+          json.userWatchlist.forEach((movie) => {
             if (movie.movieId === movieId) {
               setInWatchlist(true);
             }
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [userId, LIVE_URL, accessToken, movieId]);
@@ -65,26 +65,28 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   return (
     <WatchlistButton
       onClick={() => handleToggleWatchlist(!inWatchlist)}
-      disabled={!isLoggedIn}
-    >
+      disabled={!isLoggedIn}>
       {inWatchlist ? <CheckIcon /> : "+"}
     </WatchlistButton>
   );
 };
 
 const WatchlistButton = styled.button`
+  background-color: rgba(215, 215, 215, 0.9);
+  padding: 0;
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 50px;
-  height: 50px;
+  top: 0px;
+  left: 0px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 0 12px 12px 0;
+  border-top: none;
+  border-left: none;
   outline: none;
   opacity: 0.9;
-  font-size: 36px;
   transition: all 0.3s ease-in;
   :hover {
     cursor: pointer;
@@ -92,13 +94,9 @@ const WatchlistButton = styled.button`
   }
   &:disabled {
     border: 2px solid grey;
-    background-color: rgba(239, 239, 239, 0.9);
+    background-color: rgba(215, 215, 215, 0.7);
     :hover {
       cursor: unset;
     }
-  }
-  @media (min-width: 768px) {
-    top: 2px;
-    left: 2px;
   }
 `;
