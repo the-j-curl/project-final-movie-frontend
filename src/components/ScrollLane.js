@@ -10,8 +10,8 @@ export const ScrollLane = ({ category, title }) => {
 
   useEffect(() => {
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => setMovies(json.results));
+      .then((res) => res.json())
+      .then((json) => setMovies(json.results));
   }, [category, MOVIES_URL]);
 
   return (
@@ -23,7 +23,7 @@ export const ScrollLane = ({ category, title }) => {
         </SeeAllLink>
       </CategoryText>
       <ScrollList>
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <MovieCard
             key={movie.id}
             title={movie.title}
@@ -51,6 +51,7 @@ const CategoryText = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 const SeeAllLink = styled(Link)`

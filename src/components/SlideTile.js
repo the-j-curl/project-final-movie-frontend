@@ -4,29 +4,40 @@ import { Link } from "react-router-dom";
 
 export const SlideTile = ({ movieTitle, movieId, backdropPath }) => {
   return (
-    <SlideImageContainer>
-      <h3>{movieTitle}</h3>
-      <Link to={`/movies/${movieId}`}>
+    <>
+      <SlideContentContainer>
+        <Link to={`/movies/${movieId}`}>
+          <H3>{movieTitle}</H3>
+        </Link>
         <Image src={`https://image.tmdb.org/t/p/w780/${backdropPath}`} />
-      </Link>
-    </SlideImageContainer>
+      </SlideContentContainer>
+    </>
   );
 };
 
-const SlideImageContainer = styled.div`
-  width: 280px;
+const SlideContentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
   @media (min-width: 1024px) {
-    margin: 0 100px;
-    width: 100%;
+    align-items: center;
+  }
+`;
+
+const H3 = styled.h3`
+  font-size: 14px;
+  margin: 4px 0 8px 0;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
   }
 `;
 
 const Image = styled.img`
-  width: 90%;
-
-  @media (min-width: 768px) {
-    width: 700px;
-  }
+  width: 100%;
 
   @media (min-width: 1024px) {
     width: 780px;

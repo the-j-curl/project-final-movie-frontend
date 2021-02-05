@@ -8,26 +8,29 @@ export const Hero = () => {
   const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [heroMovies, setHeroMovies] = useState([]);
 
+  const randomNumberGenerator = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
   useEffect(() => {
     fetch(`${HERO_MOVIES_URL}`)
       .then((res) => res.json())
       .then((json) => {
-        const heroMovieIds = json.results.map((item) => {
-          const movieId = item.id;
-          const backdropPath = item.backdrop_path;
-          const movieTitle = item.title;
+        const heroMoviesArray = json.results.map((movie) => {
+          const movieId = movie.id;
+          const backdropPath = movie.backdrop_path;
+          const movieTitle = movie.title;
           return { movieId, backdropPath, movieTitle };
         });
 
-        setHeroMovies(heroMovieIds);
+        setHeroMovies(heroMoviesArray);
       });
   }, [HERO_MOVIES_URL]);
 
-  console.log(heroMovies);
-
-  const selectedHeroMovies = heroMovies.slice(4, 9);
-
-  console.log(selectedHeroMovies);
+  const randomNumber = randomNumberGenerator(0, 16);
+  const selectedHeroMovies = heroMovies.slice(randomNumber, randomNumber + 5);
 
   const settings = {
     dots: true,
@@ -38,68 +41,50 @@ export const Hero = () => {
     pauseOnHover: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: true,
-    variableWidth: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          arrows: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 915,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          arrows: false,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          arrows: false,
         },
       },
     ],
   };
   return (
-    <SlideContainer>
-      <Slider {...settings}>
-        {selectedHeroMovies.map((movie) => (
-          <SlideTile
-            key={movie.movieId}
-            movieTitle={movie.movieTitle}
-            movieId={movie.movieId}
-            backdropPath={movie.backdropPath}
-          />
-        ))}
-      </Slider>
-    </SlideContainer>
+    <StyledSlider {...settings}>
+      {selectedHeroMovies.map((movie) => (
+        <SlideTile
+          key={movie.movieId}
+          movieTitle={movie.movieTitle}
+          movieId={movie.movieId}
+          backdropPath={movie.backdropPath}
+        />
+      ))}
+    </StyledSlider>
   );
 };
 
-const SlideContainer = styled.div`
-  width: 300px;
-  @media (min-width: 1024px) {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+const StyledSlider = styled(Slider)`
   .slick-arrow {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
+    margin: 0 18px;
     z-index: 1;
   }
 
   .slick-prev:before {
-    font-size: 60px;
     color: #fff;
+    font-size: 50px;
   }
 
   .slick-prev:before:hover {
@@ -107,12 +92,20 @@ const SlideContainer = styled.div`
   }
 
   .slick-next:before {
-    font-size: 60px;
     color: #fff;
+    font-size: 50px;
+  }
+
+  .slick-prev {
+    left: -29px;
+  }
+
+  .slick-next {
+    right: 1px;
   }
 
   .slick-dots li button:before {
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
