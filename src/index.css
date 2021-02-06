@@ -202,7 +202,7 @@ code {
 
 /* ERROR PAGE */
 
-.error-message {
+/* .error-message {
   height: 100vh;
   background-image: url("/images/cinema-image.jpg");
   background-size: cover;
@@ -228,7 +228,7 @@ code {
   align-items: center;
   background-color: #000;
   color: #fff;
-}
+} */
 
 /* ANIMATION */
 
