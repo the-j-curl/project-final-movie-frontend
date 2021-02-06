@@ -101,9 +101,6 @@ export const MovieTitle = styled.h3`
     border-bottom: 1px solid #fff;
     transition: all 0.3s ease-in;
   }
-  @media (min-width: 768px) {
-    font-size: 22px;
-  }
 `;
 
 export const MovieLength = styled.p`

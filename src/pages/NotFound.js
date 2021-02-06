@@ -30,7 +30,7 @@ const ErrorMessage = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const Heading = styled.h3`

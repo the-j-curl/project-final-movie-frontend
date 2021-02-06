@@ -5,8 +5,8 @@ import { FaBars } from "react-icons/fa";
 import styled from "styled-components/macro";
 
 export const NavBar = ({ toggleSideBar }) => {
-  const username = useSelector((store) => store.user.login.username);
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
+  const username = useSelector(store => store.user.login.username);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
     <>

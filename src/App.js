@@ -46,4 +46,5 @@ export const App = () => {
 
 const MainWrapper = styled.main`
   padding: 0 10px;
+  min-height: 74vh;
 `;
