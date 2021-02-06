@@ -20,23 +20,25 @@ const LoginForm = () => {
 
   return (
     <Form onSubmit={handleLogin}>
-      <label>Username:</label>
-      <Input
-        required
-        type="text"
-        minLength="2"
-        value={username}
-        onChange={event => setUsername(event.target.value)}
-      />
-
-      <label>Password:</label>
-      <Input
-        required
-        type="password"
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      />
-
+      <Label>
+        Username:
+        <Input
+          required
+          type="text"
+          minLength="2"
+          value={username}
+          onChange={event => setUsername(event.target.value)}
+        />
+      </Label>
+      <Label>
+        Password:
+        <Input
+          required
+          type="password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+        />
+      </Label>
       <button type="submit">Login</button>
       <Link to="/signup">
         <button type="button">Not a member?</button>
@@ -48,19 +50,27 @@ const LoginForm = () => {
 };
 export default LoginForm;
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  width: 300px;
 `;
 
-const Input = styled.input`
+export const Label = styled.label`
+  font-size: 20px;
+  font-weight: 600;
+  width: 100%;
+`;
+
+export const Input = styled.input`
   background: none;
   height: 40px;
-  width: 250px;
+  width: 100%;
   border: 2px solid #fff;
   margin: 10px 0 20px 0;
   border-radius: 4px;
   color: #fff;
+  font-size: 18px;
 `;

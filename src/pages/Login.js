@@ -18,10 +18,10 @@ export const Login = () => {
   );
 };
 
-const FormWrapper = styled.section`
+export const FormWrapper = styled.section`
   align-items: center;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
 `;

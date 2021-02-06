@@ -4,22 +4,17 @@ import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import SignupForm from "../components/SignupForm";
+import { Heading } from "../components/ScrollLane";
+import { FormWrapper } from "./Login";
 
 export const SignUp = () => {
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+
   return (
-    <Wrapper>
-      <h1>Signup</h1>
+    <FormWrapper>
+      <Heading>Signup</Heading>
       <SignupForm />
       {isLoggedIn && <Redirect to="/" />}
-    </Wrapper>
+    </FormWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
-`;
