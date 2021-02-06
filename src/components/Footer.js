@@ -1,17 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 export const Footer = () => {
   return (
     <FooterContainer>
-      <h6>
-        Created by:
-        <a href="https://www.linkedin.com/in/jamiepcook/">
-          {" "}
-          Jamie Cook
-        </a> and{" "}
-        <a href="https://www.linkedin.com/in/ylvanilsson/">Ylva Nilsson</a>
-      </h6>
+      <P>
+        Created by:{" "}
+        <FooterLink to="https://github.com/the-j-curl">Jamie Cook</FooterLink>{" "}
+        and{" "}
+        <FooterLink to="https://github.com/ylvan75">Ylva Nilsson</FooterLink>
+      </P>
     </FooterContainer>
   );
 };
@@ -32,5 +31,24 @@ const FooterContainer = styled.footer`
       margin-top: 26px;
       height: 90px;
     }
+  }
+`;
+
+const P = styled.p`
+  font-size: 12px;
+  font-weight: 500;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+`;
+
+const FooterLink = styled(Link)`
+  border-bottom: 1px solid transparent;
+  :hover {
+    border-bottom: 1px solid #fff;
+    transition: all 0.3s ease-in;
   }
 `;

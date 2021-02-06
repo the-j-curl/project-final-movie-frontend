@@ -9,7 +9,7 @@ export const NotFound = () => {
 
   return (
     <ErrorMessage>
-      <BackButton />
+      <BackButton history={history} />
       <Heading>404 - Page Not Found</Heading>
       <ErrorText>
         Ooops, something went wrong - Please try again later

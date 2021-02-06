@@ -13,8 +13,8 @@ export const ScrollLane = ({ category, title }) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => {
+      .then(res => res.json())
+      .then(json => {
         setMovies(json.results);
         setIsLoading(false);
       });
@@ -26,13 +26,13 @@ export const ScrollLane = ({ category, title }) => {
     return (
       <section>
         <CategoryText>
-          <h2>{title}</h2>
+          <Heading>{title}</Heading>
           <SeeAllLink to={`/movielist/${category}`}>
             <SeeAll>See all</SeeAll>
           </SeeAllLink>
         </CategoryText>
         <ScrollList>
-          {movies.map((movie) => (
+          {movies.map(movie => (
             <MovieCard
               key={movie.id}
               title={movie.title}
@@ -61,7 +61,17 @@ const CategoryText = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 24px;
+`;
+
+export const Heading = styled.h2`
+  font-size: 20px;
+  @media (min-width: 768px) {
+    font-size: 22px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 
 const SeeAllLink = styled(Link)`
@@ -74,4 +84,11 @@ const SeeAllLink = styled(Link)`
 
 const SeeAll = styled.h5`
   margin: 0;
+  font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 `;

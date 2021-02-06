@@ -5,6 +5,7 @@ import styled from "styled-components/macro";
 import { Loading } from "../components/Loading";
 import { MovieCard } from "../components/MovieCard";
 import { NotFound } from "./NotFound";
+import { Heading } from "../components/ScrollLane";
 
 export const MovieList = () => {
   const { category } = useParams();
@@ -15,8 +16,8 @@ export const MovieList = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => {
+      .then(res => res.json())
+      .then(json => {
         if (json.results) {
           setMovies(json.results);
           setIsLoading(false);
@@ -32,9 +33,9 @@ export const MovieList = () => {
   } else if (movies.length > 0) {
     return (
       <>
-        <h1>{category}</h1>
+        <MovieListHeading>{category}</MovieListHeading>
         <MovieListGrid>
-          {movies.map((movie) => (
+          {movies.map(movie => (
             <MovieCard
               key={movie.id}
               title={movie.title}
@@ -50,6 +51,13 @@ export const MovieList = () => {
     return <NotFound />;
   }
 };
+
+const MovieListHeading = styled(Heading)`
+  @media (min-width: 1024px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
 
 const MovieListGrid = styled.section`
   display: grid;

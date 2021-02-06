@@ -132,10 +132,11 @@ const Rating = styled.span`
 `;
 
 const MovieDetailsDescription = styled.p`
-  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
   margin: 12px 0 0 0;
   @media (min-width: 1024px) {
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 

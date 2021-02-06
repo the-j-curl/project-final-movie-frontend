@@ -94,7 +94,7 @@ const MovieText = styled.div`
 `;
 
 export const MovieTitle = styled.h3`
-  font-size: 18px;
+  font-size: 20px;
   margin: 0;
   border-bottom: 1px solid transparent;
   :hover {
@@ -102,21 +102,18 @@ export const MovieTitle = styled.h3`
     transition: all 0.3s ease-in;
   }
   @media (min-width: 768px) {
-    font-size: 20px;
+    font-size: 22px;
   }
 `;
 
-export const MovieDescription = styled.p`
-  display: none;
-  @media (min-width: 768px) {
-    overflow: hidden;
-    overflow-wrap: break-word;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    margin: 4px 0 16px 0;
+export const MovieLength = styled.p`
+  font-size: 14px;
+  margin: 12px 0;
+  @media (min-width: 1024px) {
+    font-size: 16px;
   }
 `;
+
 export const IMDBText = styled.span`
   color: #ffd700;
   font-weight: 600;
@@ -127,7 +124,18 @@ export const IMDBText = styled.span`
   }
 `;
 
-export const MovieLength = styled.p`
-  font-size: 14px;
-  margin: 12px 0;
+export const MovieDescription = styled.p`
+  display: none;
+  font-family: "Roboto", sans-serif;
+  @media (min-width: 768px) {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin: 4px 0 16px 0;
+  }
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
 `;
