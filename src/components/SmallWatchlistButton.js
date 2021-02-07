@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
 
 import { CheckIcon } from "./CheckIcon";
+import { PlusIcon } from "./PlusIcon";
 
 export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   const userId = useSelector((store) => store.user.login.userId);
@@ -66,7 +67,7 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
     <WatchlistButton
       onClick={() => handleToggleWatchlist(!inWatchlist)}
       disabled={!isLoggedIn}>
-      {inWatchlist ? <CheckIcon /> : "+"}
+      {inWatchlist ? <CheckIcon /> : <PlusIcon />}
     </WatchlistButton>
   );
 };

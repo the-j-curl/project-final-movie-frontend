@@ -24,8 +24,7 @@ export const MovieDetails = ({
     <MovieDetailsWrapper
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
-      }}
-    >
+      }}>
       <BackButton className="movies-back-button" history={history} />
       <MovieDetailsContainer>
         <A href={`${movieHomepage}`}>
@@ -49,7 +48,7 @@ export const MovieDetails = ({
           <LargeWatchlistButton movieId={id} />
           <MovieDetailsDescription>{overview}</MovieDetailsDescription>
           <Genres>
-            {genres.map(item => (
+            {genres.map((item) => (
               <GenresLi key={item.id}>{item.name}</GenresLi>
             ))}
           </Genres>
@@ -87,8 +86,8 @@ const MovieDetailsContainer = styled.article`
 const MoviePoster = styled.img`
   border: 2px solid #fff;
   width: 70%;
-  border-radius: 10px;
   max-width: 400px;
+  border-radius: 10px;
   margin: 14px 0;
   :hover {
     border-color: #3f39fc;
