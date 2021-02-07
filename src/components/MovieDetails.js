@@ -34,15 +34,12 @@ export const MovieDetails = ({
           />{" "}
         </A>
         <MovieDetailsText>
-          <MovieTitle>
-            {title}
-            <Rating>Rating: {voteAverage}/10</Rating>
-          </MovieTitle>
+          <MovieTitle>{title}</MovieTitle>
           <MovieLength>
             <a href={`https://www.imdb.com/title/${imdbId}/`}>
               <IMDBText>IMDB</IMDBText>
             </a>{" "}
-            | {runtime} mins
+            | {runtime} mins |<Rating>Rating: {voteAverage}/10</Rating>
           </MovieLength>
 
           <LargeWatchlistButton movieId={id} />
@@ -65,6 +62,7 @@ const MovieDetailsWrapper = styled.section`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+
   @media (min-width: 768px) {
     padding: 10px;
   }
@@ -77,6 +75,7 @@ const MovieDetailsContainer = styled.article`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
+
   @media (min-width: 768px) {
     flex-direction: row;
     max-width: 830px;
@@ -93,6 +92,7 @@ const MoviePoster = styled.img`
     border-color: #3f39fc;
     transition: all 0.3s ease-in;
   }
+
   @media (min-width: 768px) {
     width: 90%;
     margin: 0;
@@ -109,10 +109,12 @@ const MovieDetailsText = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+
   @media (min-width: 768px) {
-    width: 50%;
+    width: 55%;
     align-items: flex-start;
   }
+
   @media (min-width: 1024px) {
     padding: 15px;
   }
@@ -126,14 +128,16 @@ const A = styled.a`
 
 const Rating = styled.span`
   color: #fd8a06;
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 16px;
+  font-weight: 500;
 `;
 
 const MovieDetailsDescription = styled.p`
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   margin: 12px 0 0 0;
+
   @media (min-width: 1024px) {
     font-size: 18px;
   }

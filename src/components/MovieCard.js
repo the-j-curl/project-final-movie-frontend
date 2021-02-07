@@ -16,7 +16,7 @@ export const MovieCard = ({ title, releaseDate, posterPath, id }) => {
           />
 
           <MovieThumbInfo>
-            <MovieTitle>{title}</MovieTitle>
+            <OverlayMovieTitle>{title}</OverlayMovieTitle>
             <MovieCardP>Release date: {releaseDate}</MovieCardP>
           </MovieThumbInfo>
         </Link>
@@ -31,12 +31,16 @@ const MovieThumbInfo = styled.div`
   width: 95%;
   color: #fff;
   position: absolute;
-  top: 50%;
+  top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   display: none;
   transition: all 0.5s ease-in-out;
+
+  @media (min-width: 1400px) {
+    top: 50%;
+  }
 `;
 
 const MovieThumb = styled.article`
@@ -47,24 +51,35 @@ const MovieThumb = styled.article`
     color: #fff;
     text-decoration: none;
   }
-  &:hover ${MovieThumbInfo} {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 40px 10px;
-  }
+
   @media (min-width: 768px) {
     flex: 1 0 23%;
   }
   @media (min-width: 1024px) {
     flex: 1 0 15%;
+    :hover ${MovieThumbInfo} {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 10px;
+    }
   }
 `;
 
 const MovieThumbImage = styled.img`
   width: 90%;
+
   @media (min-width: 1024px) {
     width: 95%;
+  }
+`;
+
+const OverlayMovieTitle = styled(MovieTitle)`
+  font-size: 16px;
+  width: fit-content;
+
+  @media (min-width: 1400px) {
+    font-size: 18px;
   }
 `;
 
