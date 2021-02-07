@@ -31,10 +31,15 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
   padding: 5px;
+  margin-bottom: 6px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 16px;
+  }
 
   @media (min-width: 1024px) {
     justify-content: space-between;
     padding: 5px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 36px;
   }
 `;

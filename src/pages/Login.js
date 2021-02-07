@@ -7,7 +7,7 @@ import LoginForm from "../components/LoginForm";
 import { Heading } from "../components/ScrollLane";
 
 export const Login = () => {
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
 
   return (
     <FormWrapper>
@@ -24,4 +24,8 @@ export const FormWrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   width: 100%;
+
+  @media (min-width: 768px) {
+    margin-top: 90px;
+  }
 `;
