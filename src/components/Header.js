@@ -5,6 +5,7 @@ import styled from "styled-components/macro";
 import { SideBar } from "./SideBar";
 import { NavBar } from "./NavBar";
 import { Logo } from "./Logo";
+import { SearchBar } from "./SearchBar";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ export const Header = () => {
           <Logo />
         </Link>
         <NavBar toggleSideBar={toggleSideBar} />
+        <SearchBar />
       </HeaderContainer>
       <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} />
     </>
