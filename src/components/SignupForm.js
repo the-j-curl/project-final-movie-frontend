@@ -60,33 +60,36 @@ const SignupForm = () => {
       <Label htmlFor="username">Username:</Label>
       <InputWrapper>
         <Input
-          required
           id="username"
           type="text"
           minLength="2"
+          maxLength="50"
           value={username}
           onChange={event => setUsername(event.target.value)}
+          required
         />
       </InputWrapper>
       <Label htmlFor="email">Email:</Label>
       <InputWrapper>
         <Input
-          required
           id="email"
           type="email"
           value={email}
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           onChange={event => setEmail(event.target.value)}
+          required
         />
       </InputWrapper>
       <Label htmlFor="password">Password:</Label>
       <InputWrapper>
         <Input
-          required
           id="password"
           type={showPassword ? "text" : "password"}
+          minLength="6"
+          maxLength="60"
           value={password}
           onChange={event => setPassword(event.target.value)}
+          required
         />
         <IconButton type="button" onClick={toggleShowPassword}>
           {/* toggles */}
@@ -98,10 +101,12 @@ const SignupForm = () => {
         Confirm password:
         <InputWrapper>
           <Input
-            required
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
+            minLength="6"
+            maxLength="60"
             onChange={event => setConfirmPassword(event.target.value)}
+            required
           />
           <IconButton type="button" onClick={toggleShowConfirmPassword}>
             {/* toggles */}

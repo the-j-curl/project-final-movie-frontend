@@ -30,22 +30,25 @@ const LoginForm = () => {
       <Label htmlFor="username">Username:</Label>
       <InputWrapper>
         <Input
-          required
           id="username"
           type="text"
           minLength="2"
+          maxLength="50"
           value={username}
           onChange={event => setUsername(event.target.value)}
+          required
         />
       </InputWrapper>
       <Label htmlFor="password">Password:</Label>
       <InputWrapper>
         <Input
           id="password"
-          required
           type={showPassword ? "text" : "password"}
+          minLength="6"
+          maxLength="60"
           value={password}
           onChange={event => setPassword(event.target.value)}
+          required
         />
         <IconButton type="button" onClick={toggleShowPassword}>
           {/* toggles */}
