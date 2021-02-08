@@ -24,7 +24,7 @@ export const searchResults = searchText => {
     )
       .then(res => res.json())
       .then(json => {
-        dispatch(movies.actions.setSearchTerm(json.results));
+        dispatch(movies.actions.setSearchMovies(json.results));
         dispatch(ui.actions.setLoading(false));
       });
   };
