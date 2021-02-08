@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { signup } from "../reducers/user";
+import { signup } from "../reducers/reusable";
 import {
   Form,
   Label,

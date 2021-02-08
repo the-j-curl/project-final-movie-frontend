@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiEyeOff } from "react-icons/fi";
 import { FiEye } from "react-icons/fi";
 
-import { login } from "../reducers/user";
+import { login } from "../reducers/reusable";
 import { NavButton } from "./NavBar";
 
 const LoginForm = () => {

@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { ui } from "./ui";
-
 const initialState = {
   login: {
     accessToken: localStorage.accessToken || null,
@@ -10,6 +8,7 @@ const initialState = {
     isLoggedIn: localStorage.isLoggedIn || false,
     secretMessage: null,
     errorMessage: null,
+    watchlist: [],
   },
 };
 
@@ -36,133 +35,137 @@ export const user = createSlice({
       const { errorMessage } = action.payload;
       store.login.errorMessage = errorMessage;
     },
+    setWatchlist: (store, action) => {
+      const { watchlist } = action.payload;
+      store.login.watchlist = watchlist;
+    },
   },
 });
 
-// Thunks
-// Signup
-export const signup = (username, email, password) => {
-  // const SIGNUP_URL = "http://localhost:8080/users";
-  const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
-  return dispatch => {
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    dispatch(ui.actions.setLoading(true));
-    fetch(SIGNUP_URL, {
-      method: "POST",
-      body: JSON.stringify({ username, email, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Could not create account. Username already exists.");
-        }
-        return res.json();
-      })
-      .then(json => {
-        dispatch(
-          user.actions.setLoginStatus({
-            accessToken: json.accessToken,
-            userId: json.userId,
-            username: json.username,
-            isLoggedIn: true,
-          })
-        );
-        dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-        dispatch(ui.actions.setLoading(false));
-      })
-      .catch(err => {
-        dispatch(userLogout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-        dispatch(ui.actions.setLoading(false));
-      });
-  };
-};
+// // Thunks
+// // Signup
+// export const signup = (username, email, password) => {
+//   // const SIGNUP_URL = "http://localhost:8080/users";
+//   const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
+//   return dispatch => {
+//     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+//     dispatch(ui.actions.setLoading(true));
+//     fetch(SIGNUP_URL, {
+//       method: "POST",
+//       body: JSON.stringify({ username, email, password }),
+//       headers: { "Content-Type": "application/json" },
+//     })
+//       .then(res => {
+//         if (!res.ok) {
+//           throw new Error("Could not create account. Username already exists.");
+//         }
+//         return res.json();
+//       })
+//       .then(json => {
+//         dispatch(
+//           user.actions.setLoginStatus({
+//             accessToken: json.accessToken,
+//             userId: json.userId,
+//             username: json.username,
+//             isLoggedIn: true,
+//           })
+//         );
+//         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+//         dispatch(ui.actions.setLoading(false));
+//       })
+//       .catch(err => {
+//         dispatch(userLogout());
+//         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+//         dispatch(ui.actions.setLoading(false));
+//       });
+//   };
+// };
 
-// Login
-export const login = (username, password) => {
-  // const LOGIN_URL = "http://localhost:8080/sessions";
-  const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
-  return dispatch => {
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    dispatch(ui.actions.setLoading(true));
-    fetch(LOGIN_URL, {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("Incorrect username and/or password");
-      })
-      .then(json => {
-        dispatch(
-          user.actions.setLoginStatus({
-            accessToken: json.accessToken,
-            userId: json.userId,
-            username: json.username,
-            isLoggedIn: true,
-          })
-        );
-        dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-        dispatch(ui.actions.setLoading(false));
-      })
-      .catch(err => {
-        dispatch(userLogout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-        dispatch(ui.actions.setLoading(false));
-      });
-  };
-};
+// // Login
+// export const login = (username, password) => {
+//   // const LOGIN_URL = "http://localhost:8080/sessions";
+//   const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
+//   return dispatch => {
+//     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+//     dispatch(ui.actions.setLoading(true));
+//     fetch(LOGIN_URL, {
+//       method: "POST",
+//       body: JSON.stringify({ username, password }),
+//       headers: { "Content-Type": "application/json" },
+//     })
+//       .then(res => {
+//         if (res.ok) {
+//           return res.json();
+//         }
+//         throw new Error("Incorrect username and/or password");
+//       })
+//       .then(json => {
+//         dispatch(
+//           user.actions.setLoginStatus({
+//             accessToken: json.accessToken,
+//             userId: json.userId,
+//             username: json.username,
+//             isLoggedIn: true,
+//           })
+//         );
+//         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+//         dispatch(ui.actions.setLoading(false));
+//       })
+//       .catch(err => {
+//         dispatch(userLogout());
+//         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+//         dispatch(ui.actions.setLoading(false));
+//       });
+//   };
+// };
 
-// SecretMesssage
-export const getSecretMessage = () => {
-  // const USERS_URL = "http://localhost:8080/users";
-  const USERS_URL = "https://final-project-moviedb.herokuapp.com/users";
-  return (dispatch, getState) => {
-    const accessToken = getState().user.login.accessToken;
-    const userId = getState().user.login.userId;
-    fetch(`${USERS_URL}/${userId}/secret`, {
-      method: "GET",
-      headers: { Authorization: accessToken },
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(
-          "Could not get information. Make sure you are logged in and try again."
-        );
-      })
-      .then(json => {
-        dispatch(
-          user.actions.setSecretMessage({
-            secretMessage: JSON.stringify(json.secretMessage),
-          })
-        );
-      })
-      .catch(err => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-      });
-  };
-};
+// // SecretMesssage
+// export const getSecretMessage = () => {
+//   // const USERS_URL = "http://localhost:8080/users";
+//   const USERS_URL = "https://final-project-moviedb.herokuapp.com/users";
+//   return (dispatch, getState) => {
+//     const accessToken = getState().user.login.accessToken;
+//     const userId = getState().user.login.userId;
+//     fetch(`${USERS_URL}/${userId}/secret`, {
+//       method: "GET",
+//       headers: { Authorization: accessToken },
+//     })
+//       .then(res => {
+//         if (res.ok) {
+//           return res.json();
+//         }
+//         throw new Error(
+//           "Could not get information. Make sure you are logged in and try again."
+//         );
+//       })
+//       .then(json => {
+//         dispatch(
+//           user.actions.setSecretMessage({
+//             secretMessage: JSON.stringify(json.secretMessage),
+//           })
+//         );
+//       })
+//       .catch(err => {
+//         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+//       });
+//   };
+// };
 
-// Logout
-export const userLogout = () => {
-  return dispatch => {
-    dispatch(
-      user.actions.setLoginStatus({
-        accessToken: null,
-        userId: null,
-        username: "",
-        isLoggedIn: false,
-      })
-    );
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("username");
-    localStorage.removeItem("isLoggedIn");
-  };
-};
+// // Logout
+// export const userLogout = () => {
+//   return dispatch => {
+//     dispatch(
+//       user.actions.setLoginStatus({
+//         accessToken: null,
+//         userId: null,
+//         username: "",
+//         isLoggedIn: false,
+//       })
+//     );
+//     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
+//     localStorage.removeItem("accessToken");
+//     localStorage.removeItem("userId");
+//     localStorage.removeItem("username");
+//     localStorage.removeItem("isLoggedIn");
+//   };
+// };

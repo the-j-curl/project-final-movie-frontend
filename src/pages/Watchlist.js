@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { getWatchlist } from "../reducers/reusable";
 import { Loading } from "../components/Loading";
 import { WatchlistCard } from "../components/WatchlistCard";
 import { Heading } from "../components/ScrollLane";
 
 export const Watchlist = () => {
+  const dispatch = useDispatch();
   const userId = useSelector(store => store.user.login.userId);
   const accessToken = useSelector(store => store.user.login.accessToken);
-  const [watchlist, setWatchlist] = useState([]);
+  const watchlist = useSelector(store => store.user.login.watchlist);
+  // const [watchlist, setWatchlist] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
-  const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
+  // const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const getWatchlist = () => {
-    setIsLoading(true);
-    fetch(LIVE_URL, {
-      headers: {
-        Authorization: accessToken,
-      },
-    })
-      .then(res => res.json())
-      .then(json => {
-        setWatchlist(json.userWatchlist);
-        setIsLoading(false);
-      });
-  };
+  // const getWatchlist = () => {
+  //   setIsLoading(true);
+  //   fetch(LIVE_URL, {
+  //     headers: {
+  //       Authorization: accessToken,
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       setWatchlist(json.userWatchlist);
+  //       setIsLoading(false);
+  //     });
+  // };
 
   useEffect(() => {
-    getWatchlist();
+    dispatch(getWatchlist());
+    // getWatchlist();
     //eslint-disable-next-line
   }, []);
 
