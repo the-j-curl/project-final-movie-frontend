@@ -82,10 +82,6 @@ export const Label = styled.label`
   font-size: 18px;
   font-weight: 600;
   width: 100%;
-
-  @media (min-width: 1024px) {
-    font-size: 20px;
-  }
 `;
 
 export const Input = styled.input`
@@ -94,7 +90,7 @@ export const Input = styled.input`
   width: 100%;
   border: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const InputWrapper = styled.div`

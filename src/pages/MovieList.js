@@ -9,6 +9,15 @@ import { Heading } from "../components/ScrollLane";
 
 export const MovieList = () => {
   const { category } = useParams();
+
+  // Replaces underscore with a space
+  const editedCategory = category.replace("_", " ");
+
+  // Function capitalises first letter
+  const capitalizeFirstLetter = string => {
+    return string[0].toUpperCase() + string.slice(1);
+  };
+
   const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +42,9 @@ export const MovieList = () => {
   } else if (movies.length > 0) {
     return (
       <>
-        <MovieListHeading>{category}</MovieListHeading>
+        <MovieListHeading>
+          {capitalizeFirstLetter(editedCategory)}
+        </MovieListHeading>
         <MovieListGrid>
           {movies.map(movie => (
             <MovieCard

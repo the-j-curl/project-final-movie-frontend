@@ -37,7 +37,7 @@ export const NavBar = ({ toggleSideBar }) => {
         <NavBarRight>
           {<UserHeading>{username}</UserHeading>}
           <NavLink to="/logout">
-            <NavButton>Logout</NavButton>
+            <NavButton>Log out</NavButton>
           </NavLink>
         </NavBarRight>
       )}

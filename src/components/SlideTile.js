@@ -4,16 +4,14 @@ import { Link } from "react-router-dom";
 
 export const SlideTile = ({ movieTitle, movieId, backdropPath }) => {
   return (
-    <>
-      <SlideContentContainer>
-        <SlideOverlay>
-          <Link to={`/movies/${movieId}`}>
-            <SlideOverlayText>{movieTitle}</SlideOverlayText>
-          </Link>
-          <Image src={`https://image.tmdb.org/t/p/w780/${backdropPath}`} />
-        </SlideOverlay>
-      </SlideContentContainer>
-    </>
+    <SlideContentContainer>
+      <SlideOverlay>
+        <Link to={`/movies/${movieId}`}>
+          <SlideOverlayText>{movieTitle}</SlideOverlayText>
+        </Link>
+        <Image src={`https://image.tmdb.org/t/p/w780/${backdropPath}`} />
+      </SlideOverlay>
+    </SlideContentContainer>
   );
 };
 
@@ -48,9 +46,10 @@ const SlideOverlayText = styled.h3`
   font-size: 14px;
   margin: 0;
   border-bottom: 1px solid transparent;
+
   @media (min-width: 768px) {
     max-width: 80%;
-    font-size: 20px;
+    font-size: 18px;
     padding: 8px;
     bottom: 25px;
     left: 25px;

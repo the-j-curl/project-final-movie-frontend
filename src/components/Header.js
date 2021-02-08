@@ -41,5 +41,6 @@ const HeaderContainer = styled.header`
     justify-content: space-between;
     padding: 5px 20px;
     margin-bottom: 36px;
+    height: 150px;
   }
 `;
