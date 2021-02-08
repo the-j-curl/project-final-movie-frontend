@@ -5,8 +5,8 @@ import { FaBars } from "react-icons/fa";
 import styled from "styled-components/macro";
 
 export const NavBar = ({ toggleSideBar }) => {
-  const username = useSelector((store) => store.user.login.username);
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
+  const username = useSelector(store => store.user.login.username);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   return (
     <>
@@ -120,6 +120,7 @@ const UserHeading = styled.h4`
 `;
 
 export const NavButton = styled.button`
+  width: 100%;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 600;

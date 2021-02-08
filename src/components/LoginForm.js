@@ -10,14 +10,14 @@ import { NavButton } from "./NavBar";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector((store) => store.ui.isLoading);
-  const errorMessage = useSelector((store) => store.user.login.errorMessage);
+  const isLoading = useSelector(store => store.ui.isLoading);
+  const errorMessage = useSelector(store => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   // To login a user.
-  const handleLogin = (event) => {
+  const handleLogin = event => {
     event.preventDefault();
     dispatch(login(username, password));
   };
@@ -35,7 +35,7 @@ const LoginForm = () => {
           type="text"
           minLength="2"
           value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          onChange={event => setUsername(event.target.value)}
         />
       </InputWrapper>
       <Label htmlFor="password">Password:</Label>
@@ -45,7 +45,7 @@ const LoginForm = () => {
           required
           type={showPassword ? "text" : "password"}
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={event => setPassword(event.target.value)}
         />
         <IconButton type="button" onClick={toggleShowPassword}>
           {/* toggles */}
@@ -53,10 +53,12 @@ const LoginForm = () => {
         </IconButton>
       </InputWrapper>
       <ButtonWrapper>
-        <Link to="/signup">
-          <LoginText>Not a member?</LoginText>
-        </Link>
         <NavButton type="submit">Log in</NavButton>
+        <HR />
+        <LoginText>Not a member?</LoginText>
+        <Link to="/signup">
+          <NavButton type="submit">Sign up</NavButton>
+        </Link>
       </ButtonWrapper>
       {isLoading && <FormMessage>Logging in...</FormMessage>}
       {errorMessage && <FormMessage>{`${errorMessage}`}</FormMessage>}
@@ -97,14 +99,14 @@ export const InputWrapper = styled.div`
   border: 2px solid #fff;
   border-radius: 4px;
   width: 300px;
-  margin-bottom: 5px;
+  margin: 3px 0 6px 0;
 
   @media (min-width: 375px) {
-    margin-bottom: 15px;
+    margin: 8px 0 16px 0;
   }
 
   @media (min-width: 1024px) {
-    margin-bottom: 20px;
+    margin: 10px 0 20px 0;
   }
 `;
 
@@ -133,14 +135,16 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const HR = styled.hr`
+  color: #fff;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 20px;
+`;
+
 export const LoginText = styled.p`
   font-weight: 600;
   width: max-content;
-  border-bottom: 1px solid transparent;
-  :hover {
-    border-bottom: 1px solid #fff;
-    transition: all 0.3s ease-in;
-  }
 `;
 
 export const FormMessage = styled.p`
