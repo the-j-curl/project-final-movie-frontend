@@ -10,12 +10,10 @@ import { Heading } from "../components/ScrollLane";
 export const MovieList = () => {
   const { category } = useParams();
 
-  // Replaces underscore with a space
-  const editedCategory = category.replace("_", " ");
-
-  // Function capitalises first letter
-  const capitalizeFirstLetter = string => {
-    return string[0].toUpperCase() + string.slice(1);
+  // Function capitalises first letter and replaces underscore with a space
+  const capitalizeFirstLetter = (category) => {
+    const editCategory = category.replace("_", " ");
+    return editCategory[0].toUpperCase() + editCategory.slice(1);
   };
 
   const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
@@ -25,8 +23,8 @@ export const MovieList = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(`${MOVIES_URL}`)
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         if (json.results) {
           setMovies(json.results);
           setIsLoading(false);
@@ -42,11 +40,9 @@ export const MovieList = () => {
   } else if (movies.length > 0) {
     return (
       <>
-        <MovieListHeading>
-          {capitalizeFirstLetter(editedCategory)}
-        </MovieListHeading>
+        <MovieListHeading>{capitalizeFirstLetter(category)}</MovieListHeading>
         <MovieListGrid>
-          {movies.map(movie => (
+          {movies.map((movie) => (
             <MovieCard
               key={movie.id}
               title={movie.title}
