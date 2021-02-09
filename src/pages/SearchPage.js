@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import { NotFound } from "./NotFound";
 import { MovieListHeading, MovieListGrid } from "./MovieList";
 
 export const SearchPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(store => store.ui.isLoading);
   const movies = useSelector(store => store.movies.movies);
 
   if (isLoading) {
@@ -30,7 +30,7 @@ export const SearchPage = () => {
         </MovieListGrid>
       </>
     );
-  } else if (movies.length <= 0) {
+  } else if (movies.length <= 0 || !movies) {
     return <Redirect to="/" />;
   } else {
     return <NotFound />;
