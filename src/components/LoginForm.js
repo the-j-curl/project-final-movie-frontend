@@ -135,7 +135,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const HR = styled.hr`
-  color: #fff;
+  background: #fff;
   margin-top: 20px;
   width: 100%;
   font-size: 20px;

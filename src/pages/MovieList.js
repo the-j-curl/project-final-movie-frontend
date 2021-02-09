@@ -59,14 +59,14 @@ export const MovieList = () => {
   }
 };
 
-const MovieListHeading = styled(Heading)`
+export const MovieListHeading = styled(Heading)`
   @media (min-width: 1024px) {
     display: flex;
     justify-content: center;
   }
 `;
 
-const MovieListGrid = styled.section`
+export const MovieListGrid = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;

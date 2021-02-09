@@ -5,6 +5,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import styled from "styled-components/macro";
 
 import { user } from "./reducers/user";
+import { movies } from "./reducers/movies";
 import { ui } from "./reducers/ui";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
@@ -14,10 +15,15 @@ import { MoviePage } from "./pages/MoviePage";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { Logout } from "./pages/Logout";
+import { SearchPage } from "./pages/SearchPage";
 import { NotFound } from "./pages/NotFound";
 import { Footer } from "./components/Footer";
 
-const reducer = combineReducers({ user: user.reducer, ui: ui.reducer });
+const reducer = combineReducers({
+  user: user.reducer,
+  movies: movies.reducer,
+  ui: ui.reducer,
+});
 const store = configureStore({ reducer });
 
 export const App = () => {
@@ -34,6 +40,7 @@ export const App = () => {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/login" exact component={Login} />
             <Route path="/logout" exact component={Logout} />
+            <Route path="/search" exact component={SearchPage} />
             <Route path="/404" component={NotFound} />
             <Redirect to="/404" />
           </Switch>
