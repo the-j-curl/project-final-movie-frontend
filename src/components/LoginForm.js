@@ -98,14 +98,14 @@ export const InputWrapper = styled.div`
   border: 2px solid #fff;
   border-radius: 4px;
   width: 300px;
-  margin: 3px 0 6px 0;
+  margin: 2px 0 6px 0;
 
   @media (min-width: 375px) {
-    margin: 8px 0 16px 0;
+    margin: 4px 0 16px 0;
   }
 
   @media (min-width: 1024px) {
-    margin: 10px 0 20px 0;
+    /* margin: 8px 0 20px 0; */
   }
 `;
 

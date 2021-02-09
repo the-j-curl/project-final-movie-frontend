@@ -8,7 +8,6 @@ const initialState = {
     userId: localStorage.userId || 0,
     username: localStorage.username || "",
     isLoggedIn: localStorage.isLoggedIn || false,
-    secretMessage: null,
     errorMessage: null,
   },
 };
@@ -27,10 +26,6 @@ export const user = createSlice({
       localStorage.setItem("userId", userId);
       localStorage.setItem("username", username);
       localStorage.setItem("isLoggedIn", isLoggedIn);
-    },
-    setSecretMessage: (store, action) => {
-      const { secretMessage } = action.payload;
-      store.login.secretMessage = secretMessage;
     },
     setErrorMessage: (store, action) => {
       const { errorMessage } = action.payload;
@@ -72,7 +67,9 @@ export const signup = (username, email, password) => {
       })
       .catch(err => {
         dispatch(userLogout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
+        );
         dispatch(ui.actions.setLoading(false));
       });
   };
@@ -110,40 +107,10 @@ export const login = (username, password) => {
       })
       .catch(err => {
         dispatch(userLogout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-        dispatch(ui.actions.setLoading(false));
-      });
-  };
-};
-
-// SecretMesssage
-export const getSecretMessage = () => {
-  // const USERS_URL = "http://localhost:8080/users";
-  const USERS_URL = "https://final-project-moviedb.herokuapp.com/users";
-  return (dispatch, getState) => {
-    const accessToken = getState().user.login.accessToken;
-    const userId = getState().user.login.userId;
-    fetch(`${USERS_URL}/${userId}/secret`, {
-      method: "GET",
-      headers: { Authorization: accessToken },
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(
-          "Could not get information. Make sure you are logged in and try again."
-        );
-      })
-      .then(json => {
         dispatch(
-          user.actions.setSecretMessage({
-            secretMessage: JSON.stringify(json.secretMessage),
-          })
+          user.actions.setErrorMessage({ errorMessage: err.toString() })
         );
-      })
-      .catch(err => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };
