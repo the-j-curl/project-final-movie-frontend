@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 
 import { user } from "../reducers/user";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
@@ -30,11 +31,11 @@ export const MovieDetails = ({
 
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [postedReview, setPostedReview] = useState("");
 
   const history = useHistory();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (newReview) => {
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
       method: "POST",
       body: JSON.stringify({ userId, comment: newReview, username }),
@@ -44,6 +45,7 @@ export const MovieDetails = ({
       },
     })
       .then((res) => {
+        setPostedReview(newReview);
         if (!res.ok) {
           throw new Error(
             "Could not post review. Make sure you are logged in and try again"
@@ -55,7 +57,6 @@ export const MovieDetails = ({
           user.actions.setErrorMessage({ errorMessage: error.toString() })
         );
       });
-    setNewReview("");
   };
 
   useEffect(() => {
@@ -65,7 +66,13 @@ export const MovieDetails = ({
         setReviews(json.comments);
         console.log(json.comments);
       });
-  }, [newReview]);
+  }, [postedReview, id]);
+
+  const handleNewReview = (event) => {
+    event.preventDefault();
+    handleSubmit(newReview);
+    setNewReview("");
+  };
 
   let comments = [];
   reviews.map((commentedMovie) => comments.push(commentedMovie.comments));
@@ -74,7 +81,7 @@ export const MovieDetails = ({
   let allComments = [].concat.apply([], comments);
   console.log(allComments);
 
-  const sortedComments = allComments.sort((b, a) => b.createdAt - a.createdAt);
+  const sortedComments = allComments.sort((a, b) => b.createdAt - a.createdAt);
   console.log(sortedComments);
 
   return (
@@ -113,12 +120,12 @@ export const MovieDetails = ({
       <MovieReview>
         <h4>Reviews</h4>
         {isLoggedIn && (
-          <ReviewForm onSubmit={handleSubmit}>
+          <ReviewForm onSubmit={handleNewReview}>
             <ReviewTextArea
               value={newReview}
               onChange={(event) => setNewReview(event.target.value)}
               placeholder="Type your review here..."
-              rows="3"
+              rows="4"
               minLength="4"
               maxLength="300"></ReviewTextArea>
             <FormSubmitArea>
@@ -134,22 +141,27 @@ export const MovieDetails = ({
                 300{" "}
               </p>
             </FormSubmitArea>
+            <p>{errorMessage}</p>
           </ReviewForm>
         )}
         {reviews &&
-          sortedComments.map((comment) => (
-            <MovieCard>
-              <p>{comment.createdAt}</p>
-              <p>{comment.username}</p>
-              <p>{comment.comment}</p>
-            </MovieCard>
+          sortedComments.map((review) => (
+            <ReviewCard key={review.createdAt}>
+              <ReviewText>{review.comment}</ReviewText>
+              <Div>
+                <ReviewUsername
+                  username={username}
+                  reviewByUser={review.username}>
+                  {review.username.toUpperCase()}
+                </ReviewUsername>
+                <ReviewDate>{moment(review.createdAt).fromNow()}</ReviewDate>
+              </Div>
+            </ReviewCard>
           ))}
       </MovieReview>
     </>
   );
 };
-
-// reviewArray = item.comments
 
 const MovieDetailsWrapper = styled.section`
   min-height: 80vh;
@@ -256,7 +268,6 @@ const GenresLi = styled.li`
 
 const MovieReview = styled.section`
   width: 100%;
-  border: 2px solid white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -267,6 +278,16 @@ const ReviewForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 350px;
+
+  @media (min-width: 768px) {
+    width: 80%;
+    max-width: 800px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 500px;
+  }
 `;
 const ReviewTextArea = styled.textarea`
   border: 3px solid #3f39fc;
@@ -282,9 +303,51 @@ const FormSubmitArea = styled.div`
 `;
 
 const SubmitButton = styled(NavButton)`
-  width: 60%;
+  width: 30%;
+
+  &:disabled {
+    color: #808080;
+    background-color: rgba(239, 239, 239, 0.9);
+    :hover {
+      cursor: unset;
+    }
+  }
 `;
 
 const Span = styled.span`
   color: ${(props) => (props.textLength <= 4 ? "#ff0000" : "#fff")};
+`;
+
+const ReviewCard = styled(MovieCard)`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    padding: 6px 12px;
+  }
+`;
+
+const Div = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ReviewText = styled.p`
+  width: 100%;
+  font-weight: 500;
+`;
+
+const ReviewUsername = styled.p`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${(props) =>
+    props.username === props.reviewByUser ? "#3f39fc" : "#808080"};
+`;
+
+const ReviewDate = styled.p`
+  font-size: 12px;
+  color: #808080;
 `;
