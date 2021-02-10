@@ -22,28 +22,19 @@ export const MovieDetails = ({
   movieHomepage,
 }) => {
   const dispatch = useDispatch();
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
-  const username = useSelector(store => store.user.login.username);
-  const errorMessage = useSelector(store => store.user.login.errorMessage);
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const username = useSelector((store) => store.user.login.username);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
 
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
 
   const history = useHistory();
 
-  useEffect(() => {
-    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
-      .then(res => res.json())
-      .then(json => {
-        setReviews(json.comments);
-        console.log(json.comments);
-      });
-  }, []);
-
-  const handleSubmit = () => {
-    // event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
       method: "POST",
       body: JSON.stringify({ userId, comment: newReview, username }),
@@ -52,14 +43,14 @@ export const MovieDetails = ({
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw new Error(
             "Could not post review. Make sure you are logged in and try again"
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(
           user.actions.setErrorMessage({ errorMessage: error.toString() })
         );
@@ -67,13 +58,31 @@ export const MovieDetails = ({
     setNewReview("");
   };
 
+  useEffect(() => {
+    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setReviews(json.comments);
+        console.log(json.comments);
+      });
+  }, [newReview]);
+
+  let comments = [];
+  reviews.map((commentedMovie) => comments.push(commentedMovie.comments));
+  console.log(comments);
+
+  let allComments = [].concat.apply([], comments);
+  console.log(allComments);
+
+  const sortedComments = allComments.sort((b, a) => b.createdAt - a.createdAt);
+  console.log(sortedComments);
+
   return (
     <>
       <MovieDetailsWrapper
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
-        }}
-      >
+        }}>
         <BackButton className="movies-back-button" history={history} />
         <MovieDetailsContainer>
           <A href={`${movieHomepage}`}>
@@ -94,7 +103,7 @@ export const MovieDetails = ({
             <LargeWatchlistButton movieId={id} />
             <MovieDetailsDescription>{overview}</MovieDetailsDescription>
             <Genres>
-              {genres.map(item => (
+              {genres.map((item) => (
                 <GenresLi key={item.id}>{item.name}</GenresLi>
               ))}
             </Genres>
@@ -107,19 +116,17 @@ export const MovieDetails = ({
           <ReviewForm onSubmit={handleSubmit}>
             <ReviewTextArea
               value={newReview}
-              onChange={event => setNewReview(event.target.value)}
+              onChange={(event) => setNewReview(event.target.value)}
               placeholder="Type your review here..."
               rows="3"
               minLength="4"
-              maxLength="300"
-            ></ReviewTextArea>
+              maxLength="300"></ReviewTextArea>
             <FormSubmitArea>
               <SubmitButton
                 type="submit"
                 disabled={
                   newReview.length < 5 || newReview.length > 300 ? true : false
-                }
-              >
+                }>
                 Submit
               </SubmitButton>
               <p>
@@ -130,11 +137,11 @@ export const MovieDetails = ({
           </ReviewForm>
         )}
         {reviews &&
-          reviews.map(item => (
+          sortedComments.map((comment) => (
             <MovieCard>
-              <p>{item.movieId}</p>
-              <p>{item.userId}</p>
-              <p>Movie Review Text</p>
+              <p>{comment.createdAt}</p>
+              <p>{comment.username}</p>
+              <p>{comment.comment}</p>
             </MovieCard>
           ))}
       </MovieReview>
@@ -279,5 +286,5 @@ const SubmitButton = styled(NavButton)`
 `;
 
 const Span = styled.span`
-  color: ${props => (props.textLength <= 4 ? "#ff0000" : "#fff")};
+  color: ${(props) => (props.textLength <= 4 ? "#ff0000" : "#fff")};
 `;
