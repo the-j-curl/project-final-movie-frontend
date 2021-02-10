@@ -37,10 +37,6 @@ const MovieThumbInfo = styled.div`
   left: 0;
   display: none;
   transition: all 0.5s ease-in-out;
-
-  @media (min-width: 1400px) {
-    top: 50%;
-  }
 `;
 
 const MovieThumb = styled.article`
