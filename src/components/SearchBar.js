@@ -90,6 +90,11 @@ const SearchMovieInput = styled.input`
     font-weight: 500;
   }
 
+  :focus {
+    border-bottom: 2px solid #fff;
+    transition: all 0.3s ease-in;
+  }
+
   @media (min-width: 1024px) {
     font-size: 18px;
     display: block;

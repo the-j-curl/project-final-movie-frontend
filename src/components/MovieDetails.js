@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
+import { useSelector, useDispatch } from "react-redux";
 
+import { user } from "../reducers/user";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 import { BackButton } from "./BackButton";
 import { IMDBText, MovieTitle, MovieLength } from "./WatchlistCard";
@@ -18,42 +20,121 @@ export const MovieDetails = ({
   id,
   movieHomepage,
 }) => {
+  const dispatch = useDispatch();
+  const userId = useSelector(store => store.user.login.userId);
+  const accessToken = useSelector(store => store.user.login.accessToken);
+  const username = useSelector(store => store.user.login.username);
+  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+
+  const [newReview, setNewReview] = useState("");
+  const [reviews, setReviews] = useState([]);
+
   const history = useHistory();
 
-  return (
-    <MovieDetailsWrapper
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
-      }}>
-      <BackButton className="movies-back-button" history={history} />
-      <MovieDetailsContainer>
-        <A href={`${movieHomepage}`}>
-          <MoviePoster
-            src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
-            alt={title}
-          />{" "}
-        </A>
-        <MovieDetailsText>
-          <MovieTitle>{title}</MovieTitle>
-          <MovieLength>
-            <a href={`https://www.imdb.com/title/${imdbId}/`}>
-              <IMDBText>IMDB</IMDBText>
-            </a>{" "}
-            | {runtime} mins |<Rating>Rating: {voteAverage}/10</Rating>
-          </MovieLength>
+  useEffect(() => {
+    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
+      .then(res => res.json())
+      .then(json => {
+        setReviews(json.comments);
+        console.log(json.comments);
+      });
+  }, []);
 
-          <LargeWatchlistButton movieId={id} />
-          <MovieDetailsDescription>{overview}</MovieDetailsDescription>
-          <Genres>
-            {genres.map((item) => (
-              <GenresLi key={item.id}>{item.name}</GenresLi>
-            ))}
-          </Genres>
-        </MovieDetailsText>
-      </MovieDetailsContainer>
-    </MovieDetailsWrapper>
+  const handleSubmit = () => {
+    // event.preventDefault();
+    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
+      method: "POST",
+      body: JSON.stringify({ userId, comment: newReview, username }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(
+            "Could not post review. Make sure you are logged in and try again"
+          );
+        }
+      })
+      .catch(error => {
+        dispatch(
+          user.actions.setErrorMessage({ errorMessage: error.toString() })
+        );
+      });
+    setNewReview("");
+  };
+
+  return (
+    <>
+      <MovieDetailsWrapper
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
+        }}
+      >
+        <BackButton className="movies-back-button" history={history} />
+        <MovieDetailsContainer>
+          <A href={`${movieHomepage}`}>
+            <MoviePoster
+              src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
+              alt={title}
+            />{" "}
+          </A>
+          <MovieDetailsText>
+            <MovieTitle>{title}</MovieTitle>
+            <MovieLength>
+              <a href={`https://www.imdb.com/title/${imdbId}/`}>
+                <IMDBText>IMDB</IMDBText>
+              </a>{" "}
+              | {runtime} mins |<Rating>Rating: {voteAverage}/10</Rating>
+            </MovieLength>
+
+            <LargeWatchlistButton movieId={id} />
+            <MovieDetailsDescription>{overview}</MovieDetailsDescription>
+            <Genres>
+              {genres.map(item => (
+                <GenresLi key={item.id}>{item.name}</GenresLi>
+              ))}
+            </Genres>
+          </MovieDetailsText>
+        </MovieDetailsContainer>
+      </MovieDetailsWrapper>
+      <MovieReview>
+        <h4>Reviews</h4>
+        {isLoggedIn && (
+          <ReviewForm onSubmit={handleSubmit}>
+            <ReviewTextArea
+              value={newReview}
+              onChange={event => setNewReview(event.target.value)}
+              placeholder="Type your review here..."
+              rows="3"
+              minLength="4"
+              maxLength="300"
+            ></ReviewTextArea>
+            <FormSubmitArea>
+              <button
+                type="submit"
+                disabled={
+                  newReview.length < 5 || newReview.length > 300 ? true : false
+                }
+              >
+                Submit
+              </button>
+              <p>
+                <Span textLength={newReview.length}>{newReview.length}</Span> /
+                300{" "}
+              </p>
+            </FormSubmitArea>
+          </ReviewForm>
+        )}
+        {/* {movieReviews && movieReviews.map(item => console.log(item.comments))} */}
+      </MovieReview>
+    </>
   );
 };
+
+// reviewArray = item.comments
 
 const MovieDetailsWrapper = styled.section`
   min-height: 80vh;
@@ -156,4 +237,34 @@ const GenresLi = styled.li`
   background-color: rgba(17, 69, 226, 0.7);
   padding: 4px 2px;
   font-size: 14px;
+`;
+
+const MovieReview = styled.section`
+  width: 100%;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ReviewForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+const ReviewTextArea = styled.textarea`
+  border: 2px solid #3f39fc;
+  width: 100%;
+  outline: none;
+  width: 400px;
+`;
+
+const FormSubmitArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Span = styled.span`
+  color: ${props => (props.textLength <= 4 ? "#ff0000" : "#fff")};
 `;
