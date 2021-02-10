@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { user } from "../reducers/user";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 import { BackButton } from "./BackButton";
-import { IMDBText, MovieTitle, MovieLength } from "./WatchlistCard";
+import { IMDBText, MovieTitle, MovieLength, MovieCard } from "./WatchlistCard";
+import { NavButton } from "./NavBar";
 
 export const MovieDetails = ({
   backdropPath,
@@ -113,14 +114,14 @@ export const MovieDetails = ({
               maxLength="300"
             ></ReviewTextArea>
             <FormSubmitArea>
-              <button
+              <SubmitButton
                 type="submit"
                 disabled={
                   newReview.length < 5 || newReview.length > 300 ? true : false
                 }
               >
                 Submit
-              </button>
+              </SubmitButton>
               <p>
                 <Span textLength={newReview.length}>{newReview.length}</Span> /
                 300{" "}
@@ -128,7 +129,14 @@ export const MovieDetails = ({
             </FormSubmitArea>
           </ReviewForm>
         )}
-        {/* {movieReviews && movieReviews.map(item => console.log(item.comments))} */}
+        {reviews &&
+          reviews.map(item => (
+            <MovieCard>
+              <p>{item.movieId}</p>
+              <p>{item.userId}</p>
+              <p>Movie Review Text</p>
+            </MovieCard>
+          ))}
       </MovieReview>
     </>
   );
@@ -251,18 +259,23 @@ const MovieReview = styled.section`
 const ReviewForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 const ReviewTextArea = styled.textarea`
-  border: 2px solid #3f39fc;
+  border: 3px solid #3f39fc;
   width: 100%;
   outline: none;
-  width: 400px;
+  width: 100%;
 `;
 
 const FormSubmitArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const SubmitButton = styled(NavButton)`
+  width: 60%;
 `;
 
 const Span = styled.span`

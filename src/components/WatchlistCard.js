@@ -45,7 +45,7 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
   );
 };
 
-const MovieCard = styled.article`
+export const MovieCard = styled.article`
   background-color: rgba(73, 71, 71, 0.3);
   display: flex;
   align-items: center;
