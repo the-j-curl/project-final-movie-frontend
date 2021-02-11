@@ -4,8 +4,11 @@ import { NavLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components/macro";
 
+import { UserHeading } from "./NavBar";
+
 export const SideBar = ({ isOpen, toggleSideBar }) => {
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
+  const username = useSelector((store) => store.user.login.username);
 
   return (
     <SideBarContainer isOpen={isOpen} onClick={toggleSideBar}>
@@ -37,6 +40,7 @@ export const SideBar = ({ isOpen, toggleSideBar }) => {
         </SideBarMenu>
         {isLoggedIn && (
           <SideBarBottom>
+            <UserHeading>{username}</UserHeading>
             <SideButtonLink to="/logout">Logout</SideButtonLink>
           </SideBarBottom>
         )}
@@ -72,11 +76,17 @@ const CloseIcon = styled(FaTimes)`
 const Icon = styled.div`
   position: absolute;
   top: 12px;
-  right: 16px;
+  right: 12px;
   background: transparent;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
   outline: none;
+
+  @media (min-width: 768px) {
+    top: 16px;
+    right: 16px;
+    font-size: 30px;
+  }
 `;
 
 const SideBarWrapper = styled.div`
@@ -119,7 +129,9 @@ const SideBarLink = styled(NavLink)`
 
 const SideBarBottom = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const SideButtonLink = styled(NavLink)`
