@@ -63,8 +63,7 @@ export const MovieDetails = ({
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
       .then((res) => res.json())
       .then((json) => {
-        setReviews(json.comments);
-        console.log(json.comments);
+        setReviews(json.sortedComments);
       });
   }, [postedReview, id]);
 
@@ -74,15 +73,11 @@ export const MovieDetails = ({
     setNewReview("");
   };
 
-  let comments = [];
-  reviews.map((commentedMovie) => comments.push(commentedMovie.comments));
-  console.log(comments);
-
-  let allComments = [].concat.apply([], comments);
-  console.log(allComments);
-
-  const sortedComments = allComments.sort((a, b) => b.createdAt - a.createdAt);
-  console.log(sortedComments);
+  const renderReviewsTitle = () => {
+    if (isLoggedIn || reviews.length > 0) {
+      return <h4>Reviews</h4>;
+    }
+  };
 
   return (
     <>
@@ -118,7 +113,7 @@ export const MovieDetails = ({
         </MovieDetailsContainer>
       </MovieDetailsWrapper>
       <MovieReview>
-        <h4>Reviews</h4>
+        {renderReviewsTitle()}
         {isLoggedIn && (
           <ReviewForm onSubmit={handleNewReview}>
             <ReviewTextArea
@@ -145,7 +140,7 @@ export const MovieDetails = ({
           </ReviewForm>
         )}
         {reviews &&
-          sortedComments.map((review) => (
+          reviews.map((review) => (
             <ReviewCard key={review.createdAt}>
               <ReviewText>{review.comment}</ReviewText>
               <Div>
