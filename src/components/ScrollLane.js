@@ -27,7 +27,11 @@ export const ScrollLane = ({ category, title }) => {
   const scrollListElement = useRef(null);
 
   const onRightButtonClick = () => {
-    scrollListElement.current.scrollLeft += 400;
+    if (scrollListElement.current.scrollLeft <= 0) {
+      scrollListElement.current.scrollLeft += 450; // 50px extra here is the black part left of the first poster
+    } else {
+      scrollListElement.current.scrollLeft += 400;
+    }
 
     // const width = inputEl.current.offsetWidth;
     // console.log(width);
@@ -111,6 +115,7 @@ const ScrollList = styled.div`
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
   ::-webkit-scrollbar {
     display: none;
   }
