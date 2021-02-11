@@ -11,8 +11,8 @@ export const ScrollLane = ({ category, title }) => {
   const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [rightScrollNumber, setRightScrollNumber] = useState(600);
-  const [leftScrollNumber, setLeftScrollNumber] = useState(-600);
+  // const [rightScrollNumber, setRightScrollNumber] = useState(600);
+  // const [leftScrollNumber, setLeftScrollNumber] = useState(-600);
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,68 +24,53 @@ export const ScrollLane = ({ category, title }) => {
       });
   }, [category, MOVIES_URL]);
 
-  const inputEl = useRef(null);
+  const scrollListElement = useRef(null);
 
   const onRightButtonClick = () => {
-    // `current` points to the mounted text input element
+    scrollListElement.current.scrollLeft += 400;
+
     // const width = inputEl.current.offsetWidth;
+    // console.log(width);
 
-    // const positionLeft = inputEl.current.offsetLeft;
-    // console.log(positionLeft);
+    // const offsetLeft = inputEl.current.offsetLeft;
+    // console.log(offsetLeft);
 
-    const positionScrollLeft = inputEl.current.scrollLeft;
-    console.log(positionScrollLeft);
+    // const positionScrollLeft = inputEl.current.scrollLeft;
+    // console.log(positionScrollLeft);
 
-    const windowScrollX = window.scrollX;
-    console.log(windowScrollX);
+    // const windowScrollX = window.scrollX;
+    // console.log(windowScrollX);
 
-    const widthWindow = inputEl.current.getBoundingClientRect();
-    console.log(widthWindow);
-    console.log(`Window width: ${widthWindow.width}`); // I need to take widthWindow.width to get the width, returns a lot of values
+    // const widthWindow = inputEl.current.getBoundingClientRect();
+    // console.log(widthWindow);
+    // console.log(`Window width: ${widthWindow.width}`); // I need to take widthWindow.width to get the width, returns a lot of values
 
-    const widthScrollList = inputEl.current.scrollWidth;
-    console.log(`Scrolllist width: ${widthScrollList}`);
-    // inputEl.current.scrollLeft += 200;
+    // const widthScrollList = inputEl.current.scrollWidth;
+    // console.log(`Scrolllist width: ${widthScrollList}`);
 
-    const numberOfPoster = widthScrollList / widthWindow.width;
-    console.log(`Number of posters: ${numberOfPoster}`);
+    // const numberOfPoster = widthScrollList / widthWindow.width;
+    // console.log(`Number of posters: ${numberOfPoster}`);
 
-    const posterSize = widthWindow.width / numberOfPoster;
-    console.log(`Size of poster: ${posterSize}`);
+    // const posterSize = widthWindow.width / numberOfPoster;
+    // console.log(`Size of poster: ${posterSize}`);
 
-    const division = 10 / 2;
-    console.log(division);
+    // inputEl.current.scrollTo({
+    //   left: rightScrollNumber,
+    //   behavior: "smooth",
+    // });
 
-    console.log(rightScrollNumber);
-
-    inputEl.current.scrollTo({
-      left: rightScrollNumber,
-      behavior: "smooth",
-    });
-
-    setRightScrollNumber(rightScrollNumber + 600);
-    console.log(rightScrollNumber);
+    // setRightScrollNumber(rightScrollNumber + 600);
   };
 
   const onLeftButtonClick = () => {
-    // `current` points to the mounted text input element
-    // inputEl.current.scrollLeft -= 200;
+    scrollListElement.current.scrollLeft -= 400;
 
-    console.log(leftScrollNumber);
-
-    inputEl.current.scrollTo({
-      left: leftScrollNumber,
-      behavior: "smooth",
-    });
-    setRightScrollNumber(leftScrollNumber - 600);
-
-    console.log(leftScrollNumber);
+    // inputEl.current.scrollTo({
+    //   left: leftScrollNumber,
+    //   behavior: "smooth",
+    // });
+    // setRightScrollNumber(leftScrollNumber - 600);
   };
-
-  // scrollTo({
-  //   left: +600,
-  //   behavior: "smooth",
-  // });
 
   if (isLoading) {
     return <Loading />;
@@ -98,7 +83,7 @@ export const ScrollLane = ({ category, title }) => {
             <SeeAll>See all</SeeAll>
           </SeeAllLink>
         </CategoryText>
-        <ScrollList ref={inputEl}>
+        <ScrollList ref={scrollListElement}>
           <ArrowLeftButton onClick={onLeftButtonClick}>
             <ArrowLeftIcon />
           </ArrowLeftButton>
@@ -178,7 +163,6 @@ const ArrowLeftButton = styled.button`
     border: none;
     height: 47px;
     width: 47px;
-    border-radius: 50%;
     z-index: 1;
     position: sticky;
     left: 0px;
@@ -200,26 +184,9 @@ const ArrowLeftIcon = styled(FaChevronCircleLeft)`
   }
 `;
 
-const ArrowRightButton = styled.button`
-  display: none;
+const ArrowRightButton = styled(ArrowLeftButton)`
   @media (min-width: 915px) {
-    display: inline;
-    background: none;
-    outline: none;
-    opacity: 0.7;
-    border: none;
-    height: 47px;
-    width: 47px;
-    border-radius: 50%;
-    z-index: 1;
-    position: sticky;
     right: 0px;
-    top: 100px;
-
-    :hover {
-      opacity: 0.9;
-      cursor: pointer;
-    }
   }
 `;
 
