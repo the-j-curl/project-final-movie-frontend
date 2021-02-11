@@ -97,7 +97,7 @@ const SearchMovieInput = styled.input`
   }
 
   @media (min-width: 1024px) {
-    width: 170px;
+    width: 190px;
     font-size: 18px;
     display: block;
     ::placeholder {

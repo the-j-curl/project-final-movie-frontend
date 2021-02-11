@@ -11,7 +11,11 @@ export const MovieCard = ({ title, releaseDate, posterPath, id }) => {
       <MovieThumb>
         <Link to={`/movies/${id}`}>
           <MovieThumbImage
-            src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
+            src={
+              posterPath
+                ? `https://image.tmdb.org/t/p/w342/${posterPath}`
+                : "../images/dummy-posterPath-image.jpg"
+            }
             alt={title}
           />
 

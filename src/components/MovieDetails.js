@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components/macro";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
+import styled from "styled-components/macro";
 
 import { user } from "../reducers/user";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
@@ -82,14 +82,24 @@ export const MovieDetails = ({
   return (
     <>
       <MovieDetailsWrapper
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
-        }}>
+        style={
+          backdropPath
+            ? {
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("https://image.tmdb.org/t/p/w1280/${backdropPath}")`,
+              }
+            : {
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("../images/cinema-image.jpg")`,
+              }
+        }>
         <BackButton className="movies-back-button" history={history} />
         <MovieDetailsContainer>
           <A href={`${movieHomepage}`}>
             <MoviePoster
-              src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
+              src={
+                posterPath
+                  ? `https://image.tmdb.org/t/p/w342/${posterPath}`
+                  : `../images/dummy-posterPath-image.jpg`
+              }
               alt={title}
             />{" "}
           </A>
