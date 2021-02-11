@@ -115,7 +115,6 @@ const NavBarRight = styled.nav`
 
 export const UserHeading = styled.h4`
   font-size: 16px;
-  text-transform: uppercase;
   margin: 6px 0;
 `;
 

@@ -20,7 +20,8 @@
     "react-scripts": "^3.4.4",
     "react-slick": "^0.28.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
