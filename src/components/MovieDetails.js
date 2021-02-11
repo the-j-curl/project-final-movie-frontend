@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import styled from "styled-components/macro";
+import { CgCloseR } from "react-icons/cg";
 // import swal from "sweetalert";
 
 import { user } from "../reducers/user";
@@ -10,7 +11,6 @@ import { LargeWatchlistButton } from "./LargeWatchlistButton";
 import { BackButton } from "./BackButton";
 import { IMDBText, MovieTitle, MovieLength, MovieCard } from "./WatchlistCard";
 import { NavButton } from "./NavBar";
-import { CloseIcon } from "./SideBar";
 
 export const MovieDetails = ({
   backdropPath,
@@ -229,7 +229,7 @@ export const MovieDetails = ({
                 <ReviewUsername
                   username={username}
                   reviewByUser={review.username}>
-                  {review.username.toUpperCase()}
+                  {review.username}
                 </ReviewUsername>
                 <ReviewDate>{moment(review.createdAt).fromNow()}</ReviewDate>
               </Div>
@@ -374,12 +374,22 @@ const ReviewTextArea = styled.textarea`
 `;
 
 const DeleteButton = styled.button`
-  border: 1px solid #fff;
+  border: none;
   background: transparent;
+  padding: 0;
+  outline: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
-const DeleteIcon = styled(CloseIcon)`
-  color: red;
+const DeleteIcon = styled(CgCloseR)`
+  color: #3f39fc;
+  font-size: 24px;
 `;
 
 const FormSubmitArea = styled.div`
@@ -408,6 +418,7 @@ const ReviewCard = styled(MovieCard)`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  position: relative;
 
   @media (min-width: 768px) {
     padding: 6px 12px;
@@ -424,6 +435,10 @@ const Div = styled.div`
 const ReviewText = styled.p`
   width: 100%;
   font-weight: 500;
+
+  @media (min-width: 1024px) {
+    font-weight: 600;
+  }
 `;
 
 const ReviewUsername = styled.p`
@@ -431,6 +446,10 @@ const ReviewUsername = styled.p`
   font-weight: 500;
   color: ${(props) =>
     props.username === props.reviewByUser ? "#3f39fc" : "#808080"};
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 const ReviewDate = styled.p`

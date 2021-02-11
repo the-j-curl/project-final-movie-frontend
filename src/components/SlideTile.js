@@ -39,7 +39,7 @@ const SlideOverlay = styled.div`
 const SlideOverlayText = styled.h3`
   max-width: 95%;
   background-color: rgba(22, 21, 21, 0.7);
-  padding: 5px;
+  padding: 4px;
   position: absolute;
   bottom: 2px;
   left: 2px;
