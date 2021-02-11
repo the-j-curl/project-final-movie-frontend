@@ -104,7 +104,7 @@ export const MovieDetails = ({
             />{" "}
           </A>
           <MovieDetailsText>
-            <MovieTitle>{title}</MovieTitle>
+            <MovieDetailsTitle>{title}</MovieDetailsTitle>
             <MovieLength>
               <a href={`https://www.imdb.com/title/${imdbId}/`}>
                 <IMDBText>IMDB</IMDBText>
@@ -237,6 +237,13 @@ const A = styled.a`
   display: flex;
   align-content: center;
   justify-content: center;
+`;
+
+const MovieDetailsTitle = styled(MovieTitle)`
+  border-bottom: unset;
+  :hover {
+    border-bottom: unset;
+  }
 `;
 
 const Rating = styled.span`

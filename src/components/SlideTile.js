@@ -7,7 +7,9 @@ export const SlideTile = ({ movieTitle, movieId, backdropPath }) => {
     <SlideContentContainer>
       <SlideOverlay>
         <Link to={`/movies/${movieId}`}>
-          <SlideOverlayText>{movieTitle}</SlideOverlayText>
+          <OverlayTextWrapper>
+            <SlideOverlayText>{movieTitle}</SlideOverlayText>
+          </OverlayTextWrapper>
         </Link>
         <Image src={`https://image.tmdb.org/t/p/w780/${backdropPath}`} />
       </SlideOverlay>
@@ -36,23 +38,31 @@ const SlideOverlay = styled.div`
   }
 `;
 
-const SlideOverlayText = styled.h3`
-  max-width: 95%;
+const OverlayTextWrapper = styled.div`
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  width: auto;
   background-color: rgba(22, 21, 21, 0.7);
   padding: 5px;
-  position: absolute;
-  bottom: 2px;
-  left: 2px;
-  font-size: 14px;
-  margin: 0;
-  border-bottom: 1px solid transparent;
+  max-width: 95%;
 
   @media (min-width: 768px) {
-    max-width: 80%;
-    font-size: 18px;
     padding: 8px;
     bottom: 25px;
     left: 25px;
+    max-width: 80%;
+  }
+`;
+
+const SlideOverlayText = styled.h3`
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid transparent;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
   }
 
   @media (min-width: 1024px) {
