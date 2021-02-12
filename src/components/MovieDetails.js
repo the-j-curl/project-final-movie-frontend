@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import styled from "styled-components/macro";
 import { CgCloseR } from "react-icons/cg";
-// import swal from "sweetalert";
+import swal from "sweetalert";
 
 import { user } from "../reducers/user";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
@@ -25,11 +25,11 @@ export const MovieDetails = ({
   movieHomepage,
 }) => {
   const dispatch = useDispatch();
-  const userId = useSelector((store) => store.user.login.userId);
-  const accessToken = useSelector((store) => store.user.login.accessToken);
-  const username = useSelector((store) => store.user.login.username);
-  const errorMessage = useSelector((store) => store.user.login.errorMessage);
-  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
+  const userId = useSelector(store => store.user.login.userId);
+  const accessToken = useSelector(store => store.user.login.accessToken);
+  const username = useSelector(store => store.user.login.username);
+  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
 
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
@@ -38,7 +38,7 @@ export const MovieDetails = ({
 
   const history = useHistory();
 
-  const handleSubmit = (newReview) => {
+  const handleSubmit = newReview => {
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
       method: "POST",
       body: JSON.stringify({ userId, comment: newReview, username }),
@@ -47,7 +47,7 @@ export const MovieDetails = ({
         Authorization: accessToken,
       },
     })
-      .then((res) => {
+      .then(res => {
         setPostedReview(newReview);
         if (!res.ok) {
           throw new Error(
@@ -55,7 +55,7 @@ export const MovieDetails = ({
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(
           user.actions.setErrorMessage({ errorMessage: error.toString() })
         );
@@ -64,13 +64,13 @@ export const MovieDetails = ({
 
   useEffect(() => {
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
-      .then((res) => res.json())
-      .then((json) => {
+      .then(res => res.json())
+      .then(json => {
         setReviews(json.sortedComments);
       });
   }, [postedReview, deletedReview, id]);
 
-  const handleDelete = (reviewId) => {
+  const handleDelete = reviewId => {
     setDeletedReview(!deletedReview);
     fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
       method: "DELETE",
@@ -80,63 +80,63 @@ export const MovieDetails = ({
         Authorization: accessToken,
       },
     })
-      .then((res) => {
+      .then(res => {
         if (!res.ok) {
           throw new Error(
             "Could not delete review. Make sure you are logged in and try again."
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(
           user.actions.setErrorMessage({ errorMessage: error.toString() })
         );
       });
   };
 
-  const handleNewReview = (event) => {
+  const handleNewReview = event => {
     event.preventDefault();
     handleSubmit(newReview);
     setNewReview("");
   };
 
-  // const handleOnDelete = (reviewId) => {
-  //   swal({
-  //     title: "Delete review?",
-  //     text: "Are you sure you want to delete this review?",
-  //     icon: "warning",
-  //     dangerMode: true,
-  //     buttons: true,
-  //   }).then((willDelete) => {
-  //     if (willDelete) {
-  //       // handleDelete(reviewId);
-  //       setDeletedReview(!deletedReview);
-  //       fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
-  //         method: "DELETE",
-  //         body: JSON.stringify({ userId, _id: reviewId }),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: accessToken,
-  //         },
-  //       })
-  //         .then((res) => {
-  //           if (!res.ok) {
-  //             throw new Error(
-  //               "Could not delete review. Make sure you are logged in and try again."
-  //             );
-  //           }
-  //         })
-  //         .catch((error) => {
-  //           dispatch(
-  //             user.actions.setErrorMessage({ errorMessage: error.toString() })
-  //           );
-  //         });
-  //       swal("Deleted!", "Your review has been deleted!", "warning");
-  //     } else {
-  //       swal("Cancelled!", "Your review was not deleted");
-  //     }
-  //   });
-  // };
+  const handleOnDelete = reviewId => {
+    swal({
+      title: "Delete review?",
+      text: "Are you sure you want to delete this review?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        // handleDelete(reviewId);
+        setDeletedReview(!deletedReview);
+        fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
+          method: "DELETE",
+          body: JSON.stringify({ userId, _id: reviewId }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: accessToken,
+          },
+        })
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(
+                "Could not delete review. Make sure you are logged in and try again."
+              );
+            }
+          })
+          .catch(error => {
+            dispatch(
+              user.actions.setErrorMessage({ errorMessage: error.toString() })
+            );
+          });
+        swal("Deleted!", "Your review has been deleted!", "warning");
+      } else {
+        swal("Cancelled!", "Your review was not deleted");
+      }
+    });
+  };
 
   const renderReviewsTitle = () => {
     if (isLoggedIn || reviews.length > 0) {
@@ -155,7 +155,8 @@ export const MovieDetails = ({
             : {
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("../images/cinema-image.jpg")`,
               }
-        }>
+        }
+      >
         <BackButton className="movies-back-button" history={history} />
         <MovieDetailsContainer>
           <A href={`${movieHomepage}`}>
@@ -180,7 +181,7 @@ export const MovieDetails = ({
             <LargeWatchlistButton movieId={id} />
             <MovieDetailsDescription>{overview}</MovieDetailsDescription>
             <Genres>
-              {genres.map((item) => (
+              {genres.map(item => (
                 <GenresLi key={item.id}>{item.name}</GenresLi>
               ))}
             </Genres>
@@ -193,17 +194,19 @@ export const MovieDetails = ({
           <ReviewForm onSubmit={handleNewReview}>
             <ReviewTextArea
               value={newReview}
-              onChange={(event) => setNewReview(event.target.value)}
+              onChange={event => setNewReview(event.target.value)}
               placeholder="Type your review here..."
               rows="4"
               minLength="4"
-              maxLength="300"></ReviewTextArea>
+              maxLength="300"
+            ></ReviewTextArea>
             <FormSubmitArea>
               <SubmitButton
                 type="submit"
                 disabled={
                   newReview.length < 5 || newReview.length > 300 ? true : false
-                }>
+                }
+              >
                 Submit
               </SubmitButton>
               <p>
@@ -215,20 +218,22 @@ export const MovieDetails = ({
           </ReviewForm>
         )}
         {reviews &&
-          reviews.map((review) => (
+          reviews.map(review => (
             <ReviewCard key={review._id}>
               <ReviewText>{review.comment}</ReviewText>
               {username === review.username && (
                 <DeleteButton
                   type="button"
-                  onClick={() => handleDelete(review._id)}>
+                  onClick={() => handleOnDelete(review._id)}
+                >
                   <DeleteIcon />
                 </DeleteButton>
               )}
               <Div>
                 <ReviewUsername
                   username={username}
-                  reviewByUser={review.username}>
+                  reviewByUser={review.username}
+                >
                   {review.username}
                 </ReviewUsername>
                 <ReviewDate>{moment(review.createdAt).fromNow()}</ReviewDate>
@@ -418,7 +423,7 @@ const SubmitButton = styled(NavButton)`
 `;
 
 const Span = styled.span`
-  color: ${(props) => (props.textLength <= 4 ? "#ff0000" : "#fff")};
+  color: ${props => (props.textLength <= 4 ? "#ff0000" : "#fff")};
 `;
 
 const ReviewCard = styled(MovieCard)`
@@ -451,7 +456,7 @@ const ReviewText = styled.p`
 const ReviewUsername = styled.p`
   font-size: 12px;
   font-weight: 500;
-  color: ${(props) =>
+  color: ${props =>
     props.username === props.reviewByUser ? "#3f39fc" : "#808080"};
 
   @media (min-width: 1024px) {
