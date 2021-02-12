@@ -109,7 +109,7 @@ export const MovieDetails = ({
       buttons: true,
     }).then(willDelete => {
       if (willDelete) {
-        // handleDelete(reviewId);
+        handleDelete(reviewId);
         setDeletedReview(!deletedReview);
         fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
           method: "DELETE",
