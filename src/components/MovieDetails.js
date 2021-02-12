@@ -427,6 +427,7 @@ const Span = styled.span`
 `;
 
 const ReviewCard = styled(MovieCard)`
+  background: rgba(73, 71, 71, 0.3);
   display: flex;
   justify-content: flex-start;
   flex-direction: column;

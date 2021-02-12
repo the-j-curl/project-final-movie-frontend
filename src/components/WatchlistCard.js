@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 
-export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
+export const WatchlistCard = ({
+  movieId,
+  onUpdateWatchlist,
+  randomMovieId,
+}) => {
   const [movieDetails, setMovieDetails] = useState({});
   const MOVIEDETAIL_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
 
@@ -16,8 +20,10 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
       });
   }, [MOVIEDETAIL_URL]);
 
+  console.log(`movieid = ${movieId} - randomMovieId ${randomMovieId}`);
+
   return (
-    <MovieCard>
+    <MovieCard randomMovieId={randomMovieId} movieId={movieId}>
       <Link to={`/movies/${movieId}`}>
         <PosterImage
           src={`https://image.tmdb.org/t/p/w185/${movieDetails.poster_path}`}
@@ -46,7 +52,10 @@ export const WatchlistCard = ({ movieId, onUpdateWatchlist }) => {
 };
 
 export const MovieCard = styled.article`
-  background-color: rgba(73, 71, 71, 0.3);
+  background-color: ${props =>
+    props.randomMovieId === props.movieId
+      ? "rgba(209, 35, 104, 0.9)"
+      : "rgba(73, 71, 71, 0.3)"};
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -54,10 +63,12 @@ export const MovieCard = styled.article`
   max-width: 350px;
   padding: 6px 4px;
   margin-bottom: 10px;
+
   @media (min-width: 768px) {
     width: 80%;
     max-width: 800px;
   }
+
   @media (min-width: 1024px) {
     width: 48%;
     padding: 8px 4px;
