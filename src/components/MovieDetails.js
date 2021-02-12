@@ -62,38 +62,6 @@ export const MovieDetails = ({
       });
   };
 
-  useEffect(() => {
-    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
-      .then(res => res.json())
-      .then(json => {
-        setReviews(json.sortedComments);
-      });
-  }, [postedReview, deletedReview, id]);
-
-  const handleDelete = reviewId => {
-    setDeletedReview(!deletedReview);
-    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
-      method: "DELETE",
-      body: JSON.stringify({ userId, _id: reviewId }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: accessToken,
-      },
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(
-            "Could not delete review. Make sure you are logged in and try again."
-          );
-        }
-      })
-      .catch(error => {
-        dispatch(
-          user.actions.setErrorMessage({ errorMessage: error.toString() })
-        );
-      });
-  };
-
   const handleNewReview = event => {
     event.preventDefault();
     handleSubmit(newReview);
@@ -109,7 +77,6 @@ export const MovieDetails = ({
       buttons: true,
     }).then(willDelete => {
       if (willDelete) {
-        handleDelete(reviewId);
         setDeletedReview(!deletedReview);
         fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`, {
           method: "DELETE",
@@ -137,6 +104,14 @@ export const MovieDetails = ({
       }
     });
   };
+
+  useEffect(() => {
+    fetch(`https://final-project-moviedb.herokuapp.com/comments/${id}`)
+      .then(res => res.json())
+      .then(json => {
+        setReviews(json.sortedComments);
+      });
+  }, [postedReview, deletedReview, id]);
 
   const renderReviewsTitle = () => {
     if (isLoggedIn || reviews.length > 0) {
