@@ -17,12 +17,12 @@ export const Header = () => {
   return (
     <>
       <HeaderContainer>
-        <TestDiv>
+        <HeaderWrapper>
           <Link to="/">
             <Logo />
           </Link>
           <NavBar toggleSideBar={toggleSideBar} />
-        </TestDiv>
+        </HeaderWrapper>
         <SearchBar />
       </HeaderContainer>
       <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} />
@@ -49,7 +49,7 @@ const HeaderContainer = styled.header`
   }
 `;
 
-const TestDiv = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
 

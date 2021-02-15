@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-export const BackButton = ({ history, className }) => {
+export const BackButton = ({ history }) => {
   return (
     <Button
       onClick={() => {
         history.goBack();
       }}
-      className={className}
       type="button">
       <LeftArrow></LeftArrow>
       <BackButtonText>Back</BackButtonText>
