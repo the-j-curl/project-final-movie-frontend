@@ -31,8 +31,9 @@ export const MovieReviews = ({ movieId }) => {
       },
     })
       .then((res) => {
-        setPostedReview(newReview);
-        if (!res.ok) {
+        if (res.ok) {
+          setPostedReview(newReview);
+        } else {
           throw new Error(
             "Could not post review. Make sure you are logged in and try again."
           );
@@ -52,6 +53,7 @@ export const MovieReviews = ({ movieId }) => {
   };
 
   const handleOnDelete = (reviewId) => {
+    setDeletedReview(false);
     swal({
       title: "Delete review?",
       text: "Are you sure you want to delete this review?",
@@ -60,7 +62,6 @@ export const MovieReviews = ({ movieId }) => {
       buttons: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setDeletedReview(!deletedReview);
         fetch(
           `https://final-project-moviedb.herokuapp.com/comments/${movieId}`,
           {
@@ -73,7 +74,9 @@ export const MovieReviews = ({ movieId }) => {
           }
         )
           .then((res) => {
-            if (!res.ok) {
+            if (res.ok) {
+              setDeletedReview(true);
+            } else {
               throw new Error(
                 "Could not delete review. Make sure you are logged in and try again."
               );
@@ -83,6 +86,7 @@ export const MovieReviews = ({ movieId }) => {
             dispatch(
               user.actions.setErrorMessage({ errorMessage: error.toString() })
             );
+            setDeletedReview(false);
           });
         swal("Deleted!", "Your review has been deleted!", "warning");
       } else {
