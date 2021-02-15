@@ -36,11 +36,7 @@ export const SearchBar = () => {
           showSearchInput={showSearchInput}
         />
       </SearchForm>
-      {searchMovieResults.length > 0 ? (
-        <Redirect to="/search" />
-      ) : (
-        <Redirect to="/" />
-      )}
+      {searchMovieResults.length > 0 && <Redirect to="/search" />}
     </>
   );
 };
