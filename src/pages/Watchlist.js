@@ -9,8 +9,8 @@ import { WatchlistCard } from "../components/WatchlistCard";
 import { Heading } from "../components/ScrollLane";
 
 export const Watchlist = () => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [watchlist, setWatchlist] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [randomMovieId, setRandomMovieId] = useState();
@@ -24,8 +24,8 @@ export const Watchlist = () => {
         Authorization: accessToken,
       },
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         setWatchlist(json.userWatchlist);
         setIsLoading(false);
       });
@@ -50,7 +50,6 @@ export const Watchlist = () => {
     }
   };
 
-  console.log(randomMovieId);
   if (isLoading) {
     return <Loading />;
   } else if (watchlist) {
@@ -66,7 +65,7 @@ export const Watchlist = () => {
           {watchlist.length <= 0 ? (
             <h3>Currently you have no movies in your watchlist</h3>
           ) : (
-            watchlist.map(movie => (
+            watchlist.map((movie) => (
               <WatchlistCard
                 key={movie.movieId}
                 movieId={movie.movieId}

@@ -14,13 +14,11 @@ export const WatchlistCard = ({
 
   useEffect(() => {
     fetch(`${MOVIEDETAIL_URL}`)
-      .then(response => response.json())
-      .then(json => {
+      .then((response) => response.json())
+      .then((json) => {
         setMovieDetails(json);
       });
   }, [MOVIEDETAIL_URL]);
-
-  console.log(`movieid = ${movieId} - randomMovieId ${randomMovieId}`);
 
   return (
     <MovieCard randomMovieId={randomMovieId} movieId={movieId}>
@@ -52,7 +50,7 @@ export const WatchlistCard = ({
 };
 
 export const MovieCard = styled.article`
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.randomMovieId === props.movieId
       ? "rgba(209, 35, 104, 0.9)"
       : "rgba(73, 71, 71, 0.3)"};
