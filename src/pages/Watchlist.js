@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/macro";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
 import { RandomMovie } from "../components/RandomMovie";
 import { Loading } from "../components/Loading";
@@ -14,7 +14,6 @@ export const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [randomMovieId, setRandomMovieId] = useState();
-  // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
   const getWatchlist = () => {

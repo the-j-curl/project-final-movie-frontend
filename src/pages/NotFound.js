@@ -20,7 +20,6 @@ export const NotFound = () => {
 
 const ErrorMessage = styled.main`
   height: 66vh;
-  /* background-image: url("../images/cinema-image.jpg"); */
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(32, 32, 32, 0.5)),
     url("../images/cinema-image.jpg");
   background-size: cover;

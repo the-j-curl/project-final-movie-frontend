@@ -23,23 +23,27 @@ const FooterContainer = styled.footer`
   width: 100%;
   height: 50px;
   margin-top: 10px;
+
   @media (min-width: 768px) {
     font-size: 18px;
     height: 70px;
-    @media (min-width: 1024px) {
-      font-size: 20px;
-      margin-top: 26px;
-      height: 90px;
-    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    margin-top: 26px;
+    height: 90px;
   }
 `;
 
 const P = styled.p`
   font-size: 12px;
   font-weight: 500;
+
   @media (min-width: 768px) {
     font-size: 14px;
   }
+
   @media (min-width: 1024px) {
     font-size: 16px;
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const BackButton = ({ history, className }) => {
   return (
@@ -8,8 +8,7 @@ export const BackButton = ({ history, className }) => {
         history.goBack();
       }}
       className={className}
-      type="button"
-    >
+      type="button">
       <LeftArrow></LeftArrow>
       <BackButtonText>Back</BackButtonText>
     </Button>

@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components/macro";
 import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
 import { CheckIcon } from "./CheckIcon";
 import { PlusIcon } from "./PlusIcon";
 
 export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
-  const userId = useSelector(store => store.user.login.userId);
-  const accessToken = useSelector(store => store.user.login.accessToken);
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const userId = useSelector((store) => store.user.login.userId);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
   const [inWatchlist, setInWatchlist] = useState();
 
-  // const TEST_URL = `http://localhost:8080/users/${userId}/watchlist`;
   const LIVE_URL = `https://final-project-moviedb.herokuapp.com/users/${userId}/watchlist`;
 
-  const handleToggleWatchlist = inWatchlist => {
+  const handleToggleWatchlist = (inWatchlist) => {
     setInWatchlist(inWatchlist);
     fetch(`${LIVE_URL}`, {
       method: "PUT",
@@ -24,19 +23,19 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           onUpdateWatchlist();
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         // This is our backend error
         if (json.error) {
           throw Error(json.message);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -48,17 +47,17 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
         Authorization: accessToken,
       },
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         if (json.userWatchlist.length > 0) {
-          json.userWatchlist.forEach(movie => {
+          json.userWatchlist.forEach((movie) => {
             if (movie.movieId === movieId) {
               setInWatchlist(true);
             }
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [userId, LIVE_URL, accessToken, movieId]);
@@ -66,8 +65,7 @@ export const SmallWatchlistButton = ({ movieId, onUpdateWatchlist }) => {
   return (
     <WatchlistButton
       onClick={() => handleToggleWatchlist(!inWatchlist)}
-      disabled={!isLoggedIn}
-    >
+      disabled={!isLoggedIn}>
       {inWatchlist ? <CheckIcon /> : <PlusIcon />}
     </WatchlistButton>
   );
@@ -85,8 +83,6 @@ const WatchlistButton = styled.button`
   justify-content: space-around;
   align-items: center;
   border-radius: 0 8px 8px 0;
-  /* border-top: none;
-  border-left: none; */
   outline: none;
   opacity: 0.9;
   transition: all 0.3s ease-in;

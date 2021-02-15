@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components/macro";
 import { FaPlus } from "react-icons/fa";
+import styled from "styled-components/macro";
 
 export const PlusIcon = () => {
   return <Icon />;

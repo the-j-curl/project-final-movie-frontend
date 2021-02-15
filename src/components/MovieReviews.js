@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import styled from "styled-components/macro";
 import { CgCloseR } from "react-icons/cg";
 import swal from "sweetalert";
+import styled from "styled-components/macro";
 
 import { user } from "../reducers/user";
 import { MovieCard } from "./WatchlistCard";
@@ -16,7 +16,6 @@ export const MovieReviews = ({ movieId }) => {
   const username = useSelector((store) => store.user.login.username);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
-
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
   const [postedReview, setPostedReview] = useState("");
@@ -184,6 +183,7 @@ const ReviewForm = styled.form`
     max-width: 500px;
   }
 `;
+
 const ReviewTextArea = styled.textarea`
   border: 3px solid #3f39fc;
   width: 100%;

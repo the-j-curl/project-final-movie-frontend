@@ -1,13 +1,13 @@
 import React from "react";
-import styled from "styled-components/macro";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
-import LoginForm from "../components/LoginForm";
+import { LoginForm } from "../components/LoginForm";
 import { Heading } from "../components/ScrollLane";
 
 export const Login = () => {
-  const isLoggedIn = useSelector(store => store.user.login.isLoggedIn);
+  const isLoggedIn = useSelector((store) => store.user.login.isLoggedIn);
 
   return (
     <FormWrapper>

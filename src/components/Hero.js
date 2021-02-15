@@ -5,8 +5,8 @@ import styled from "styled-components/macro";
 import { SlideTile } from "./SlideTile";
 
 export const Hero = () => {
-  const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [heroMovies, setHeroMovies] = useState([]);
+  const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
 
   const randomNumberGenerator = (min, max) => {
     min = Math.ceil(min);
@@ -62,6 +62,7 @@ export const Hero = () => {
       },
     ],
   };
+
   return (
     <StyledSlider {...settings}>
       {selectedHeroMovies.map((movie) => (

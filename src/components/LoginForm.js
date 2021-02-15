@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FiEyeOff } from "react-icons/fi";
 import { FiEye } from "react-icons/fi";
+import styled from "styled-components/macro";
 
 import { login } from "../reducers/user";
 import { NavButton } from "./NavBar";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(store => store.ui.isLoading);
-  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const isLoading = useSelector((store) => store.ui.isLoading);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   // To login a user.
-  const handleLogin = event => {
+  const handleLogin = (event) => {
     event.preventDefault();
     dispatch(login(username, password));
   };
@@ -35,7 +35,7 @@ const LoginForm = () => {
           minLength="2"
           maxLength="50"
           value={username}
-          onChange={event => setUsername(event.target.value)}
+          onChange={(event) => setUsername(event.target.value)}
           required
         />
       </InputWrapper>
@@ -47,7 +47,7 @@ const LoginForm = () => {
           minLength="6"
           maxLength="60"
           value={password}
-          onChange={event => setPassword(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
           required
         />
         <IconButton type="button" onClick={toggleShowPassword}>
@@ -68,7 +68,6 @@ const LoginForm = () => {
     </Form>
   );
 };
-export default LoginForm;
 
 export const Form = styled.form`
   display: flex;
@@ -102,10 +101,6 @@ export const InputWrapper = styled.div`
 
   @media (min-width: 375px) {
     margin: 4px 0 16px 0;
-  }
-
-  @media (min-width: 1024px) {
-    /* margin: 8px 0 20px 0; */
   }
 `;
 

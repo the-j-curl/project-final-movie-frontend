@@ -18,10 +18,10 @@ import {
 } from "./LoginForm";
 import { NavButton } from "./NavBar";
 
-const SignupForm = () => {
+export const SignupForm = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(store => store.ui.isLoading);
-  const errorMessage = useSelector(store => store.user.login.errorMessage);
+  const isLoading = useSelector((store) => store.ui.isLoading);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +41,7 @@ const SignupForm = () => {
   };
 
   // To sign up a user.
-  const handleSignup = event => {
+  const handleSignup = (event) => {
     event.preventDefault();
     if (checkPasswordMatch()) {
       dispatch(signup(username, email, password));
@@ -56,7 +56,7 @@ const SignupForm = () => {
     setShowConfirmPassword(!showConfirmPassword);
 
   return (
-    <Form onSubmit={event => handleSignup(event)}>
+    <Form onSubmit={(event) => handleSignup(event)}>
       <Label htmlFor="username">Username:</Label>
       <InputWrapper>
         <Input
@@ -65,7 +65,7 @@ const SignupForm = () => {
           minLength="2"
           maxLength="50"
           value={username}
-          onChange={event => setUsername(event.target.value)}
+          onChange={(event) => setUsername(event.target.value)}
           required
         />
       </InputWrapper>
@@ -76,7 +76,7 @@ const SignupForm = () => {
           type="email"
           value={email}
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-          onChange={event => setEmail(event.target.value)}
+          onChange={(event) => setEmail(event.target.value)}
           required
         />
       </InputWrapper>
@@ -88,7 +88,7 @@ const SignupForm = () => {
           minLength="6"
           maxLength="60"
           value={password}
-          onChange={event => setPassword(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
           required
         />
         <IconButton type="button" onClick={toggleShowPassword}>
@@ -105,7 +105,7 @@ const SignupForm = () => {
             value={confirmPassword}
             minLength="6"
             maxLength="60"
-            onChange={event => setConfirmPassword(event.target.value)}
+            onChange={(event) => setConfirmPassword(event.target.value)}
             required
           />
           <IconButton type="button" onClick={toggleShowConfirmPassword}>
@@ -128,4 +128,3 @@ const SignupForm = () => {
     </Form>
   );
 };
-export default SignupForm;

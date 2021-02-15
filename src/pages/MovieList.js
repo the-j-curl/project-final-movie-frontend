@@ -16,9 +16,9 @@ export const MovieList = () => {
     return editCategory[0].toUpperCase() + editCategory.slice(1);
   };
 
-  const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
 
   useEffect(() => {
     setIsLoading(true);

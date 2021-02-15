@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import SignupForm from "../components/SignupForm";
+import { SignupForm } from "../components/SignupForm";
 import { Heading } from "../components/ScrollLane";
 import { FormWrapper } from "./Login";
 

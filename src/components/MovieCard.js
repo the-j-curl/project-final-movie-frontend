@@ -45,9 +45,9 @@ const MovieThumbInfo = styled.div`
 
 const MovieThumb = styled.article`
   position: relative;
-  flex: 1 0 40%; // flex-basis shorthand
+  flex: 1 0 40%;
   :a {
-    width: 25%; // TO-DO What does this :a style?
+    width: 25%;
     color: #fff;
     text-decoration: none;
   }

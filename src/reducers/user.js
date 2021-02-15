@@ -37,9 +37,8 @@ export const user = createSlice({
 // Thunks
 // Signup
 export const signup = (username, email, password) => {
-  // const SIGNUP_URL = "http://localhost:8080/users";
   const SIGNUP_URL = "https://final-project-moviedb.herokuapp.com/users";
-  return dispatch => {
+  return (dispatch) => {
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     dispatch(ui.actions.setLoading(true));
     fetch(SIGNUP_URL, {
@@ -47,13 +46,13 @@ export const signup = (username, email, password) => {
       body: JSON.stringify({ username, email, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw new Error("Could not create account. Username already exists.");
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setLoginStatus({
             accessToken: json.accessToken,
@@ -65,7 +64,7 @@ export const signup = (username, email, password) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
         dispatch(ui.actions.setLoading(false));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(userLogout());
         dispatch(
           user.actions.setErrorMessage({ errorMessage: err.toString() })
@@ -77,9 +76,8 @@ export const signup = (username, email, password) => {
 
 // Login
 export const login = (username, password) => {
-  // const LOGIN_URL = "http://localhost:8080/sessions";
   const LOGIN_URL = "https://final-project-moviedb.herokuapp.com/sessions";
-  return dispatch => {
+  return (dispatch) => {
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     dispatch(ui.actions.setLoading(true));
     fetch(LOGIN_URL, {
@@ -87,13 +85,13 @@ export const login = (username, password) => {
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         }
         throw new Error("Incorrect username and/or password");
       })
-      .then(json => {
+      .then((json) => {
         dispatch(
           user.actions.setLoginStatus({
             accessToken: json.accessToken,
@@ -105,7 +103,7 @@ export const login = (username, password) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: null }));
         dispatch(ui.actions.setLoading(false));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(userLogout());
         dispatch(
           user.actions.setErrorMessage({ errorMessage: err.toString() })
@@ -117,7 +115,7 @@ export const login = (username, password) => {
 
 // Logout
 export const userLogout = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(
       user.actions.setLoginStatus({
         accessToken: null,

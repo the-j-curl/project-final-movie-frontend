@@ -31,7 +31,6 @@ export const Header = () => {
 };
 
 const HeaderContainer = styled.header`
-  /* height: 120px; */
   display: flex;
   justify-content: center;
   padding: 5px;
@@ -47,7 +46,6 @@ const HeaderContainer = styled.header`
     justify-content: space-between;
     padding: 5px 20px;
     margin-bottom: 36px;
-    /* height: 150px; */
   }
 `;
 
