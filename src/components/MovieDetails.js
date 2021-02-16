@@ -32,7 +32,8 @@ export const MovieDetails = ({
             : {
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2) 70%, rgb(0, 0, 0) 100%), url("../images/cinema-image.jpg")`,
               }
-        }>
+        }
+      >
         <BackButton className="movies-back-button" history={history} />
         <MovieDetailsContainer>
           <A href={`${movieHomepage}`}>
@@ -57,7 +58,7 @@ export const MovieDetails = ({
             <LargeWatchlistButton movieId={id} />
             <MovieDetailsDescription>{overview}</MovieDetailsDescription>
             <Genres>
-              {genres.map((item) => (
+              {genres.map(item => (
                 <GenresLi key={item.id}>{item.name}</GenresLi>
               ))}
             </Genres>
@@ -70,7 +71,7 @@ export const MovieDetails = ({
 };
 
 const MovieDetailsWrapper = styled.section`
-  min-height: 80vh;
+  min-height: 74vh;
   background-size: cover;
   display: flex;
   flex-direction: column;

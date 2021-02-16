@@ -23,9 +23,6 @@ export const ScrollLane = ({ category, title }) => {
   );
   const popularMovies = useSelector(store => store.movies.movies.popularMovies);
 
-  // const [rightScrollNumber, setRightScrollNumber] = useState(600);
-  // const [leftScrollNumber, setLeftScrollNumber] = useState(-600);
-
   useEffect(() => {
     dispatch(movieCategoryResults(category));
   }, [category, dispatch]);
@@ -46,52 +43,14 @@ export const ScrollLane = ({ category, title }) => {
 
   const onRightButtonClick = () => {
     if (scrollListElement.current.scrollLeft <= 0) {
-      scrollListElement.current.scrollLeft += 450; // 50px extra here is the black part left of the first poster
+      scrollListElement.current.scrollLeft += 850; // 50px extra here is the black part left of the first poster
     } else {
-      scrollListElement.current.scrollLeft += 400;
+      scrollListElement.current.scrollLeft += 800;
     }
-
-    // const width = inputEl.current.offsetWidth;
-    // console.log(width);
-
-    // const offsetLeft = inputEl.current.offsetLeft;
-    // console.log(offsetLeft);
-
-    // const positionScrollLeft = inputEl.current.scrollLeft;
-    // console.log(positionScrollLeft);
-
-    // const windowScrollX = window.scrollX;
-    // console.log(windowScrollX);
-
-    // const widthWindow = inputEl.current.getBoundingClientRect();
-    // console.log(widthWindow);
-    // console.log(`Window width: ${widthWindow.width}`); // I need to take widthWindow.width to get the width, returns a lot of values
-
-    // const widthScrollList = inputEl.current.scrollWidth;
-    // console.log(`Scrolllist width: ${widthScrollList}`);
-
-    // const numberOfPoster = widthScrollList / widthWindow.width;
-    // console.log(`Number of posters: ${numberOfPoster}`);
-
-    // const posterSize = widthWindow.width / numberOfPoster;
-    // console.log(`Size of poster: ${posterSize}`);
-
-    // inputEl.current.scrollTo({
-    //   left: rightScrollNumber,
-    //   behavior: "smooth",
-    // });
-
-    // setRightScrollNumber(rightScrollNumber + 600);
   };
 
   const onLeftButtonClick = () => {
-    scrollListElement.current.scrollLeft -= 400;
-
-    // inputEl.current.scrollTo({
-    //   left: leftScrollNumber,
-    //   behavior: "smooth",
-    // });
-    // setRightScrollNumber(leftScrollNumber - 600);
+    scrollListElement.current.scrollLeft -= 800;
   };
 
   if (isLoading) {
