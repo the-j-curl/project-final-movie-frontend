@@ -1,28 +1,46 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
 import styled from "styled-components/macro";
 
+import { movieCategoryResults } from "../reducers/movies";
 import { Loading } from "../components/Loading";
 import { MovieCard } from "./MovieCard";
 
 export const ScrollLane = ({ category, title }) => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
+  const dispatch = useDispatch();
+  const isLoading = useSelector(store => store.ui.isLoading);
+  const nowPlayingMovies = useSelector(
+    store => store.movies.movies.nowPlayingMovies
+  );
+  const topRatedMovies = useSelector(
+    store => store.movies.movies.topRatedMovies
+  );
+  const upcomingMovies = useSelector(
+    store => store.movies.movies.upcomingMovies
+  );
+  const popularMovies = useSelector(store => store.movies.movies.popularMovies);
+
   // const [rightScrollNumber, setRightScrollNumber] = useState(600);
   // const [leftScrollNumber, setLeftScrollNumber] = useState(-600);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setMovies(json.results);
-        setIsLoading(false);
-      });
-  }, [category, MOVIES_URL]);
+    dispatch(movieCategoryResults(category));
+  }, [category, dispatch]);
+
+  let movieList = [];
+
+  if (category === "now_playing") {
+    movieList = nowPlayingMovies;
+  } else if (category === "top_rated") {
+    movieList = topRatedMovies;
+  } else if (category === "upcoming") {
+    movieList = upcomingMovies;
+  } else if (category === "popular") {
+    movieList = popularMovies;
+  }
 
   const scrollListElement = useRef(null);
 
@@ -91,7 +109,7 @@ export const ScrollLane = ({ category, title }) => {
           <ArrowLeftButton onClick={onLeftButtonClick}>
             <ArrowLeftIcon />
           </ArrowLeftButton>
-          {movies.map((movie) => (
+          {movieList.map(movie => (
             <MovieCard
               key={movie.id}
               title={movie.title}

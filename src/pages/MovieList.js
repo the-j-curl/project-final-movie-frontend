@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 
 import { Loading } from "../components/Loading";
@@ -9,40 +10,44 @@ import { Heading } from "../components/ScrollLane";
 
 export const MovieList = () => {
   const { category } = useParams();
+  const isLoading = useSelector(store => store.ui.isLoading);
+  const nowPlayingMovies = useSelector(
+    store => store.movies.movies.nowPlayingMovies
+  );
+  const topRatedMovies = useSelector(
+    store => store.movies.movies.topRatedMovies
+  );
+  const upcomingMovies = useSelector(
+    store => store.movies.movies.upcomingMovies
+  );
+  const popularMovies = useSelector(store => store.movies.movies.popularMovies);
 
   // Function capitalises first letter and replaces underscore with a space
-  const capitalizeFirstLetter = (category) => {
+  const capitalizeFirstLetter = category => {
     const editCategory = category.replace("_", " ");
     return editCategory[0].toUpperCase() + editCategory.slice(1);
   };
 
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const MOVIES_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
+  let movieList = [];
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`${MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.results) {
-          setMovies(json.results);
-          setIsLoading(false);
-        } else {
-          setMovies([]);
-          setIsLoading(false);
-        }
-      });
-  }, [category, MOVIES_URL]);
+  if (category === "now_playing") {
+    movieList = nowPlayingMovies;
+  } else if (category === "top_rated") {
+    movieList = topRatedMovies;
+  } else if (category === "upcoming") {
+    movieList = upcomingMovies;
+  } else if (category === "popular") {
+    movieList = popularMovies;
+  }
 
   if (isLoading) {
     return <Loading />;
-  } else if (movies.length > 0) {
+  } else if (movieList.length > 0) {
     return (
       <>
         <MovieListHeading>{capitalizeFirstLetter(category)}</MovieListHeading>
         <MovieListGrid>
-          {movies.map((movie) => (
+          {movieList.map(movie => (
             <MovieCard
               key={movie.id}
               title={movie.title}
@@ -54,6 +59,8 @@ export const MovieList = () => {
         </MovieListGrid>
       </>
     );
+  } else if (movieList.length === 0) {
+    return <Redirect to="/" />;
   } else {
     return <NotFound />;
   }

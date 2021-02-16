@@ -8,11 +8,13 @@ import { searchResults } from "../reducers/movies";
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
-  const searchMovieResults = useSelector((store) => store.movies.movies);
+  const searchMovieResults = useSelector(
+    store => store.movies.movies.searchMovies
+  );
   const [searchText, setSearchText] = useState("");
   const [showSearchInput, setShowSearchInput] = useState(false);
 
-  const handleSearchMovie = (event) => {
+  const handleSearchMovie = event => {
     event.preventDefault();
     dispatch(searchResults(searchText));
     setSearchText("");
@@ -31,7 +33,7 @@ export const SearchBar = () => {
           type="text"
           placeholder="Search movie..."
           value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
+          onChange={event => setSearchText(event.target.value)}
           required
           showSearchInput={showSearchInput}
         />
@@ -72,7 +74,7 @@ const SearchIcon = styled(GoSearch)`
 `;
 
 const SearchMovieInput = styled.input`
-  display: ${(props) => (props.showSearchInput === true ? "block" : "none")};
+  display: ${props => (props.showSearchInput === true ? "block" : "none")};
   background: none;
   outline: none;
   border: none;
