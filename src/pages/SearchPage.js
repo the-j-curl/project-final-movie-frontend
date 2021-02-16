@@ -9,7 +9,7 @@ import { MovieListHeading, MovieListGrid } from "./MovieList";
 
 export const SearchPage = () => {
   const isLoading = useSelector(store => store.ui.isLoading);
-  const movies = useSelector(store => store.movies.movies);
+  const movies = useSelector(store => store.movies.movies.searchMovies);
 
   if (isLoading) {
     return <Loading />;
