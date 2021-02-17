@@ -66,6 +66,7 @@ const SlideOverlayText = styled.h3`
   }
 
   @media (min-width: 1024px) {
+    font-size: 18px;
     :hover {
       border-bottom: 1px solid #fff;
       transition: all 0.3s ease-in;
