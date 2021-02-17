@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import styled from "styled-components/macro";
 
 import { SlideTile } from "./SlideTile";
 
 export const Hero = () => {
-  const [heroMovies, setHeroMovies] = useState([]);
-  const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
+  // const [heroMovies, setHeroMovies] = useState([]);
+  // const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
+  const upcomingMovies = useSelector(
+    store => store.movies.movies.upcomingMovies
+  );
 
   const randomNumberGenerator = (min, max) => {
     min = Math.ceil(min);
@@ -14,23 +18,34 @@ export const Hero = () => {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-  useEffect(() => {
-    fetch(`${HERO_MOVIES_URL}`)
-      .then((res) => res.json())
-      .then((json) => {
-        const heroMoviesArray = json.results.map((movie) => {
-          const movieId = movie.id;
-          const backdropPath = movie.backdrop_path;
-          const movieTitle = movie.title;
-          return { movieId, backdropPath, movieTitle };
-        });
+  // upcomingMovies.map(movie => {
+  //   const movieId = movie.id;
+  //   const backdropPath = movie.backdrop_path;
+  //   const movieTitle = movie.title;
+  //   return { movieId, backdropPath, movieTitle };
+  // });
 
-        setHeroMovies(heroMoviesArray);
-      });
-  }, [HERO_MOVIES_URL]);
+  // useEffect(() => {
+  //   fetch(`${HERO_MOVIES_URL}`)
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       const heroMoviesArray = json.results.map(movie => {
+  //         const movieId = movie.id;
+  //         const backdropPath = movie.backdrop_path;
+  //         const movieTitle = movie.title;
+  //         return { movieId, backdropPath, movieTitle };
+  //       });
+
+  //       setHeroMovies(heroMoviesArray);
+  //     });
+  // }, [HERO_MOVIES_URL]);
+  console.log(upcomingMovies);
 
   const randomNumber = randomNumberGenerator(0, 16);
-  const selectedHeroMovies = heroMovies.slice(randomNumber, randomNumber + 5);
+  const selectedHeroMovies = upcomingMovies.slice(
+    randomNumber,
+    randomNumber + 5
+  );
 
   const settings = {
     dots: true,
@@ -65,12 +80,12 @@ export const Hero = () => {
 
   return (
     <StyledSlider {...settings}>
-      {selectedHeroMovies.map((movie) => (
+      {selectedHeroMovies.map(movie => (
         <SlideTile
-          key={movie.movieId}
-          movieTitle={movie.movieTitle}
-          movieId={movie.movieId}
-          backdropPath={movie.backdropPath}
+          key={movie.id}
+          movieTitle={movie.title}
+          movieId={movie.id}
+          backdropPath={movie.backdrop_path}
         />
       ))}
     </StyledSlider>

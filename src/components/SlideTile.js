@@ -44,11 +44,11 @@ const OverlayTextWrapper = styled.div`
   left: 4px;
   width: auto;
   background-color: rgba(22, 21, 21, 0.7);
-  padding: 5px;
+  padding: 4px;
   max-width: 95%;
 
   @media (min-width: 768px) {
-    padding: 8px;
+    padding: 6px;
     bottom: 25px;
     left: 25px;
     max-width: 80%;
@@ -62,7 +62,7 @@ const SlideOverlayText = styled.h3`
   border-bottom: 1px solid transparent;
 
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   @media (min-width: 1024px) {
