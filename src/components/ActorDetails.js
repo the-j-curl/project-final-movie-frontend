@@ -5,10 +5,12 @@ import styled from "styled-components/macro";
 import { MovieCard } from "./MovieCard";
 import { MovieListGrid } from "../pages/MovieList";
 import { BackButton } from "./BackButton";
+import { Loading } from "./Loading";
 
 export const ActorDetails = () => {
   const [actorInfo, setActorInfo] = useState({});
   const [actorMovies, setActorMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { actorId } = useParams();
   const history = useHistory();
 
@@ -16,26 +18,33 @@ export const ActorDetails = () => {
   const ACTOR_FILMS_URL = `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=5e0af1d18e77dbd12a3e994aa1316cbf`;
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(ACTOR_URL)
       .then(res => res.json())
       .then(json => {
         setActorInfo(json);
+        setIsLoading(false);
       });
   }, [ACTOR_URL]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(ACTOR_FILMS_URL)
       .then(res => res.json())
       .then(json => {
         setActorMovies(json.cast);
+        setIsLoading(false);
       });
   }, [ACTOR_FILMS_URL]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <BackButton className="movies-back-button" history={history} />
       <ActorDetailsSection>
-        {actorInfo.profile_path !== null ? (
+        {actorInfo.profile_path ? (
           <ActorInfoImage
             src={`https://image.tmdb.org/t/p/w342${actorInfo.profile_path}`}
             alt={actorInfo.name}
@@ -51,10 +60,12 @@ export const ActorDetails = () => {
           <p>
             <BoldText>{actorInfo.name}</BoldText>
           </p>
-          <p>
-            Born: <BoldText>{actorInfo.birthday}</BoldText> |
-            <BoldText> {actorInfo.place_of_birth}</BoldText>
-          </p>
+          {actorInfo.birthday && (
+            <p>
+              Born: <BoldText>{actorInfo.birthday}</BoldText> |
+              <BoldText> {actorInfo.place_of_birth}</BoldText>
+            </p>
+          )}
           {actorInfo.deathday && (
             <p>
               Died: <BoldText>{actorInfo.deathday}</BoldText>
@@ -70,21 +81,24 @@ export const ActorDetails = () => {
         </ActorInfoText>
       </ActorDetailsSection>
       <h3>{actorInfo.name} films</h3>
-      <MovieListGrid>
-        {actorMovies.map(movie => (
-          <MovieCard
-            key={movie.id}
-            title={movie.title}
-            releaseDate={movie.release_date}
-            posterPath={movie.poster_path}
-            id={movie.id}
-          />
-        ))}
-      </MovieListGrid>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <MovieListGrid>
+          {actorMovies.map(movie => (
+            <MovieCard
+              key={movie.id}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              posterPath={movie.poster_path}
+              id={movie.id}
+            />
+          ))}
+        </MovieListGrid>
+      )}
     </>
   );
 };
-// <p>{actor.biography === "" ? "We don't have a lot of information on this actor yet.": actor.biography }</p>
 
 const ActorDetailsSection = styled.section`
   display: flex;
