@@ -5,6 +5,7 @@ import styled from "styled-components/macro";
 import { MovieReviews } from "./MovieReviews";
 import { LargeWatchlistButton } from "./LargeWatchlistButton";
 import { BackButton } from "./BackButton";
+import { MovieCast } from "./MovieCast";
 import { IMDBText, MovieTitle, MovieLength } from "./WatchlistCard";
 
 export const MovieDetails = ({
@@ -64,13 +65,14 @@ export const MovieDetails = ({
             </Genres>
           </MovieDetailsText>
         </MovieDetailsContainer>
+        <MovieCast movieId={id} />
       </MovieDetailsWrapper>
       <MovieReviews movieId={id} />
     </>
   );
 };
 
-const MovieDetailsWrapper = styled.section`
+export const MovieDetailsWrapper = styled.section`
   min-height: 74vh;
   background-size: cover;
   display: flex;
@@ -94,6 +96,10 @@ const MovieDetailsContainer = styled.article`
   @media (min-width: 768px) {
     flex-direction: row;
     max-width: 830px;
+  }
+
+  @media (min-width: 1024px) {
+    margin: 10px 0;
   }
 `;
 

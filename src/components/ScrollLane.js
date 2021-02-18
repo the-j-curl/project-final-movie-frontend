@@ -136,7 +136,6 @@ const SeeAll = styled.h5`
 
 const ArrowLeftButton = styled.button`
   display: none;
-
   @media (min-width: 915px) {
     display: inline;
     background: none;

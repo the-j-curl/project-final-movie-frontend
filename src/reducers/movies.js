@@ -52,6 +52,18 @@ export const searchResults = searchText => {
 export const movieCategoryResults = category => {
   return dispatch => {
     dispatch(ui.actions.setLoading(true));
+    // const promise = Promise.all([
+    //   fetch(
+    //     `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`
+    //   ),
+    //   fetch(
+    //     `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=2`
+    //   ),
+    //   fetch(
+    //     `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=3`
+    //   ),
+    // ])
+    // .then()
     fetch(
       `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`
     )

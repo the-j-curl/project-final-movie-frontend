@@ -10,14 +10,17 @@ export const MovieCard = ({ title, releaseDate, posterPath, id }) => {
     <>
       <MovieThumb>
         <Link to={`/movies/${id}`}>
-          <MovieThumbImage
-            src={
-              posterPath
-                ? `https://image.tmdb.org/t/p/w342/${posterPath}`
-                : "../images/dummy-posterPath-image.jpg"
-            }
-            alt={title}
-          />
+          {posterPath ? (
+            <MovieThumbImage
+              src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
+              alt={title}
+            />
+          ) : (
+            <MovieThumbImage
+              src={`https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80`}
+              alt="Photo by Denise Jans"
+            />
+          )}
 
           <MovieThumbInfo>
             <OverlayMovieTitle>{title}</OverlayMovieTitle>
@@ -78,11 +81,15 @@ const OverlayMovieTitle = styled(MovieTitle)`
   font-size: 16px;
   width: fit-content;
 
-  @media (min-width: 1400px) {
+  @media (min-width: 1440px) {
     font-size: 18px;
   }
 `;
 
 const MovieCardP = styled.p`
   font-size: 14px;
+
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;

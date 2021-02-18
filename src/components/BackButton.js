@@ -7,7 +7,8 @@ export const BackButton = ({ history }) => {
       onClick={() => {
         history.goBack();
       }}
-      type="button">
+      type="button"
+    >
       <LeftArrow></LeftArrow>
       <BackButtonText>Back</BackButtonText>
     </Button>
@@ -36,9 +37,10 @@ const Button = styled.button`
   font-weight: 600;
   position: relative;
   cursor: pointer;
-  margin: 8px 0 5px 0;
+  margin: 8px 0 10px 0;
   border-radius: 10px;
   padding: 6px;
+  outline: none;
   :hover {
     border-color: #3f39fc;
     transition: all 0.3s ease-in;

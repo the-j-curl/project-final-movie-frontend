@@ -6,8 +6,6 @@ import styled from "styled-components/macro";
 import { SlideTile } from "./SlideTile";
 
 export const Hero = () => {
-  // const [heroMovies, setHeroMovies] = useState([]);
-  // const HERO_MOVIES_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`;
   const upcomingMovies = useSelector(
     store => store.movies.movies.upcomingMovies
   );
@@ -17,29 +15,6 @@ export const Hero = () => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   };
-
-  // upcomingMovies.map(movie => {
-  //   const movieId = movie.id;
-  //   const backdropPath = movie.backdrop_path;
-  //   const movieTitle = movie.title;
-  //   return { movieId, backdropPath, movieTitle };
-  // });
-
-  // useEffect(() => {
-  //   fetch(`${HERO_MOVIES_URL}`)
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       const heroMoviesArray = json.results.map(movie => {
-  //         const movieId = movie.id;
-  //         const backdropPath = movie.backdrop_path;
-  //         const movieTitle = movie.title;
-  //         return { movieId, backdropPath, movieTitle };
-  //       });
-
-  //       setHeroMovies(heroMoviesArray);
-  //     });
-  // }, [HERO_MOVIES_URL]);
-  console.log(upcomingMovies);
 
   const randomNumber = randomNumberGenerator(0, 16);
   const selectedHeroMovies = upcomingMovies.slice(

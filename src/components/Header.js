@@ -45,7 +45,6 @@ const HeaderContainer = styled.header`
   @media (min-width: 1024px) {
     justify-content: space-between;
     padding: 5px 20px;
-    margin-bottom: 36px;
   }
 `;
 

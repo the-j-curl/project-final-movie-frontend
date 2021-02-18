@@ -18,6 +18,7 @@ import { Logout } from "./pages/Logout";
 import { SearchPage } from "./pages/SearchPage";
 import { NotFound } from "./pages/NotFound";
 import { Footer } from "./components/Footer";
+import { ActorDetails } from "components/ActorDetails";
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -37,6 +38,11 @@ export const App = () => {
             <Route path="/watchlist" exact component={Watchlist} />
             <Route path="/movielist/:category" exact component={MovieList} />
             <Route path="/movies/:id" exact component={MoviePage} />
+            <Route
+              path="/movies/:id/cast/:actorId"
+              exact
+              component={ActorDetails}
+            />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/login" exact component={Login} />
             <Route path="/logout" exact component={Logout} />

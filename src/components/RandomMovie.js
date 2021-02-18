@@ -6,7 +6,7 @@ import { NavButton } from "./NavBar";
 export const RandomMovie = ({ onClickRandom }) => {
   return (
     <RandomMovieButton onClick={onClickRandom}>
-      Random Movie Selector
+      Select Random Movie
     </RandomMovieButton>
   );
 };
@@ -14,6 +14,6 @@ export const RandomMovie = ({ onClickRandom }) => {
 const RandomMovieButton = styled(NavButton)`
   background: #d12368;
   width: 200px;
-  padding: 4px 8px;
+  padding: 8px 8px;
   border-radius: 50px;
 `;
