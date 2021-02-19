@@ -7,29 +7,27 @@ import { MovieTitle } from "../components/WatchlistCard";
 
 export const MovieCard = ({ title, releaseDate, posterPath, id }) => {
   return (
-    <>
-      <MovieThumb>
-        <Link to={`/movies/${id}`}>
-          {posterPath ? (
-            <MovieThumbImage
-              src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
-              alt={title}
-            />
-          ) : (
-            <MovieThumbImage
-              src={`https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80`}
-              alt="Photo by Denise Jans"
-            />
-          )}
+    <MovieThumb>
+      <Link to={`/movies/${id}`}>
+        {posterPath ? (
+          <MovieThumbImage
+            src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
+            alt={title}
+          />
+        ) : (
+          <MovieThumbImage
+            src={`https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80`}
+            alt="Photo by Denise Jans"
+          />
+        )}
 
-          <MovieThumbInfo>
-            <OverlayMovieTitle>{title}</OverlayMovieTitle>
-            <MovieCardP>Release date: {releaseDate}</MovieCardP>
-          </MovieThumbInfo>
-        </Link>
-        <SmallWatchlistButton movieId={id} />
-      </MovieThumb>
-    </>
+        <MovieThumbInfo>
+          <OverlayMovieTitle>{title}</OverlayMovieTitle>
+          <MovieCardP>Release date: {releaseDate}</MovieCardP>
+        </MovieThumbInfo>
+      </Link>
+      <SmallWatchlistButton movieId={id} />
+    </MovieThumb>
   );
 };
 
