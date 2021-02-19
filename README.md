@@ -1,10 +1,10 @@
-# JYDB Movie Database
+# JYDB Movie Database 🎬
 
-**JYDB Movie Database** was created by Jamie Cook and Ylva Nilsson as our final project of the Technigo boot-camp. We are both big movie fans and we wanted to create something fun for our final project. The inspiration behind JYDB was to create a _Netflix_ style streaming site combined with a movie-database app. It is a multi page **React** app built using **React-Router** and **Redux toolkit**.
+**JYDB Movie Database** was developed by Jamie Cook and Ylva Nilsson for the final project of the Technigo boot-camp. We are both big movie fans and we wanted to create something fun for our final project. The inspiration behind JYDB was to create a _Netflix_ style streaming site combined with a movie-database app. It is a multi page **React** app built using **React-Router** and **Redux toolkit**.
 
-## Our process
+## Our process
 
-We started by building the basic site skeleton using React-Router and making our external Movie-API call. Next we created our **authentication** functionality because we wanted certain features to only be available for logged in users. We created a _loggedIn_ state in our Redux store and to also stored the users access token in **Local Storage** so that the user would remain logged in after a page refresh. We then
+We started by building the basic site skeleton using React-Router and making our external Movie-API call. Next we created our **User Authentication** functionality because we wanted certain features to only be available for logged in users. We created a _loggedIn_ state in our Redux store and to also stored the users access token in **Local Storage** so that the user would remain logged in after a page refresh.
 
 - The homepage displays a hero carousel using **React Slick** which shows 5 random movies from our "Upcoming" category.
 - We then have 4 scroll lanes which display movies from x4 different categories. We store these in Redux and they are accessed by our Movie List pages when you select "See all", to save us making unnecessary API calls. Each scroll lane has arrow buttons when in desktop mode. The arrows target the corresponding scroll lane thanks to the **useRef** hook.
@@ -13,7 +13,7 @@ We started by building the basic site skeleton using React-Router and making our
 
 This is a project we would like to continue adding to as we have even more ideas to improve the site. We have created a user-rating endpoint in our backend and did not have time to implement it on the frontend. So this is at the top of our list!
 
-## Features in full
+## Features
 
 - User Authentication (stored in our DB)
 - Watchlist (stored in our DB)
@@ -24,11 +24,12 @@ This is a project we would like to continue adding to as we have even more ideas
 - Movie Search
 - Random Movie Selector
 
-## Tech
+## Additional Tech
 
+- Styled-components
 - React Slick
 - Sweet Alert
-- Styled-components
+- React hooks: useParams, useHistory, useEffect, useState, useRef
 
 ## Backend
 
