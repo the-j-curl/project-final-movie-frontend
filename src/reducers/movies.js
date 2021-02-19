@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { ui } from "./ui";
 
+const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
+
 const initialState = {
   movies: {
     searchMovies: [],
@@ -35,12 +37,12 @@ export const movies = createSlice({
 });
 
 export const searchResults = searchText => {
+  const MOVIE_SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=false`;
+
   return dispatch => {
     dispatch(movies.actions.setSearchMovies([]));
     dispatch(ui.actions.setLoading(true));
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&query=${searchText}&page=1&include_adult=false`
-    )
+    fetch(MOVIE_SEARCH_URL)
       .then(res => res.json())
       .then(json => {
         dispatch(movies.actions.setSearchMovies(json.results));
@@ -50,6 +52,8 @@ export const searchResults = searchText => {
 };
 
 export const movieCategoryResults = category => {
+  const MOVIE_CATEGORY_URL = `https://api.themoviedb.org/3/movie/${category}?api_key=${API_KEY}&language=en-US&page=1`;
+
   return dispatch => {
     dispatch(ui.actions.setLoading(true));
     // const promise = Promise.all([
@@ -64,9 +68,7 @@ export const movieCategoryResults = category => {
     //   ),
     // ])
     // .then()
-    fetch(
-      `https://api.themoviedb.org/3/movie/${category}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US&page=1`
-    )
+    fetch(MOVIE_CATEGORY_URL)
       .then(res => res.json())
       .then(json => {
         if (category === "now_playing") {

@@ -4,7 +4,8 @@ import styled from "styled-components/macro";
 
 export const MovieCast = ({ movieId }) => {
   const [cast, setCast] = useState([]);
-  const CAST_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US`;
+  const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
+  const CAST_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`;
 
   useEffect(() => {
     fetch(CAST_URL)
