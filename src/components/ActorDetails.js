@@ -13,9 +13,10 @@ export const ActorDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { actorId } = useParams();
   const history = useHistory();
+  const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
 
-  const ACTOR_URL = `https://api.themoviedb.org/3/person/${actorId}?api_key=5e0af1d18e77dbd12a3e994aa1316cbf&language=en-US`;
-  const ACTOR_FILMS_URL = `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=5e0af1d18e77dbd12a3e994aa1316cbf`;
+  const ACTOR_URL = `https://api.themoviedb.org/3/person/${actorId}?api_key=${API_KEY}&language=en-US`;
+  const ACTOR_FILMS_URL = `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=${API_KEY}`;
 
   useEffect(() => {
     setIsLoading(true);
