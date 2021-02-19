@@ -8,7 +8,7 @@ import styled from "styled-components/macro";
 import { user } from "../reducers/user";
 import { MovieCard } from "./WatchlistCard";
 import { NavButton } from "./NavBar";
-import { MovieDetailsTitle } from "./MovieDetails";
+import { MovieTitle } from "./WatchlistCard";
 
 export const MovieReviews = ({ movieId }) => {
   const dispatch = useDispatch();
@@ -169,7 +169,7 @@ export const MovieReviews = ({ movieId }) => {
   );
 };
 
-const ReviewsTitle = styled(MovieDetailsTitle)``;
+const ReviewsTitle = styled(MovieTitle)``;
 
 const MovieReview = styled.section`
   width: 100%;
