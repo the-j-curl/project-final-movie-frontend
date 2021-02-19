@@ -147,7 +147,7 @@ const A = styled.a`
   justify-content: center;
 `;
 
-const MovieDetailsTitle = styled(MovieTitle)`
+export const MovieDetailsTitle = styled(MovieTitle)`
   border-bottom: unset;
   :hover {
     border-bottom: unset;
@@ -165,10 +165,6 @@ const MovieDetailsDescription = styled.p`
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   margin: 12px 0 0 0;
-
-  @media (min-width: 1024px) {
-    font-size: 18px;
-  }
 `;
 
 const Genres = styled.ul`

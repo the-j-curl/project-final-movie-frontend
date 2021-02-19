@@ -71,7 +71,7 @@ const MovieCastCard = styled.div`
 
 const CastName = styled.p`
   padding: 5px;
-  margin: 0 2px;
+  margin-top: 5px;
   font-size: 12px;
   font-weight: 500;
   border-bottom: 1px solid transparent;

@@ -6,6 +6,7 @@ import { MovieCard } from "./MovieCard";
 import { MovieListGrid } from "../pages/MovieList";
 import { BackButton } from "./BackButton";
 import { Loading } from "./Loading";
+import { MovieDetailsTitle } from "./MovieDetails";
 
 export const ActorDetails = () => {
   const [actorInfo, setActorInfo] = useState({});
@@ -81,7 +82,7 @@ export const ActorDetails = () => {
           )}
         </ActorInfoText>
       </ActorDetailsSection>
-      <h3>{actorInfo.name} films</h3>
+      <ActorHeading>{actorInfo.name} films</ActorHeading>
       {isLoading ? (
         <Loading />
       ) : (
@@ -141,4 +142,8 @@ const ActorInfoText = styled.div`
 
 const Biography = styled.p`
   font-style: italic;
+`;
+
+const ActorHeading = styled(MovieDetailsTitle)`
+  margin: 10px 5px;
 `;
